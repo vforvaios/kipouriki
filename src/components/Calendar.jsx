@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import DraggableBox from "./DraggableBox";
 import Day from "./Day";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 
 const ItemTypes = {
@@ -11,8 +10,6 @@ const ItemTypes = {
 };
 
 const Calendar = () => {
-  const matches = useMediaQuery("(min-width:1024px)", { noSsr: true });
-  console.log(matches);
   const [initialDate, setInitialDate] = useState(new Date("2/3/2025"));
   const [initialDate2, setInitialDate2] = useState(new Date("2/10/2025"));
   const [droppedBoxNames, setDroppedBoxNames] = useState([]);
