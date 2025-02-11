@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import DraggableBox from "./DraggableBox";
 import Day from "./Day";
 import Box from "@mui/material/Box";
 
@@ -9,16 +8,10 @@ const ItemTypes = {
   PAPER: "paper",
 };
 
-const Calendar = () => {
+const Calendar = ({ open }) => {
   const [initialDate, setInitialDate] = useState(new Date("2/3/2025"));
   const [initialDate2, setInitialDate2] = useState(new Date("2/10/2025"));
   const [droppedBoxNames, setDroppedBoxNames] = useState([]);
-
-  const [boxes] = useState([
-    { name: "Bottle", type: ItemTypes.GLASS },
-    { name: "Banana", type: ItemTypes.FOOD },
-    { name: "Magazine", type: ItemTypes.PAPER },
-  ]);
 
   const generateDates = (start) => {
     const dates = [];
@@ -56,11 +49,8 @@ const Calendar = () => {
     [droppedBoxNames]
   );
   return (
-    <>
-      {boxes.map(({ name, type }, index) => (
-        <DraggableBox name={name} type={type} key={index} />
-      ))}
-      <Box width="100vw" height="100vh" display="flex" flexDirection="column">
+    <div className={`main-content ${open ? "open" : ""}`}>
+      <Box display="flex" flexDirection="column" flexGrow={1}>
         <Box flexBasis="50%" display="flex" flexDirection="row" gap={1} p={1}>
           {allDatesFirstRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
@@ -88,7 +78,7 @@ const Calendar = () => {
           )}
         </Box>
       </Box>
-    </>
+    </div>
   );
 };
 

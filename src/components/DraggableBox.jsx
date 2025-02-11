@@ -6,7 +6,6 @@ const style = {
   backgroundColor: "white",
   padding: "0.5rem 1rem",
   marginRight: "1.5rem",
-  marginBottom: "1.5rem",
   cursor: "move",
   float: "left",
 };
