@@ -22,7 +22,7 @@ const Day = ({ dateToDisplay, accept, onDrop }) => {
 
   return (
     <Box ref={drop} className="day" p={1} display="flex" flexDirection="column">
-      <div>{dateToDisplay}</div>
+      <div className="day-of-the-week">{dateToDisplay}</div>
       <div>
         {isActive
           ? "Release to drop"

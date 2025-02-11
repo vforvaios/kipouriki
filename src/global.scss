@@ -1,0 +1,14 @@
+@import "../src/styles/colors.scss";
+
+.day {
+  border: 1px solid $gray;
+  flex-basis: 20%;
+  padding: 0 !important;
+}
+
+.day-of-the-week {
+  background: $green;
+  text-align: center;
+  padding: 2px 0;
+  color: $white;
+}
