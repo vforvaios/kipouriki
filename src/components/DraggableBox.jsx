@@ -1,14 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-
-const style = {
-  border: "1px dashed gray",
-  backgroundColor: "white",
-  padding: "0.5rem 1rem",
-  marginRight: "1.5rem",
-  cursor: "move",
-  float: "left",
-};
+import { Chip } from "@mui/material";
 
 const DraggableBox = ({ name, type }) => {
   const [{ opacity }, drag] = useDrag(
@@ -23,9 +15,14 @@ const DraggableBox = ({ name, type }) => {
   );
 
   return (
-    <div ref={drag} data-testid="box" style={{ ...style, opacity }}>
-      {name}
-    </div>
+    <Chip
+      className="draggable-chip"
+      label={name}
+      size="small"
+      ref={drag}
+      data-testid="box"
+      style={{ opacity }}
+    />
   );
 };
 

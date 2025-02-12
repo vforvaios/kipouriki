@@ -10,6 +10,11 @@ import { useMediaQuery, Box } from "@mui/material";
 import "./fontello/css/fontello.css";
 import "./global.scss";
 
+const ItemTypes = {
+  DRIVERS: { name: "Drivers", color: "red" },
+  REGIONS: { name: "Regions", color: "yellow" },
+};
+
 function App() {
   const matches = useMediaQuery("(min-width:1024px)", { noSsr: true });
   const [open, setOpen] = useState(false);
@@ -18,8 +23,8 @@ function App() {
     <DndProvider backend={matches ? HTML5Backend : TouchBackend}>
       <Box className="app-container" display="flex">
         <TopBar open={open} setOpen={setOpen} />
-        <LeftSidebar setOpen={setOpen} open={open} />
-        <Calendar open={open} />
+        <LeftSidebar itemTypes={ItemTypes} setOpen={setOpen} open={open} />
+        <Calendar itemTypes={ItemTypes} open={open} />
       </Box>
     </DndProvider>
   );

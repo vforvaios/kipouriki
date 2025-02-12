@@ -2,13 +2,7 @@ import React, { useState, useCallback } from "react";
 import Day from "./Day";
 import Box from "@mui/material/Box";
 
-const ItemTypes = {
-  FOOD: "food",
-  GLASS: "glass",
-  PAPER: "paper",
-};
-
-const Calendar = ({ open }) => {
+const Calendar = ({ open, itemTypes }) => {
   const [initialDate, setInitialDate] = useState(new Date("2/3/2025"));
   const [initialDate2, setInitialDate2] = useState(new Date("2/10/2025"));
   const [droppedBoxNames, setDroppedBoxNames] = useState([]);
@@ -24,7 +18,7 @@ const Calendar = ({ open }) => {
           month: "numeric",
           day: "numeric",
         }),
-        accepts: [ItemTypes.GLASS, ItemTypes.PAPER],
+        accepts: [itemTypes.DRIVERS.name, itemTypes.REGIONS.name],
         lastDroppedItem: null,
       });
     }

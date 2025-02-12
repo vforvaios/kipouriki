@@ -1,0 +1,26 @@
+@use "./colors.scss" as *;
+
+.draggable-chip {
+  &.MuiChip-root {
+    font-size: 0.6rem;
+    cursor: move;
+    margin-right: 6px;
+    margin-bottom: 6px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.draggable-chips-title {
+  &.MuiTypography-root {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+}
+
+.MuiDrawer-paper {
+  box-shadow: 10px 0px 40px -30px $black !important;
+}
