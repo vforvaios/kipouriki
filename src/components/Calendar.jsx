@@ -36,9 +36,8 @@ const Calendar = ({ open, itemTypes }) => {
   const handleDrop = useCallback(
     (index, item) => {
       const { name } = item;
-      setDroppedBoxNames(
-        update(droppedBoxNames, name ? { $push: [name] } : { $push: [] })
-      );
+      console.log(item.name);
+      setDroppedBoxNames([...droppedBoxNames, item.name]);
     },
     [droppedBoxNames]
   );
@@ -53,7 +52,8 @@ const Calendar = ({ open, itemTypes }) => {
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
                 onDrop={(item) => handleDrop(index, item)}
-                key={index}
+                key={`${dateToDisplay}_${index}`}
+                droppedItems={droppedBoxNames}
               />
             )
           )}
@@ -66,7 +66,8 @@ const Calendar = ({ open, itemTypes }) => {
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
                 onDrop={(item) => handleDrop(index, item)}
-                key={index}
+                key={`${dateToDisplay}_${index}`}
+                droppedItems={droppedBoxNames}
               />
             )
           )}

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
 
-const Day = ({ dateToDisplay, accept, onDrop }) => {
+const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
   const cars = [{ name: "OPEL" }, { name: "FERRARI" }, { name: "RENAULT" }];
 
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -30,6 +30,7 @@ const Day = ({ dateToDisplay, accept, onDrop }) => {
           ? "Release to drop"
           : `This dustbin accepts: ${accept.join(", ")}`}
       </div>
+      <div>{droppedItems.map((itm) => itm)}</div>
       <Box
         display="flex"
         flexGrow={1}
@@ -37,7 +38,11 @@ const Day = ({ dateToDisplay, accept, onDrop }) => {
         alignItems="stretch"
       >
         {cars?.map((car) => (
-          <Box className="rotated-text" flexBasis={`${100 / cars.length}%`}>
+          <Box
+            key={car.name}
+            className="rotated-text"
+            flexBasis={`${100 / cars.length}%`}
+          >
             {car.name}
           </Box>
         ))}
