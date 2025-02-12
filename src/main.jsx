@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/my-service-worker.js");
+  navigator.serviceWorker.register("/src/my-service-worker.js");
 }
 
 createRoot(document.getElementById("root")).render(

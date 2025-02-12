@@ -13,7 +13,6 @@ export default defineConfig({
       srcDir: "src",
       filename: "my-service-worker.js",
       strategies: "injectManifest",
-      injectRegister: false,
       registerType: "autoUpdate",
       devOptions: {
         enabled: true,
