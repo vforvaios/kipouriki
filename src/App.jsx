@@ -16,7 +16,7 @@ const ItemTypes = {
 };
 
 function App() {
-  const matches = useMediaQuery("(min-width:1024px)", { noSsr: true });
+  const matches = useMediaQuery("(min-width:1025px)", { noSsr: true });
   const [open, setOpen] = useState(false);
 
   return (

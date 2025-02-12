@@ -1,6 +1,7 @@
 @use "../src/styles/colors.scss" as *;
 @use "../src/styles/buttons.scss" as *;
 @use "../src/styles/draggable.scss" as *;
+@use "../src/styles/responsive.scss" as *;
 
 * {
   box-sizing: border-box;
@@ -12,16 +13,18 @@ body {
 }
 
 .day {
-  border: 1px solid $gray;
+  box-shadow: 11px 11px 6px -11px $black;
   flex-basis: 20%;
   padding: 0 !important;
 }
 
 .day-of-the-week {
-  background: $green;
+  background: $light-gray;
   text-align: center;
-  padding: 2px 0;
-  color: $white;
+  padding: 2px;
+  color: $black;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
 .MuiAppBar-root,

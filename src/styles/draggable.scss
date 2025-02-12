@@ -25,13 +25,89 @@
   box-shadow: 10px 0px 40px -30px $black !important;
 }
 
-.rotated-text {
-  writing-mode: tb-rl;
-  transform: rotate(-180deg);
-  color: $gray;
-  font-weight: 600;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.car-text {
+  &.MuiTypography-root {
+    color: $gray;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    border-bottom: 1px solid $gray;
+  }
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  flex-basis: 50%;
+
+  li {
+    text-align: center;
+    line-height: 1;
+    padding: 2px;
+    border-bottom: 1px solid $gray;
+  }
+
+  p {
+    font-size: 0.6rem;
+    margin: 0;
+    padding: 2px;
+  }
+
+  &.drivers-list {
+    li {
+      background: $light-purple;
+    }
+
+    &.absences {
+      display: flex;
+      flex-basis: 100%;
+      li {
+        background: $red;
+      }
+
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  &.regions-list {
+    li {
+      background: $yellow;
+      color: $black;
+    }
+  }
+}
+
+.tiles-container {
+  border-bottom: 1px solid $light-gray;
+}
+
+.tile {
+  border-right: 1px dashed $gray;
+  &:last-child {
+    border-right: 0 none;
+    .list li {
+      border-right: 0;
+    }
+  }
+}
+
+.droppable-container {
+  &.isActive {
+    background: $lavender;
+  }
+
+  &.isDroppable {
+    background: $light-green;
+  }
+}
+
+.container-with-dragged-items {
+  height: 100%;
 }

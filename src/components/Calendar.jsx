@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 const Calendar = ({ open, itemTypes }) => {
   const [initialDate, setInitialDate] = useState(new Date("2/3/2025"));
   const [initialDate2, setInitialDate2] = useState(new Date("2/10/2025"));
-  const [droppedBoxNames, setDroppedBoxNames] = useState([]);
+  const [droppedBoxNames, setDroppedBoxNames] = useState(["GEORGE", "NICK"]);
 
   const generateDates = (start) => {
     const dates = [];
@@ -44,7 +44,14 @@ const Calendar = ({ open, itemTypes }) => {
   return (
     <div className={`main-content ${open ? "open" : ""}`}>
       <Box display="flex" flexDirection="column" flexGrow={1}>
-        <Box flexBasis="50%" display="flex" flexDirection="row" gap={1} p={1}>
+        <Box
+          className="days-row-container"
+          flexBasis="50%"
+          display="flex"
+          flexDirection="row"
+          gap={1}
+          p={1}
+        >
           {allDatesFirstRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
               <Day
@@ -58,7 +65,14 @@ const Calendar = ({ open, itemTypes }) => {
             )
           )}
         </Box>
-        <Box flexBasis="50%" display="flex" flexDirection="row" gap={1} p={1}>
+        <Box
+          className="days-row-container"
+          flexBasis="50%"
+          display="flex"
+          flexDirection="row"
+          gap={1}
+          p={1}
+        >
           {allDatesSecondRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
               <Day
