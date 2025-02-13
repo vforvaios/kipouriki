@@ -36,7 +36,6 @@ const Calendar = ({ open, itemTypes }) => {
   const handleDrop = useCallback(
     (index, item) => {
       const { name } = item;
-      console.log(item.name);
       setDroppedBoxNames([...droppedBoxNames, item.name]);
     },
     [droppedBoxNames]

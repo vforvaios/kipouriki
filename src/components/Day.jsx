@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { useDrop } from "react-dnd";
 
 const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
-  const cars = [{ name: "OPEL" }, { name: "FERRARI" }, { name: "RENAULT" }];
+  const cars = [
+    { name: "OPEL" },
+    { name: "FERRARI" },
+    { name: "RENAULT" },
+    { name: "ALFA ROMEO" },
+  ];
   const regions = ["ΑΜΠΕΛΟΚΗΠΟΙ Κα ΜΑΡΙΑ", "ΨΥΧΙΚΟ"];
   const absences = ["ΓΙΩΡΓΟΣ"];
 
@@ -24,7 +29,6 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
     cls = "isDroppable";
   }
 
-  console.log(droppedItems);
   return (
     <Box ref={drop} className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
@@ -47,6 +51,7 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
             className="tile"
             key={car.name}
             flexBasis={`${100 / cars.length}%`}
+            width={`${100 / cars.length}%`}
           >
             <Typography className="car-text">{car.name}</Typography>
             <Box
