@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { useDrop } from "react-dnd";
+import DriversList from "./DriversList";
+import RegionsList from "./RegionsList";
 
 const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
   const cars = [
@@ -11,30 +12,11 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
   const regions = ["ΑΜΠΕΛΟΚΗΠΟΙ Κα ΜΑΡΙΑ", "ΨΥΧΙΚΟ"];
   const absences = ["ΓΙΩΡΓΟΣ"];
 
-  const [{ isOver, canDrop }, drop] = useDrop({
-    accept,
-    drop: onDrop,
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-  });
-
-  const isActive = isOver && canDrop;
-
-  let cls = "";
-  if (isActive) {
-    cls = "isActive";
-  } else if (canDrop) {
-    cls = "isDroppable";
-  }
+  console.log(accept);
 
   return (
-    <Box ref={drop} className="day" p={1} display="flex" flexDirection="column">
+    <Box className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
-      <div className={`droppable-container ${cls}`}>
-        {isActive ? "Release to drop" : "This Container can host draggables"}
-      </div>
 
       {/* DRIVERS AND REGIONS */}
       <Box
@@ -61,20 +43,17 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
               flexDirection="column"
               className="container-with-dragged-items"
             >
-              <ul className="list drivers-list">
-                {droppedItems?.map((itm) => (
-                  <li key={itm}>
-                    <Typography>{itm}</Typography>
-                  </li>
-                ))}
-              </ul>
-              <ul className="list regions-list">
-                {regions?.map((itm) => (
-                  <li key={itm}>
-                    <Typography>{itm}</Typography>
-                  </li>
-                ))}
-              </ul>
+              <DriversList
+                accept={[accept[0]]}
+                onDrop={onDrop}
+                droppedItems={droppedItems}
+              />
+
+              <RegionsList
+                accept={[accept[1]]}
+                onDrop={onDrop}
+                regions={regions}
+              />
             </Box>
           </Box>
         ))}
