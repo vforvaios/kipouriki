@@ -7,6 +7,7 @@ import Calendar from "./components/Calendar";
 import TopBar from "./components/TopBar";
 import LeftSidebar from "./components/LeftSidebar";
 import { useMediaQuery, Box } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 import "./fontello/css/fontello.css";
 import "./global.scss";
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <DndProvider backend={matches ? HTML5Backend : TouchBackend}>
+      <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container" display="flex">
         <TopBar open={open} setOpen={setOpen} />
         <LeftSidebar itemTypes={ItemTypes} setOpen={setOpen} open={open} />

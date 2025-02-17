@@ -1,6 +1,6 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 
 const DriversList = ({ droppedItems, onDrop, accept }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -25,7 +25,9 @@ const DriversList = ({ droppedItems, onDrop, accept }) => {
     <ul ref={drop} className={`droppable-container list drivers-list ${cls}`}>
       {droppedItems?.map((itm) => (
         <li key={itm}>
-          <Typography>{itm}</Typography>
+          <Tooltip title={itm}>
+            <Typography>{itm}</Typography>
+          </Tooltip>
         </li>
       ))}
     </ul>

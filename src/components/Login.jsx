@@ -4,18 +4,49 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Dialog from "@mui/material/Dialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { enqueueSnackbar } from "notistack";
+
+import { setLoginUser } from "../models/actions/loginActions";
 
 const Login = ({ open, handleClose }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState({
     username: "",
     password: "",
   });
 
-  const handleLoginForm = () => {
-    const credentials = loginFormState;
-    console.log(credentials);
+  const handleLoginForm = async () => {
+    try {
+      setLoading(true);
+      const credentials = loginFormState;
+      const promiseResult = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/login`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({ ...credentials }),
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        dispatch(setLoginUser(result));
+        enqueueSnackbar("Γεια σου Θοδωρή!", { variant: "success" });
+        handleClose();
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,13 +87,14 @@ const Login = ({ open, handleClose }) => {
             autoComplete="current-password"
           />
           <Button
-            type="submit"
+            type="button"
+            disabled={loading}
             fullWidth
             variant="contained"
             color="primary"
             onClick={() => handleLoginForm()}
           >
-            ΕΙΣΟΔΟΣ
+            {!loading ? "ΕΙΣΟΔΟΣ" : <strong>Φορτώνει...</strong>}
           </Button>
         </form>
       </div>

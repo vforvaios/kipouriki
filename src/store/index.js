@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import loginReducer from "../models/reducers/loginReducer";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage/session";
 
 const persistConfig = {
   key: "state",

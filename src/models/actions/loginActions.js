@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const setLoginCredentials = createAction("alert/setLoginCredentials");
+const setLoginUser = createAction("alert/setLoginUser");
 
-export { setLoginCredentials };
+export { setLoginUser };

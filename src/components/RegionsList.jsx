@@ -1,6 +1,6 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { Typography } from "@mui/material";
+import { Typography, Tooltip } from "@mui/material";
 
 const RegionsList = ({ regions, onDrop, accept }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -24,7 +24,9 @@ const RegionsList = ({ regions, onDrop, accept }) => {
     <ul ref={drop} className={`droppable-container list regions-list ${cls}`}>
       {regions?.map((itm) => (
         <li key={itm}>
-          <Typography>{itm}</Typography>
+          <Tooltip title={itm}>
+            <Typography>{itm}</Typography>
+          </Tooltip>
         </li>
       ))}
     </ul>

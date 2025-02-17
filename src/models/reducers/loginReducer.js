@@ -1,12 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { setLoginCredentials } from "../actions/loginActions";
+import { setLoginUser } from "../actions/loginActions";
 
 const initialState = {
   user: null,
 };
 const loginReducer = createReducer(initialState, (builder) => {
-  builder.addCase(setLoginCredentials, (state, action) => ({
+  builder.addCase(setLoginUser, (state, action) => ({
     ...state,
+    user: action.payload,
   }));
 });
 

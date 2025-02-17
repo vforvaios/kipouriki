@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import DriversList from "./DriversList";
 import RegionsList from "./RegionsList";
 
@@ -63,7 +63,9 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
         <ul className="list drivers-list absences">
           {absences?.map((itm) => (
             <li key={itm}>
-              <Typography>{itm}</Typography>
+              <Tooltip title={itm}>
+                <Typography>{itm}</Typography>
+              </Tooltip>
             </li>
           ))}
         </ul>

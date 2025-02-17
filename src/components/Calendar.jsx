@@ -48,8 +48,8 @@ const Calendar = ({ open, itemTypes }) => {
           flexBasis="50%"
           display="flex"
           flexDirection="row"
-          gap={1}
-          p={1}
+          gap={0.5}
+          p={0.5}
         >
           {allDatesFirstRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
