@@ -12,8 +12,6 @@ const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
   const regions = ["ΑΜΠΕΛΟΚΗΠΟΙ Κα ΜΑΡΙΑ", "ΨΥΧΙΚΟ"];
   const absences = ["ΓΙΩΡΓΟΣ"];
 
-  console.log(accept);
-
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
