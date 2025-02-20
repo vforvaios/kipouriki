@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { setDraggableItems } from "../models/actions/scheduleActions";
+import { userLoggedIn } from "../models/selectors/loginSelectors";
+import { allDraggables } from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
 import TopBar from "./TopBar";
 import LeftSidebar from "./LeftSidebar";
 import SkeletonCalendar from "./SkeletonCalendar";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 const ScheduleWrapper = () => {
+  const dispatch = useDispatch();
+  const userIsLoggedIn = useSelector(userLoggedIn);
+  const draggables = useSelector(allDraggables);
+
   const ItemTypes = {
     DRIVERS: { name: "Drivers", color: "red" },
     REGIONS: { name: "Regions", color: "yellow" },
@@ -59,8 +67,34 @@ const ScheduleWrapper = () => {
     }
   };
 
+  const fetchDraggableItems = async () => {
+    try {
+      const promiseResult = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/draggable-items`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        dispatch(setDraggableItems(result?.items));
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    } finally {
+    }
+  };
+
   useEffect(() => {
     fetchLastDates();
+    fetchDraggableItems();
   }, []);
 
   return (
@@ -68,7 +102,12 @@ const ScheduleWrapper = () => {
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container" display="flex">
         <TopBar open={open} setOpen={setOpen} />
-        <LeftSidebar itemTypes={ItemTypes} setOpen={setOpen} open={open} />
+        <LeftSidebar
+          draggables={draggables}
+          itemTypes={ItemTypes}
+          setOpen={setOpen}
+          open={open}
+        />
         {loading ? (
           <SkeletonCalendar />
         ) : (
