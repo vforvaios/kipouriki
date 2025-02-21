@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { setDraggableItems } from "../models/actions/scheduleActions";
-import { userLoggedIn } from "../models/selectors/loginSelectors";
 import { allDraggables } from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
 import TopBar from "./TopBar";
@@ -12,13 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ScheduleWrapper = () => {
   const dispatch = useDispatch();
-  const userIsLoggedIn = useSelector(userLoggedIn);
   const draggables = useSelector(allDraggables);
 
-  const ItemTypes = {
-    DRIVERS: { name: "Drivers", color: "red" },
-    REGIONS: { name: "Regions", color: "yellow" },
-  };
   const generateDates = (start) => {
     const localDates = [];
     for (let i = 0; i < 5; i++) {
@@ -30,7 +24,7 @@ const ScheduleWrapper = () => {
           month: "numeric",
           day: "numeric",
         }),
-        accepts: [ItemTypes.DRIVERS.name, ItemTypes.REGIONS.name],
+        accepts: Object.values(draggables).map((itm) => itm.id.toString()),
         lastDroppedItem: null,
       });
     }
@@ -102,12 +96,7 @@ const ScheduleWrapper = () => {
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container" display="flex">
         <TopBar open={open} setOpen={setOpen} />
-        <LeftSidebar
-          draggables={draggables}
-          itemTypes={ItemTypes}
-          setOpen={setOpen}
-          open={open}
-        />
+        <LeftSidebar draggables={draggables} setOpen={setOpen} open={open} />
         {loading ? (
           <SkeletonCalendar />
         ) : (
