@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { setDraggableItems } from "../models/actions/scheduleActions";
+import {
+  setDraggableItems,
+  setCurrentSchedule,
+} from "../models/actions/scheduleActions";
 import { allDraggables } from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
 import TopBar from "./TopBar";
@@ -82,13 +85,41 @@ const ScheduleWrapper = () => {
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
-    } finally {
     }
   };
 
+  const fetchCurrentSchedule = async () => {
+    try {
+      const promiseResult = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/schedules/current`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        dispatch(setCurrentSchedule(result?.currentSchedule));
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
+  };
+
+  const handleAllFetches = async () => {
+    await fetchLastDates();
+    await fetchDraggableItems();
+    await fetchCurrentSchedule();
+  };
+
   useEffect(() => {
-    fetchLastDates();
-    fetchDraggableItems();
+    handleAllFetches();
   }, []);
 
   return (
