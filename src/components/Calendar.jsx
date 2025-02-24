@@ -3,6 +3,7 @@ import Day from "./Day";
 import Box from "@mui/material/Box";
 
 const Calendar = ({
+  cars,
   currentSchedule,
   open,
   allDatesFirstRow,
@@ -34,6 +35,7 @@ const Calendar = ({
                 currentSchedule={Object.fromEntries(
                   Object.entries(currentSchedule).slice(0, 5)
                 )}
+                cars={cars}
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
@@ -58,6 +60,7 @@ const Calendar = ({
                 currentSchedule={Object.fromEntries(
                   Object.entries(currentSchedule).slice(6, 10)
                 )}
+                cars={cars}
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}

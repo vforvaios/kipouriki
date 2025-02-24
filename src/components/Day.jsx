@@ -3,6 +3,7 @@ import DriversList from "./DriversList";
 import RegionsList from "./RegionsList";
 
 const Day = ({
+  cars,
   currentSchedule,
   dateToDisplay,
   accept,
@@ -10,12 +11,7 @@ const Day = ({
   droppedItems,
 }) => {
   console.log(currentSchedule);
-  const cars = [
-    { name: "OPEL" },
-    { name: "FERRARI" },
-    { name: "RENAULT" },
-    { name: "ALFA ROMEO" },
-  ];
+
   const regions = ["ΑΜΠΕΛΟΚΗΠΟΙ Κα ΜΑΡΙΑ", "ΨΥΧΙΚΟ"];
   const absences = ["ΓΙΩΡΓΟΣ"];
 
@@ -36,7 +32,7 @@ const Day = ({
             display="flex"
             flexDirection="column"
             className="tile"
-            key={car.name}
+            key={car.id}
             flexBasis={`${100 / cars.length}%`}
             width={`${100 / cars.length}%`}
           >

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ScheduleWrapper = () => {
   const dispatch = useDispatch();
+  const [cars, setCars] = useState([]);
   const schedule = useSelector(currentSchedule);
   const draggables = useSelector(allDraggables);
 
@@ -116,7 +117,32 @@ const ScheduleWrapper = () => {
     }
   };
 
+  const fetchCars = async () => {
+    try {
+      const promiseResult = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/cars`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        setCars(result.cars);
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
+  };
+
   const handleAllFetches = async () => {
+    await fetchCars();
     await fetchLastDates();
     await fetchDraggableItems();
     await fetchCurrentSchedule();
@@ -136,6 +162,7 @@ const ScheduleWrapper = () => {
           <SkeletonCalendar />
         ) : (
           <Calendar
+            cars={cars}
             currentSchedule={schedule}
             allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
             allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
