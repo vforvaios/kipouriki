@@ -2,7 +2,12 @@ import React, { useState, useCallback } from "react";
 import Day from "./Day";
 import Box from "@mui/material/Box";
 
-const Calendar = ({ open, allDatesFirstRow, allDatesSecondRow }) => {
+const Calendar = ({
+  currentSchedule,
+  open,
+  allDatesFirstRow,
+  allDatesSecondRow,
+}) => {
   const [droppedBoxNames, setDroppedBoxNames] = useState(["GEORGE", "NICK"]);
 
   const handleDrop = useCallback(
@@ -26,6 +31,9 @@ const Calendar = ({ open, allDatesFirstRow, allDatesSecondRow }) => {
           {allDatesFirstRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
               <Day
+                currentSchedule={Object.fromEntries(
+                  Object.entries(currentSchedule).slice(0, 5)
+                )}
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
@@ -47,6 +55,9 @@ const Calendar = ({ open, allDatesFirstRow, allDatesSecondRow }) => {
           {allDatesSecondRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
               <Day
+                currentSchedule={Object.fromEntries(
+                  Object.entries(currentSchedule).slice(6, 10)
+                )}
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}

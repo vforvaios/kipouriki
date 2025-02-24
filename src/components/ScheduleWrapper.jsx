@@ -3,7 +3,10 @@ import {
   setDraggableItems,
   setCurrentSchedule,
 } from "../models/actions/scheduleActions";
-import { allDraggables } from "../models/selectors/scheduleSelectors";
+import {
+  allDraggables,
+  currentSchedule,
+} from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
 import TopBar from "./TopBar";
 import LeftSidebar from "./LeftSidebar";
@@ -14,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ScheduleWrapper = () => {
   const dispatch = useDispatch();
+  const schedule = useSelector(currentSchedule);
   const draggables = useSelector(allDraggables);
 
   const generateDates = (start) => {
@@ -132,6 +136,7 @@ const ScheduleWrapper = () => {
           <SkeletonCalendar />
         ) : (
           <Calendar
+            currentSchedule={schedule}
             allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
             allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
             open={open}

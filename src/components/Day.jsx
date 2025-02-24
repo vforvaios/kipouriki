@@ -2,7 +2,14 @@ import { Box, Tooltip, Typography } from "@mui/material";
 import DriversList from "./DriversList";
 import RegionsList from "./RegionsList";
 
-const Day = ({ dateToDisplay, accept, onDrop, droppedItems }) => {
+const Day = ({
+  currentSchedule,
+  dateToDisplay,
+  accept,
+  onDrop,
+  droppedItems,
+}) => {
+  console.log(currentSchedule);
   const cars = [
     { name: "OPEL" },
     { name: "FERRARI" },

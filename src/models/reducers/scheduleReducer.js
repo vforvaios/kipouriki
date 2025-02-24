@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   draggableItems: [],
-  currentSchedule: [],
+  currentSchedule: {},
 };
 const scheduleReducer = createReducer(initialState, (builder) => {
   builder
