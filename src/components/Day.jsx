@@ -1,24 +1,12 @@
 import { Box, Tooltip, Typography } from "@mui/material";
-import DriversList from "./DriversList";
-import RegionsList from "./RegionsList";
+import ListOfItems from "./ListOfItems";
 
-const Day = ({
-  cars,
-  currentSchedule,
-  dateToDisplay,
-  accept,
-  onDrop,
-  droppedItems,
-}) => {
-  console.log(currentSchedule);
-
-  const regions = ["ΑΜΠΕΛΟΚΗΠΟΙ Κα ΜΑΡΙΑ", "ΨΥΧΙΚΟ"];
+const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
   const absences = ["ΓΙΩΡΓΟΣ"];
 
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
-
       {/* DRIVERS AND REGIONS */}
       <Box
         display="flex"
@@ -27,7 +15,7 @@ const Day = ({
         alignItems="stretch"
         className="tiles-container"
       >
-        {cars?.map((car) => (
+        {cars?.map((car, carIndex) => (
           <Box
             display="flex"
             flexDirection="column"
@@ -44,31 +32,47 @@ const Day = ({
               flexDirection="column"
               className="container-with-dragged-items"
             >
-              <DriversList
-                accept={[accept[0]]}
+              <ListOfItems
+                type="drivers"
+                accept={[accept?.[0] || ""]}
                 onDrop={onDrop}
-                droppedItems={droppedItems}
+                droppedItems={currentSchedule?.[day]?.[
+                  carIndex
+                ]?.drivers?.filter((dr) => !dr?.isAbsent)}
               />
 
-              <RegionsList
-                accept={[accept[1]]}
+              <ListOfItems
+                type="regions"
+                accept={[accept?.[1] || ""]}
                 onDrop={onDrop}
-                regions={regions}
+                droppedItems={currentSchedule?.[day]?.[carIndex]?.regions}
               />
             </Box>
           </Box>
         ))}
       </Box>
       {/* ABSENCES */}
-      <Box display="flex" justifyContent="center" alignItems="center">
+
+      <Box
+        style={{ minHeight: "20px" }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
         <ul className="list drivers-list absences">
-          {absences?.map((itm) => (
-            <li key={itm}>
-              <Tooltip title={itm}>
-                <Typography>{itm}</Typography>
-              </Tooltip>
-            </li>
-          ))}
+          {[
+            ...new Set(
+              currentSchedule?.[day]?.map((sd) => sd?.drivers)?.flat()
+            ),
+          ]
+            ?.filter((dr) => dr?.isAbsent)
+            ?.map((itm) => (
+              <li key={itm?.id}>
+                <Tooltip title={itm?.name}>
+                  <Typography>{itm?.name}</Typography>
+                </Tooltip>
+              </li>
+            ))}
         </ul>
       </Box>
     </Box>

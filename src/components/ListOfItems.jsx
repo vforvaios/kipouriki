@@ -2,7 +2,7 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import { Tooltip, Typography } from "@mui/material";
 
-const DriversList = ({ droppedItems, onDrop, accept }) => {
+const DriversList = ({ type, droppedItems, onDrop, accept }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -22,11 +22,16 @@ const DriversList = ({ droppedItems, onDrop, accept }) => {
   }
 
   return (
-    <ul ref={drop} className={`droppable-container list drivers-list ${cls}`}>
+    <ul
+      ref={drop}
+      className={`droppable-container list ${
+        type === "drivers" ? "drivers-list" : ""
+      } ${type === "regions" ? "regions-list" : ""} ${cls}`}
+    >
       {droppedItems?.map((itm) => (
-        <li key={itm}>
-          <Tooltip title={itm}>
-            <Typography>{itm}</Typography>
+        <li key={itm.id}>
+          <Tooltip title={itm.name}>
+            <Typography>{itm.name}</Typography>
           </Tooltip>
         </li>
       ))}

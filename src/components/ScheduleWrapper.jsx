@@ -32,7 +32,9 @@ const ScheduleWrapper = () => {
           month: "numeric",
           day: "numeric",
         }),
-        accepts: Object.values(draggables).map((itm) => itm.id.toString()),
+        accepts: Object.values(draggables || {}).map((itm) =>
+          itm.id.toString()
+        ),
         lastDroppedItem: null,
       });
     }

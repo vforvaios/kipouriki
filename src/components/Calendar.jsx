@@ -35,13 +35,13 @@ const Calendar = ({
                 currentSchedule={Object.fromEntries(
                   Object.entries(currentSchedule).slice(0, 5)
                 )}
+                day={index + 1}
                 cars={cars}
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
                 onDrop={(item) => handleDrop(index, item)}
                 key={`${dateToDisplay}_${index}`}
-                droppedItems={droppedBoxNames}
               />
             )
           )}
