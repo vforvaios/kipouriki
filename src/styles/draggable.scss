@@ -7,6 +7,13 @@
     margin-right: 6px;
     margin-bottom: 6px;
 
+    &.isDriver {
+      background-color: $light-purple;
+    }
+    &.isRegion {
+      background-color: $yellow;
+    }
+
     &:last-child {
       margin-right: 0;
     }

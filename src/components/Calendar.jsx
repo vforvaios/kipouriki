@@ -9,11 +9,14 @@ const Calendar = ({
   allDatesFirstRow,
   allDatesSecondRow,
 }) => {
-  const [droppedBoxNames, setDroppedBoxNames] = useState(["GEORGE", "NICK"]);
+  const [droppedBoxNames, setDroppedBoxNames] = useState([]);
 
   const handleDrop = useCallback(
-    (index, item) => {
-      const { name } = item;
+    (car, day, item) => {
+      console.log("Item to be dropped=", item);
+      console.log("Day accepting the item=", day);
+      console.log("Car accepting the item=", car);
+      const { id, draggableCategory, name } = item;
       setDroppedBoxNames([...droppedBoxNames, item.name]);
     },
     [droppedBoxNames]
@@ -40,7 +43,7 @@ const Calendar = ({
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
-                onDrop={(item) => handleDrop(index, item)}
+                onDrop={(car, item) => handleDrop(car, index + 1, item)}
                 key={`${dateToDisplay}_${index}`}
               />
             )
@@ -57,6 +60,7 @@ const Calendar = ({
           {allDatesSecondRow.map(
             ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
               <Day
+                index={index + 6}
                 currentSchedule={Object.fromEntries(
                   Object.entries(currentSchedule).slice(6, 10)
                 )}
@@ -64,7 +68,7 @@ const Calendar = ({
                 dateToDisplay={dateToDisplay}
                 accept={accepts}
                 lastDroppedItem={lastDroppedItem}
-                onDrop={(item) => handleDrop(index, item)}
+                onDrop={(item) => handleDrop(index + 6, item)}
                 key={`${dateToDisplay}_${index}`}
                 droppedItems={droppedBoxNames}
               />

@@ -27,6 +27,8 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
           <Box display="flex" flexWrap="wrap">
             {draggables[itm].content.map(({ itemName, itemId }) => (
               <DraggableBox
+                id={itemId}
+                draggableCategory={draggables[itm].id}
                 name={itemName}
                 type={draggables[itm].id.toString()}
                 key={itemId}

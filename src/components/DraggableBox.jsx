@@ -2,11 +2,12 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import { Chip } from "@mui/material";
 
-const DraggableBox = ({ name, type }) => {
+const DraggableBox = ({ name, type, id, draggableCategory }) => {
+  console.log(type);
   const [{ opacity }, drag] = useDrag(
     () => ({
       type,
-      item: { name },
+      item: { id, name, draggableCategory },
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0.4 : 1,
       }),
@@ -16,7 +17,9 @@ const DraggableBox = ({ name, type }) => {
 
   return (
     <Chip
-      className="draggable-chip"
+      className={`draggable-chip ${
+        draggableCategory === 1 ? "isDriver" : "isRegion"
+      }`}
       label={name}
       size="small"
       ref={drag}

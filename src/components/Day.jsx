@@ -2,8 +2,6 @@ import { Box, Tooltip, Typography } from "@mui/material";
 import ListOfItems from "./ListOfItems";
 
 const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
-  const absences = ["ΓΙΩΡΓΟΣ"];
-
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
@@ -35,7 +33,7 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               <ListOfItems
                 type="drivers"
                 accept={[accept?.[0] || ""]}
-                onDrop={onDrop}
+                onDrop={(item) => onDrop(car.id, item)}
                 droppedItems={currentSchedule?.[day]?.[
                   carIndex
                 ]?.drivers?.filter((dr) => !dr?.isAbsent)}
@@ -44,7 +42,7 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               <ListOfItems
                 type="regions"
                 accept={[accept?.[1] || ""]}
-                onDrop={onDrop}
+                onDrop={(item) => onDrop(car.id, item)}
                 droppedItems={currentSchedule?.[day]?.[carIndex]?.regions}
               />
             </Box>
