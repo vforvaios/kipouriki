@@ -49,7 +49,6 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
           </Box>
         ))}
       </Box>
-      {/* ABSENCES */}
 
       <Box
         style={{ minHeight: "20px" }}
@@ -57,21 +56,16 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <ul className="list drivers-list absences">
-          {[
+        <ListOfItems
+          type="absentDrivers"
+          accept={[accept?.[0] || ""]}
+          onDrop={(item) => onDrop("", item)}
+          droppedItems={[
             ...new Set(
               currentSchedule?.[day]?.map((sd) => sd?.drivers)?.flat()
             ),
-          ]
-            ?.filter((dr) => dr?.isAbsent)
-            ?.map((itm) => (
-              <li key={itm?.id}>
-                <Tooltip title={itm?.name}>
-                  <Typography>{itm?.name}</Typography>
-                </Tooltip>
-              </li>
-            ))}
-        </ul>
+          ]?.filter((dr) => dr?.isAbsent)}
+        />
       </Box>
     </Box>
   );

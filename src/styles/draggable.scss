@@ -80,6 +80,7 @@
     &.absences {
       display: flex;
       flex-basis: 100%;
+      height: 100%;
 
       li {
         padding: 2px;
@@ -117,11 +118,11 @@
 
 .droppable-container {
   &.isActive {
-    background: $lavender;
+    background: $light-green;
   }
 
   &.isDroppable {
-    background: $light-green;
+    background: $lighter-green;
   }
 }
 

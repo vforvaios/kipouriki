@@ -2,7 +2,7 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import { Tooltip, Typography } from "@mui/material";
 
-const DriversList = ({ type, droppedItems, onDrop, accept }) => {
+const ListOfItems = ({ type, droppedItems, onDrop, accept }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -26,7 +26,9 @@ const DriversList = ({ type, droppedItems, onDrop, accept }) => {
       ref={drop}
       className={`droppable-container list ${
         type === "drivers" ? "drivers-list" : ""
-      } ${type === "regions" ? "regions-list" : ""} ${cls}`}
+      } ${type === "regions" ? "regions-list" : ""} ${
+        type === "absentDrivers" ? "drivers-list absences" : ""
+      } ${cls}`}
     >
       {droppedItems?.map((itm) => (
         <li key={itm.id}>
@@ -39,4 +41,4 @@ const DriversList = ({ type, droppedItems, onDrop, accept }) => {
   );
 };
 
-export default DriversList;
+export default ListOfItems;
