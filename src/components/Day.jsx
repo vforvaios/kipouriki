@@ -13,7 +13,7 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
         alignItems="stretch"
         className="tiles-container"
       >
-        {cars?.map((car, carIndex) => (
+        {cars?.map((car) => (
           <Box
             display="flex"
             flexDirection="column"
@@ -34,8 +34,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
                 type="drivers"
                 accept={[accept?.[0] || ""]}
                 onDrop={(item) => onDrop(car.id, item)}
-                droppedItems={currentSchedule?.[day]?.[
-                  carIndex
+                droppedItems={currentSchedule?.[day]?.cars?.[
+                  car.id
                 ]?.drivers?.filter((dr) => !dr?.isAbsent)}
               />
 
@@ -43,7 +43,7 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
                 type="regions"
                 accept={[accept?.[1] || ""]}
                 onDrop={(item) => onDrop(car.id, item)}
-                droppedItems={currentSchedule?.[day]?.[carIndex]?.regions}
+                droppedItems={currentSchedule?.[day]?.cars?.[car.id]?.regions}
               />
             </Box>
           </Box>
@@ -60,11 +60,9 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
           type="absentDrivers"
           accept={[accept?.[0] || ""]}
           onDrop={(item) => onDrop("", item)}
-          droppedItems={[
-            ...new Set(
-              currentSchedule?.[day]?.map((sd) => sd?.drivers)?.flat()
-            ),
-          ]?.filter((dr) => dr?.isAbsent)}
+          droppedItems={currentSchedule?.[day]?.cars?.[99]?.drivers?.filter(
+            (dr) => dr?.isAbsent
+          )}
         />
       </Box>
     </Box>

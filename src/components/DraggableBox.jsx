@@ -3,7 +3,6 @@ import { useDrag } from "react-dnd";
 import { Chip } from "@mui/material";
 
 const DraggableBox = ({ name, type, id, draggableCategory }) => {
-  console.log(type);
   const [{ opacity }, drag] = useDrag(
     () => ({
       type,

@@ -35,7 +35,6 @@ const ScheduleWrapper = () => {
         accepts: Object.values(draggables || {}).map((itm) =>
           itm.id.toString()
         ),
-        lastDroppedItem: null,
       });
     }
     return localDates;

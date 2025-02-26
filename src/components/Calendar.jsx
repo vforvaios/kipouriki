@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
+import { setCurrentSchedule } from "../models/actions/scheduleActions";
 import Day from "./Day";
 import Box from "@mui/material/Box";
+import { useDispatch } from "react-redux";
 
 const Calendar = ({
   cars,
@@ -9,18 +11,54 @@ const Calendar = ({
   allDatesFirstRow,
   allDatesSecondRow,
 }) => {
-  const [droppedBoxNames, setDroppedBoxNames] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleDrop = useCallback(
-    (car, day, item) => {
-      console.log("Item to be dropped=", item);
-      console.log("Day accepting the item=", day);
-      console.log("Car accepting the item=", car);
-      const { id, draggableCategory, name } = item;
-      setDroppedBoxNames([...droppedBoxNames, item.name]);
-    },
-    [droppedBoxNames]
-  );
+  const handleDrop = (car, day, item) => {
+    console.log("Item to be dropped=", item);
+    console.log("Day accepting the item=", day);
+    console.log("Car accepting the item=", car);
+    const updatedSchedule = {
+      ...currentSchedule,
+      days: {
+        ...currentSchedule.days,
+        [day]: {
+          ...currentSchedule?.days?.[day],
+          cars: {
+            ...currentSchedule?.days?.[day]?.cars,
+            [car]: {
+              ...currentSchedule?.days?.[day]?.cars?.[car],
+              drivers:
+                item?.draggableCategory !== 1
+                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                  : currentSchedule?.days?.[day]?.cars?.[car]?.drivers?.filter(
+                      (dr) => dr.id === item.id
+                    )?.length > 0
+                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                  : [
+                      ...currentSchedule?.days?.[day]?.cars?.[car]?.drivers,
+                      {
+                        id: item?.id,
+                        name: item?.name,
+                        isActive: 1,
+                        isAbsent: 0,
+                        draggable_category_id: item.draggableCategory,
+                      },
+                    ],
+              regions:
+                item?.draggableCategory !== 2
+                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.regions]
+                  : [],
+            },
+          },
+        },
+      },
+    };
+
+    console.log(updatedSchedule);
+    dispatch(setCurrentSchedule(updatedSchedule));
+    // setDroppedBoxNames([...droppedBoxNames, item.name]);
+  };
+
   return (
     <div className={`main-content ${open ? "open" : ""}`}>
       <Box display="flex" flexDirection="column" flexGrow={1}>
@@ -32,22 +70,25 @@ const Calendar = ({
           gap={0.5}
           p={0.5}
         >
-          {allDatesFirstRow.map(
-            ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
-              <Day
-                currentSchedule={Object.fromEntries(
-                  Object.entries(currentSchedule).slice(0, 5)
+          {allDatesFirstRow.map(({ dateToDisplay, accepts }, index) => (
+            <Day
+              currentSchedule={Object.keys(currentSchedule.days || {})
+                .filter((day) => day < 6)
+                .reduce(
+                  (acc, curr) => ({
+                    ...acc,
+                    [curr]: currentSchedule.days[curr],
+                  }),
+                  {}
                 )}
-                day={index + 1}
-                cars={cars}
-                dateToDisplay={dateToDisplay}
-                accept={accepts}
-                lastDroppedItem={lastDroppedItem}
-                onDrop={(car, item) => handleDrop(car, index + 1, item)}
-                key={`${dateToDisplay}_${index}`}
-              />
-            )
-          )}
+              day={index + 1}
+              cars={cars}
+              dateToDisplay={dateToDisplay}
+              accept={accepts}
+              onDrop={(car, item) => handleDrop(car, index + 1, item)}
+              key={`${dateToDisplay}_${index}`}
+            />
+          ))}
         </Box>
         <Box
           className="days-row-container"
@@ -57,23 +98,25 @@ const Calendar = ({
           gap={1}
           p={1}
         >
-          {allDatesSecondRow.map(
-            ({ dateToDisplay, accepts, lastDroppedItem }, index) => (
-              <Day
-                index={index + 6}
-                currentSchedule={Object.fromEntries(
-                  Object.entries(currentSchedule).slice(6, 10)
+          {allDatesSecondRow.map(({ dateToDisplay, accepts }, index) => (
+            <Day
+              currentSchedule={Object.keys(currentSchedule.days || {})
+                .filter((day) => day >= 6)
+                .reduce(
+                  (acc, curr) => ({
+                    ...acc,
+                    [curr]: currentSchedule.days[curr],
+                  }),
+                  {}
                 )}
-                cars={cars}
-                dateToDisplay={dateToDisplay}
-                accept={accepts}
-                lastDroppedItem={lastDroppedItem}
-                onDrop={(item) => handleDrop(index + 6, item)}
-                key={`${dateToDisplay}_${index}`}
-                droppedItems={droppedBoxNames}
-              />
-            )
-          )}
+              day={index + 6}
+              cars={cars}
+              dateToDisplay={dateToDisplay}
+              accept={accepts}
+              onDrop={(car, item) => handleDrop(car, index + 6, item)}
+              key={`${dateToDisplay}_${index + 6}`}
+            />
+          ))}
         </Box>
       </Box>
     </div>
