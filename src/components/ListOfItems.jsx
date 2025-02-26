@@ -3,9 +3,11 @@ import { useDrop } from "react-dnd";
 import { Tooltip, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { userLoggedIn } from "../models/selectors/loginSelectors";
+import { currentSchedule } from "../models/selectors/scheduleSelectors";
 
-const ListOfItems = ({ type, droppedItems, onDrop, accept }) => {
+const ListOfItems = ({ day, type, droppedItems, onDrop, accept, car }) => {
   const userIsLoggedIn = useSelector(userLoggedIn);
+  const schedule = useSelector(currentSchedule);
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -14,6 +16,10 @@ const ListOfItems = ({ type, droppedItems, onDrop, accept }) => {
       canDrop: monitor.canDrop(),
     }),
   });
+
+  const handleRemoveItemFormList = () => {
+    const currentSchedule = schedule;
+  };
 
   const isActive = isOver && canDrop;
 
@@ -39,7 +45,7 @@ const ListOfItems = ({ type, droppedItems, onDrop, accept }) => {
             <Typography className={`${userIsLoggedIn ? "removable" : ""}`}>
               <span>{itm.name}</span>
               {userIsLoggedIn && (
-                <button onClick={() => alert("Remove this item")}>x</button>
+                <button onClick={() => console.log(itm, day, car)}>x</button>
               )}
             </Typography>
           </Tooltip>

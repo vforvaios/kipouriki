@@ -31,6 +31,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               className="container-with-dragged-items"
             >
               <ListOfItems
+                car={car.id}
+                day={day}
                 type="drivers"
                 accept={[accept?.[0] || ""]}
                 onDrop={(item) => onDrop(car.id, item)}
@@ -40,6 +42,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               />
 
               <ListOfItems
+                day={day}
+                car={car.id}
                 type="regions"
                 accept={[accept?.[1] || ""]}
                 onDrop={(item) => onDrop(car.id, item)}
@@ -58,6 +62,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
       >
         <ListOfItems
           type="absentDrivers"
+          day={day}
+          car={99}
           accept={[accept?.[0] || ""]}
           onDrop={(item) => onDrop("", item)}
           droppedItems={currentSchedule?.[day]?.cars?.[99]?.drivers?.filter(
