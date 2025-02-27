@@ -102,7 +102,6 @@ CREATE TABLE `draggable_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `draggable_category_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `isAbsent` int(11) NOT NULL DEFAULT 0,
   `isActive` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -114,7 +113,7 @@ CREATE TABLE `draggable_items` (
 
 LOCK TABLES `draggable_items` WRITE;
 /*!40000 ALTER TABLE `draggable_items` DISABLE KEYS */;
-INSERT INTO `draggable_items` VALUES (1,1,'ALI',0,1),(2,1,'ΠΑΥΛΟΣ',0,1),(3,2,'ΘΗΣΕΙΟ',0,1),(4,2,'ΚΤΗΜΑ ΑΜΠΕΛΟΚΗΠΩΝ',0,1),(5,1,'VAIOS',0,1),(6,1,'STELIOS',1,1),(7,1,'BABIS',0,1),(8,1,'CHRISTOS',0,1),(9,2,'FILOTHEI',0,1),(10,2,'PSYCHIKO',0,1);
+INSERT INTO `draggable_items` VALUES (1,1,'ALI',1),(2,1,'ΠΑΥΛΟΣ',1),(3,2,'ΘΗΣΕΙΟ',1),(4,2,'ΚΤΗΜΑ ΑΜΠΕΛΟΚΗΠΩΝ',1),(5,1,'VAIOS',1),(6,1,'STELIOS',1),(7,1,'BABIS',1),(8,1,'CHRISTOS',1),(9,2,'FILOTHEI',1),(10,2,'PSYCHIKO',1);
 /*!40000 ALTER TABLE `draggable_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-27 13:03:37
+-- Dump completed on 2025-02-27 17:28:08

@@ -30,9 +30,7 @@ const Calendar = ({
     );
 
     const res = await resp.json();
-    if (!res.ok) {
-      enqueueSnackbar(res.error, { variant: "error" });
-    }
+
     return res;
   };
 
@@ -42,14 +40,12 @@ const Calendar = ({
     console.log("Item to be dropped=", item);
     console.log("Day accepting the item=", day);
     console.log("Car accepting the item=", car);
-    try {
-      const resp = saveDraggableItem(currentScheduleId, day, item);
+    // try {
+    //   const resp = saveDraggableItem(currentScheduleId, day, item);
+    // } catch (error) {
+    //   enqueueSnackbar(error, { variant: "error" });
+    // }
 
-      if (resp.error) {
-      }
-    } catch (error) {
-      enqueueSnackbar(error, { variant: "error" });
-    }
     const updatedSchedule = {
       ...currentSchedule,
       days: {
@@ -62,38 +58,40 @@ const Calendar = ({
               ...currentSchedule?.days?.[day]?.cars?.[car],
               drivers:
                 item?.draggableCategory !== 1
-                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                  ? currentSchedule?.days?.[day]?.cars?.[car]?.drivers?.length
+                    ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                    : []
                   : currentSchedule?.days?.[day]?.cars?.[car]?.drivers?.filter(
                       (dr) => dr.id === item.id
                     )?.length > 0
-                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                  ? currentSchedule?.days?.[day]?.cars?.[car]?.drivers?.length
+                    ? [...currentSchedule?.days?.[day]?.cars?.[car]?.drivers]
+                    : []
                   : [
                       ...currentSchedule?.days?.[day]?.cars?.[car]?.drivers,
                       {
                         id: item?.id,
                         name: item?.name,
                         isActive: 1,
-                        isAbsent: 0,
                         draggable_category_id: item.draggableCategory,
                       },
                     ],
-              regions:
-                item?.draggableCategory !== 2
-                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.regions]
-                  : currentSchedule?.days?.[day]?.cars?.[car]?.regions?.filter(
-                      (dr) => dr.id === item.id
-                    )?.length > 0
-                  ? [...currentSchedule?.days?.[day]?.cars?.[car]?.regions]
-                  : [
-                      ...currentSchedule?.days?.[day]?.cars?.[car]?.regions,
-                      {
-                        id: item?.id,
-                        name: item?.name,
-                        isActive: 1,
-                        isAbsent: 0,
-                        draggable_category_id: item.draggableCategory,
-                      },
-                    ],
+              regions: [],
+              // item?.draggableCategory !== 2
+              //   ? [...currentSchedule?.days?.[day]?.cars?.[car]?.regions]
+              //   : currentSchedule?.days?.[day]?.cars?.[car]?.regions?.filter(
+              //       (dr) => dr.id === item.id
+              //     )?.length > 0
+              //   ? [...currentSchedule?.days?.[day]?.cars?.[car]?.regions]
+              //   : [
+              //       ...currentSchedule?.days?.[day]?.cars?.[car]?.regions,
+              //       {
+              //         id: item?.id,
+              //         name: item?.name,
+              //         isActive: 1,
+              //         draggable_category_id: item.draggableCategory,
+              //       },
+              //     ],
             },
           },
         },

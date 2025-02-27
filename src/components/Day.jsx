@@ -36,9 +36,7 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
                 type="drivers"
                 accept={[accept?.[0] || ""]}
                 onDrop={(item) => onDrop(car.id, item)}
-                droppedItems={currentSchedule?.[day]?.cars?.[
-                  car.id
-                ]?.drivers?.filter((dr) => !dr?.isAbsent)}
+                droppedItems={currentSchedule?.[day]?.cars?.[car.id]?.drivers}
               />
 
               <ListOfItems
