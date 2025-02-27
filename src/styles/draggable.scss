@@ -79,7 +79,7 @@
         position: absolute;
         right: 4px;
         top: 50%;
-        transform: translate(0, -50%);
+        transform: translate(0, -50%) scaleY(0.8);
         background: none;
         padding: 2px;
         line-height: 1.5;

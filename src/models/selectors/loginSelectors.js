@@ -1,3 +1,4 @@
-const userLoggedIn = ({ loginReducer }) => loginReducer.user;
+const userLoggedIn = ({ loginReducer }) => loginReducer?.user;
+const token = ({ loginReducer }) => loginReducer?.user?.token;
 
-export { userLoggedIn };
+export { userLoggedIn, token };
