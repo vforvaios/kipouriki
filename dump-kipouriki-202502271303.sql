@@ -53,7 +53,7 @@ CREATE TABLE `dates` (
   `startDate2` date NOT NULL,
   `isActive` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `dates` (
 
 LOCK TABLES `dates` WRITE;
 /*!40000 ALTER TABLE `dates` DISABLE KEYS */;
-INSERT INTO `dates` VALUES (1,'2025-02-03','2025-02-10',1),(3,'2025-02-17','2025-02-24',1);
+INSERT INTO `dates` VALUES (1,'2025-02-03','2025-02-10',0),(3,'2025-02-17','2025-02-24',0),(19,'2025-03-03','2025-03-10',1);
 /*!40000 ALTER TABLE `dates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `schedule_drivers` (
   `numberOfDay` int(11) NOT NULL,
   `draggableItemIds` varchar(200) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `schedule_drivers` (
 
 LOCK TABLES `schedule_drivers` WRITE;
 /*!40000 ALTER TABLE `schedule_drivers` DISABLE KEYS */;
-INSERT INTO `schedule_drivers` VALUES (1,1,1,1,'1,2'),(2,1,2,2,'2'),(3,1,1,2,'1,2'),(4,1,2,1,'5'),(5,1,2,3,'1,2'),(6,1,99,4,'6'),(7,1,99,1,'6'),(8,1,2,7,'2'),(9,1,99,7,'6');
+INSERT INTO `schedule_drivers` VALUES (1,1,1,1,'1,2'),(2,1,2,2,'2'),(3,1,1,2,'1,2'),(4,1,2,1,'5'),(5,1,2,3,'1,2'),(6,1,99,4,'6'),(7,1,99,1,'6'),(8,1,2,7,'2'),(9,1,99,7,'6'),(19,10,1,1,'1,2'),(20,10,2,2,'2'),(21,10,1,2,'1,2'),(22,10,2,1,'5'),(23,10,2,3,'1,2'),(24,10,99,4,'6'),(25,10,99,1,'6'),(26,10,2,7,'2'),(27,10,99,7,'6'),(31,10,1,5,'8'),(32,10,1,6,'8'),(33,10,2,9,'8'),(34,10,1,10,'8'),(35,10,1,9,'8'),(36,10,1,4,'6,8,5');
 /*!40000 ALTER TABLE `schedule_drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +158,7 @@ CREATE TABLE `schedule_regions` (
   `numberOfDay` int(11) NOT NULL,
   `draggableItemIds` varchar(200) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `schedule_regions` (
 
 LOCK TABLES `schedule_regions` WRITE;
 /*!40000 ALTER TABLE `schedule_regions` DISABLE KEYS */;
-INSERT INTO `schedule_regions` VALUES (1,1,1,1,'3,4'),(2,1,2,1,'3,4'),(3,1,1,2,'3,4');
+INSERT INTO `schedule_regions` VALUES (1,1,1,1,'3,4'),(2,1,2,1,'3,4'),(3,1,1,2,'3,4'),(4,10,1,1,'3,4'),(5,10,2,1,'3,4'),(6,10,1,2,'3,4'),(7,10,1,8,'4'),(8,10,1,9,'3');
 /*!40000 ALTER TABLE `schedule_regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +182,7 @@ CREATE TABLE `schedules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `datesId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +191,7 @@ CREATE TABLE `schedules` (
 
 LOCK TABLES `schedules` WRITE;
 /*!40000 ALTER TABLE `schedules` DISABLE KEYS */;
-INSERT INTO `schedules` VALUES (1,3);
+INSERT INTO `schedules` VALUES (1,3),(10,19);
 /*!40000 ALTER TABLE `schedules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-27 17:28:08
+-- Dump completed on 2025-03-05  9:09:36

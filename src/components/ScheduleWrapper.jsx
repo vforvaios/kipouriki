@@ -168,6 +168,7 @@ const ScheduleWrapper = () => {
             allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
             allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
             open={open}
+            fetchCurrentSchedule={fetchCurrentSchedule}
           />
         )}
       </Box>
