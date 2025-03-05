@@ -35,16 +35,13 @@
 .car-text {
   &.MuiTypography-root {
     color: $gray;
+    padding: 0 2px;
     font-weight: 600;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -66,10 +63,9 @@
     font-size: 0.5rem;
     margin: 0;
     padding: 2px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 
     &.removable {
       padding-right: 20px;
@@ -137,9 +133,14 @@
 }
 
 .tile {
+  border-right-width: 1px;
+  border-right-style: groove;
+
   &:last-child {
+    border-right: 0 none;
+
     .list li {
-      border-right: 0;
+      border-right: 0 none;
     }
   }
 }
@@ -151,6 +152,25 @@
 
   &.isDroppable {
     background: $lighter-green;
+  }
+
+  &.removing {
+    position: relative;
+
+    &:before {
+      content: "Διαγραφή...";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.7rem;
+    }
   }
 }
 

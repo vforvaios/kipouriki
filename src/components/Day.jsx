@@ -1,7 +1,16 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import ListOfItems from "./ListOfItems";
 
-const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
+const Day = ({
+  day,
+  cars,
+  currentSchedule,
+  scheduleId,
+  dateToDisplay,
+  accept,
+  onDrop,
+  fetchCurrentSchedule,
+}) => {
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
       <div className="day-of-the-week">{dateToDisplay}</div>
@@ -22,7 +31,9 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
             flexBasis={`${100 / cars.length}%`}
             width={`${100 / cars.length}%`}
           >
-            <Typography className="car-text">{car.name}</Typography>
+            <Typography className="car-text">
+              <Tooltip title={car.name}>{car.name}</Tooltip>
+            </Typography>
             <Box
               display="flex"
               justifyContent="space-between"
@@ -31,6 +42,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               className="container-with-dragged-items"
             >
               <ListOfItems
+                fetchCurrentSchedule={fetchCurrentSchedule}
+                scheduleId={scheduleId}
                 car={car.id}
                 day={day}
                 type="drivers"
@@ -40,6 +53,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
               />
 
               <ListOfItems
+                fetchCurrentSchedule={fetchCurrentSchedule}
+                scheduleId={scheduleId}
                 day={day}
                 car={car.id}
                 type="regions"
@@ -59,6 +74,8 @@ const Day = ({ day, cars, currentSchedule, dateToDisplay, accept, onDrop }) => {
         alignItems="center"
       >
         <ListOfItems
+          fetchCurrentSchedule={fetchCurrentSchedule}
+          scheduleId={currentSchedule?.scheduleId}
           type="absentDrivers"
           day={day}
           car={99}

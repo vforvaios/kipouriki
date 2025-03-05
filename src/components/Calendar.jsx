@@ -13,6 +13,7 @@ const Calendar = ({
   open,
   allDatesFirstRow,
   allDatesSecondRow,
+  fetchCurrentSchedule,
 }) => {
   const dispatch = useDispatch();
   const userToken = useSelector(token);
@@ -85,6 +86,8 @@ const Calendar = ({
         >
           {allDatesFirstRow.map(({ dateToDisplay, accepts }, index) => (
             <Day
+              fetchCurrentSchedule={fetchCurrentSchedule}
+              scheduleId={currentSchedule?.scheduleId}
               currentSchedule={Object.keys(currentSchedule.days || {})
                 .filter((day) => day < 6)
                 .reduce(
@@ -113,6 +116,8 @@ const Calendar = ({
         >
           {allDatesSecondRow.map(({ dateToDisplay, accepts }, index) => (
             <Day
+              fetchCurrentSchedule={fetchCurrentSchedule}
+              scheduleId={currentSchedule?.scheduleId}
               currentSchedule={Object.keys(currentSchedule.days || {})
                 .filter((day) => day >= 6)
                 .reduce(

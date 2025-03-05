@@ -113,8 +113,6 @@ const ScheduleWrapper = () => {
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -147,6 +145,7 @@ const ScheduleWrapper = () => {
     await fetchLastDates();
     await fetchDraggableItems();
     await fetchCurrentSchedule();
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -168,6 +167,7 @@ const ScheduleWrapper = () => {
             allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
             allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
             open={open}
+            fetchCurrentSchedule={fetchCurrentSchedule}
           />
         )}
       </Box>
