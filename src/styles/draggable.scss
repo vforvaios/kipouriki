@@ -17,6 +17,14 @@
     &:last-child {
       margin-right: 0;
     }
+
+    &.plain {
+      cursor: pointer;
+      background: none;
+      border-style: dotted;
+      border-width: 1px;
+      border-color: $gray;
+    }
   }
 }
 
@@ -24,7 +32,9 @@
   &.MuiTypography-root {
     font-size: 0.9rem;
     margin-bottom: 6px;
+    padding: 4px 8px;
     font-weight: 600;
+    background: $light-gray;
   }
 }
 

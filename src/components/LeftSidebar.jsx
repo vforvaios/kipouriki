@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Drawer, Typography } from "@mui/material";
+import React from "react";
+import { Box, Drawer, Typography, Chip, Tooltip } from "@mui/material";
 
 import DraggableBox from "./DraggableBox";
 
@@ -21,6 +21,15 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
       anchor="left"
       open={open}
     >
+      <Box display="flex" p={1} justifyContent="flex-end" alignItems="center">
+        <Tooltip title="Κλείσιμο">
+          <i
+            style={{ cursor: "pointer" }}
+            onClick={() => setOpen(false)}
+            className="icon-cancel-circled"
+          />
+        </Tooltip>
+      </Box>
       {Object.keys(draggables)?.map((itm) => (
         <Box key={`${itm}_${draggables[itm].id}`} p={1}>
           <Typography className="draggable-chips-title">{itm}</Typography>
@@ -35,6 +44,12 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
               />
             ))}
           </Box>
+          <Chip
+            onClick={() => {}}
+            className="draggable-chip plain"
+            label="ΠΡΟΣΘΗΚΗ +"
+            size="small"
+          />
         </Box>
       ))}
     </Drawer>
