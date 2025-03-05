@@ -65,8 +65,6 @@ const ScheduleWrapper = () => {
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -115,6 +113,8 @@ const ScheduleWrapper = () => {
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -168,7 +168,6 @@ const ScheduleWrapper = () => {
             allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
             allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
             open={open}
-            fetchCurrentSchedule={fetchCurrentSchedule}
           />
         )}
       </Box>
