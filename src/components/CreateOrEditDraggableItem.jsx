@@ -11,15 +11,48 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
+import { token } from "../models/selectors/loginSelectors";
+import { useSelector } from "react-redux";
+import { enqueueSnackbar } from "notistack";
 
 const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
+  const userToken = useSelector(token);
   const [requestState, setRequestState] = useState({
     itemName: "",
+    itemIsActive: 1,
     itemDraggableCategory: dialogState?.draggableItemType,
   });
 
-  const handleAddEditForm = () => {
+  const handleAddEditForm = async () => {
     console.log(requestState);
+    try {
+      const promiseResult = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/draggable-items/item`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          method: "POST",
+          body: JSON.stringify({
+            name: requestState.itemName,
+            draggable_category_id: requestState.itemDraggableCategory,
+            isActive: requestState.itemIsActive,
+            type: dialogState.type,
+          }),
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        enqueueSnackbar("Η αποθήκευση ολοκληρώθηκε.", { variant: "success" });
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
   };
 
   return (
@@ -64,12 +97,12 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
             <Select
               labelId="isActive"
               id="isActive"
-              value={requestState.itemDraggableCategory}
+              value={requestState.itemIsActive}
               label="Ενεργό"
               onChange={(e) => {
                 setRequestState({
                   ...requestState,
-                  itemDraggableCategory: e.target.value,
+                  itemIsActive: e.target.value,
                 });
               }}
             >
