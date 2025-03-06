@@ -1,0 +1,25 @@
+@use "./colors.scss" as *;
+
+.dialog-title {
+  &.MuiDialogTitle-root {
+    background-color: $light-purple;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+.dialog-content {
+  &.MuiDialogContent-root {
+    padding: 12px !important;
+
+    .MuiFormControl-root {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

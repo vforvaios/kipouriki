@@ -31,9 +31,9 @@ const Day = ({
             flexBasis={`${100 / cars.length}%`}
             width={`${100 / cars.length}%`}
           >
-            <Typography className="car-text">
-              <Tooltip title={car.name}>{car.name}</Tooltip>
-            </Typography>
+            <Tooltip title={car.name}>
+              <Typography className="car-text">{car.name}</Typography>
+            </Tooltip>
             <Box
               display="flex"
               justifyContent="space-between"

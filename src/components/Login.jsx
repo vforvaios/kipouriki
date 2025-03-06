@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Dialog from "@mui/material/Dialog";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 
 import { setLoginUser } from "../models/actions/loginActions";

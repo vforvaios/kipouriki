@@ -21,8 +21,6 @@ const ScheduleWrapper = () => {
   const schedule = useSelector(currentSchedule);
   const draggables = useSelector(allDraggables);
 
-  console.log("draggables=", draggables);
-
   const generateDates = (start) => {
     const localDates = [];
     for (let i = 0; i < 5; i++) {
