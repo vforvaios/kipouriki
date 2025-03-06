@@ -80,10 +80,8 @@ const Day = ({
           day={day}
           car={99}
           accept={[accept?.[0] || ""]}
-          onDrop={(item) => onDrop("", item)}
-          droppedItems={currentSchedule?.[day]?.cars?.[99]?.drivers?.filter(
-            (dr) => dr?.isAbsent
-          )}
+          onDrop={(item) => onDrop(99, item)}
+          droppedItems={currentSchedule?.[day]?.cars?.[99]?.drivers}
         />
       </Box>
     </Box>

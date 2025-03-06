@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { userLoggedIn } from "../models/selectors/loginSelectors";
+import { token, userLoggedIn } from "../models/selectors/loginSelectors";
 import { AppBar, Toolbar, Button } from "@mui/material";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +9,14 @@ const TopBar = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const [openLogin, setOpenLogin] = useState(false);
   const userIsLoggedIn = useSelector(userLoggedIn);
+  const userToken = useSelector(token);
 
   return (
-    <AppBar className={open ? "open" : ""} position="fixed" open={open}>
+    <AppBar
+      className={open && userToken ? "open" : ""}
+      position="fixed"
+      open={open}
+    >
       <Toolbar>
         <div>
           {userIsLoggedIn && (
