@@ -12,11 +12,15 @@ import {
   Button,
 } from "@mui/material";
 import { token } from "../models/selectors/loginSelectors";
-import { useSelector } from "react-redux";
+import { allDraggables } from "../models/selectors/scheduleSelectors";
+import { setDraggableItems } from "../models/actions/scheduleActions";
+import { useSelector, useDispatch } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 
 const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
+  const dispatch = useDispatch();
   const userToken = useSelector(token);
+  const existingDraggables = useSelector(allDraggables);
   const [requestState, setRequestState] = useState({
     itemName: "",
     itemIsActive: 1,
@@ -24,7 +28,6 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
   });
 
   const handleAddEditForm = async () => {
-    console.log(requestState);
     try {
       const promiseResult = await fetch(
         `${import.meta.env.VITE_API_URL}/api/draggable-items/item`,
@@ -48,6 +51,30 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
       if (result?.error) {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
+        const newDraggables = Object.keys(existingDraggables).reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr]: {
+              ...existingDraggables[curr],
+              content:
+                requestState.itemDraggableCategory !==
+                existingDraggables[curr]?.id
+                  ? [...existingDraggables[curr]?.content]
+                  : [
+                      ...existingDraggables[curr]?.content,
+                      {
+                        itemId: result?.id,
+                        itemName: requestState?.itemName,
+                        draggableCategory: requestState?.itemDraggableCategory,
+                        isActive: requestState?.itemIsActive,
+                      },
+                    ],
+            },
+          }),
+          {}
+        );
+
+        dispatch(setDraggableItems(newDraggables));
         enqueueSnackbar("Η αποθήκευση ολοκληρώθηκε.", { variant: "success" });
       }
     } catch (error) {
