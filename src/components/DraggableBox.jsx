@@ -1,8 +1,16 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import { Chip } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
-const DraggableBox = ({ name, type, id, draggableCategory }) => {
+const DraggableBox = ({
+  name,
+  type,
+  id,
+  draggableCategory,
+  setDialogState,
+  dialogState,
+}) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
       type,
@@ -19,7 +27,21 @@ const DraggableBox = ({ name, type, id, draggableCategory }) => {
       className={`draggable-chip ${
         draggableCategory === 1 ? "isDriver" : "isRegion"
       }`}
-      label={name}
+      label={
+        <span>
+          <span>{name}</span>
+          <EditIcon
+            onClick={() =>
+              setDialogState({
+                ...dialogState,
+                openAddEditForm: true,
+                draggableItemType: draggableCategory,
+                type: "edit",
+              })
+            }
+          />
+        </span>
+      }
       size="small"
       ref={drag}
       data-testid="box"

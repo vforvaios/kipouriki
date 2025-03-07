@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Drawer, Typography, Chip, Tooltip } from "@mui/material";
-
 import DraggableBox from "./DraggableBox";
 import CreateOrEditDraggableItem from "./CreateOrEditDraggableItem";
 
@@ -43,11 +42,13 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
           <Box display="flex" flexWrap="wrap">
             {draggables[itm].content.map(({ itemName, itemId }) => (
               <DraggableBox
+                dialogState={dialogState}
+                setDialogState={setDialogState}
                 id={itemId}
                 draggableCategory={draggables[itm].id}
                 name={itemName}
-                type={draggables[itm].id.toString()}
                 key={itemId}
+                type={draggables[itm].id.toString()}
               />
             ))}
           </Box>

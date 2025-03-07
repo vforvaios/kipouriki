@@ -7,6 +7,25 @@
     margin-right: 6px;
     margin-bottom: 6px;
 
+    & .MuiChip-label > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        padding-right: 2px;
+      }
+    }
+    svg {
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
     &.isDriver {
       background-color: $light-purple;
     }
