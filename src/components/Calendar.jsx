@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 import { updatedCurrentSchedule } from "../utils";
+import { numberOfDaysInEachWeek } from "../constants";
 
 const Calendar = ({
   cars,
@@ -119,7 +120,7 @@ const Calendar = ({
               fetchCurrentSchedule={fetchCurrentSchedule}
               scheduleId={currentSchedule?.scheduleId}
               currentSchedule={Object.keys(currentSchedule.days || {})
-                .filter((day) => day >= 6)
+                .filter((day) => day >= numberOfDaysInEachWeek + 1)
                 .reduce(
                   (acc, curr) => ({
                     ...acc,
@@ -127,12 +128,14 @@ const Calendar = ({
                   }),
                   {}
                 )}
-              day={index + 6}
+              day={index + numberOfDaysInEachWeek + 1}
               cars={cars}
               dateToDisplay={dateToDisplay}
               accept={accepts}
-              onDrop={(car, item) => handleDrop(car, index + 6, item)}
-              key={`${dateToDisplay}_${index + 6}`}
+              onDrop={(car, item) =>
+                handleDrop(car, index + numberOfDaysInEachWeek + 1, item)
+              }
+              key={`${dateToDisplay}_${index + numberOfDaysInEachWeek + 1}`}
             />
           ))}
         </Box>

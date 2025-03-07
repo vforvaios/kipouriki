@@ -17,7 +17,7 @@ const SkeletonCalendar = () => {
         gap={0.5}
         p={0.5}
       >
-        {Array.from([1, 2, 3, 4, 5], (itm, index) => (
+        {Array.from([1, 2, 3, 4, 5, 6], (itm, index) => (
           <Box
             key={`skeleton-row1-${index}`}
             className="day"
@@ -52,7 +52,7 @@ const SkeletonCalendar = () => {
         gap={0.5}
         p={0.5}
       >
-        {Array.from([1, 2, 3, 4, 5], (itm, index) => (
+        {Array.from([1, 2, 3, 4, 5, 6], (itm, index) => (
           <Box
             key={`skeleton-row2-${index}`}
             className="day"

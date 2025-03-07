@@ -14,6 +14,7 @@ import SkeletonCalendar from "./SkeletonCalendar";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { numberOfDaysInEachWeek } from "../constants";
 
 const ScheduleWrapper = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const ScheduleWrapper = () => {
 
   const generateDates = (start) => {
     const localDates = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numberOfDaysInEachWeek; i++) {
       const date = new Date(start);
       date.setDate(date?.getDate() + i);
       localDates.push({
