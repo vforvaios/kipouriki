@@ -19,7 +19,7 @@ body {
 }
 
 .day {
-  box-shadow: 8px 9px 6px -11px $black;
+  box-shadow: 0px -9px 5px -12px $black;
   flex-basis: 16.65%;
   width: 16.65%;
   padding: 0 !important;
@@ -32,13 +32,30 @@ body {
   color: $black;
   font-weight: 600;
   font-size: 1.2rem;
-  border: 1px solid $gray;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.today {
+    background: $black;
+    color: $white;
+  }
 }
 
 .MuiAppBar-root,
 .MuiToolbar-root {
   height: 36px !important;
   min-height: unset !important;
+  background-color: $white !important;
+  box-shadow: none !important;
+
+  button {
+    border: 1px solid $gray;
+    color: $black;
+  }
 }
 
 .MuiToolbar-root {
@@ -48,6 +65,7 @@ body {
 .icon-menuIcon {
   font-size: 20px;
   cursor: pointer;
+  color: $black;
 }
 
 .app-container {

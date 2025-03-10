@@ -39,7 +39,12 @@ const SkeletonCalendar = () => {
               alignItems="stretch"
               className="tiles-container"
             >
-              <Skeleton variant="rectangular" width={"100%"} height={118} />
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+                width={"100%"}
+                height={118}
+              />
             </Box>
           </Box>
         ))}

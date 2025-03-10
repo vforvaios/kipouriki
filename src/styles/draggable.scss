@@ -1,5 +1,10 @@
 @use "./colors.scss" as *;
 
+.MuiSkeleton-root {
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
 .draggable-chip {
   &.MuiChip-root {
     font-size: 0.5rem;
@@ -53,8 +58,14 @@
     margin-bottom: 6px;
     padding: 4px 8px;
     font-weight: 600;
-    background: $light-gray;
+    background: $pink;
+    border-radius: 12px;
   }
+}
+
+.leftsidebar-scrollable {
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
 }
 
 .MuiDrawer-paper {
@@ -208,4 +219,16 @@
 
 .container-with-dragged-items {
   height: 100%;
+}
+
+.day-text {
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.day-number {
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.2;
 }

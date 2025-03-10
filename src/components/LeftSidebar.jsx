@@ -36,37 +36,39 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
           />
         </Tooltip>
       </Box>
-      {Object.keys(draggables)?.map((itm) => (
-        <Box key={`${itm}_${draggables[itm].id}`} p={1}>
-          <Typography className="draggable-chips-title">{itm}</Typography>
-          <Box display="flex" flexWrap="wrap">
-            {draggables[itm].content.map(({ itemName, itemId }) => (
-              <DraggableBox
-                dialogState={dialogState}
-                setDialogState={setDialogState}
-                id={itemId}
-                draggableCategory={draggables[itm].id}
-                name={itemName}
-                key={itemId}
-                type={draggables[itm].id.toString()}
-              />
-            ))}
+      <div className="leftsidebar-scrollable">
+        {Object.keys(draggables)?.map((itm) => (
+          <Box key={`${itm}_${draggables[itm].id}`} p={1}>
+            <Typography className="draggable-chips-title">{itm}</Typography>
+            <Box display="flex" flexWrap="wrap">
+              {draggables[itm].content.map(({ itemName, itemId }) => (
+                <DraggableBox
+                  dialogState={dialogState}
+                  setDialogState={setDialogState}
+                  id={itemId}
+                  draggableCategory={draggables[itm].id}
+                  name={itemName}
+                  key={itemId}
+                  type={draggables[itm].id.toString()}
+                />
+              ))}
+            </Box>
+            <Chip
+              onClick={() => {
+                setDialogState({
+                  ...dialogState,
+                  draggableItemType: draggables[itm]?.id,
+                  type: "create",
+                  openAddEditForm: true,
+                });
+              }}
+              className="draggable-chip plain"
+              label="ΠΡΟΣΘΗΚΗ +"
+              size="small"
+            />
           </Box>
-          <Chip
-            onClick={() => {
-              setDialogState({
-                ...dialogState,
-                draggableItemType: draggables[itm]?.id,
-                type: "create",
-                openAddEditForm: true,
-              });
-            }}
-            className="draggable-chip plain"
-            label="ΠΡΟΣΘΗΚΗ +"
-            size="small"
-          />
-        </Box>
-      ))}
+        ))}
+      </div>
       <CreateOrEditDraggableItem
         dialogState={dialogState}
         setDialogState={setDialogState}

@@ -11,10 +11,27 @@ const Day = ({
   onDrop,
   fetchCurrentSchedule,
 }) => {
+  const stylableDay = dateToDisplay?.split(" ");
+
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
-      <div className="day-of-the-week">{dateToDisplay}</div>
+      <div
+        className={`day-of-the-week ${
+          dateToDisplay ===
+          new Date()?.toLocaleDateString("el-GR", {
+            weekday: "short",
+            month: "numeric",
+            day: "numeric",
+          })
+            ? "today"
+            : ""
+        }`}
+      >
+        <strong className="day-text">{stylableDay?.[0]}</strong>
+        <strong className="day-number">{stylableDay?.[1]}</strong>
+      </div>
       {/* DRIVERS AND REGIONS */}
+
       <Box
         display="flex"
         flexGrow={1}
