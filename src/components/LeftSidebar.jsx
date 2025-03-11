@@ -10,6 +10,8 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
     draggableItemType: 1,
     openAddEditForm: false,
     type: "create",
+    itemName: "",
+    itemIsActive: null,
   });
 
   return (
@@ -41,11 +43,12 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
           <Box key={`${itm}_${draggables[itm].id}`} p={1}>
             <Typography className="draggable-chips-title">{itm}</Typography>
             <Box display="flex" flexWrap="wrap">
-              {draggables[itm].content.map(({ itemName, itemId }) => (
+              {draggables[itm].content.map(({ itemName, itemId, isActive }) => (
                 <DraggableBox
                   dialogState={dialogState}
                   setDialogState={setDialogState}
                   id={itemId}
+                  isActive={isActive}
                   draggableCategory={draggables[itm].id}
                   name={itemName}
                   key={itemId}
@@ -60,6 +63,8 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
                   draggableItemType: draggables[itm]?.id,
                   type: "create",
                   openAddEditForm: true,
+                  itemName: "",
+                  itemIsActive: 1,
                 });
               }}
               className="draggable-chip plain"

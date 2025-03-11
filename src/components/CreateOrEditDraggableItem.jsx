@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -22,8 +22,8 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
   const userToken = useSelector(token);
   const existingDraggables = useSelector(allDraggables);
   const [requestState, setRequestState] = useState({
-    itemName: "",
-    itemIsActive: 1,
+    itemName: dialogState?.itemName || "",
+    itemIsActive: dialogState?.itemIsActive,
     itemDraggableCategory: dialogState?.draggableItemType,
   });
 
@@ -82,6 +82,14 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
     }
   };
 
+  useEffect(() => {
+    setRequestState({
+      itemName: dialogState?.itemName || "",
+      itemIsActive: dialogState?.itemIsActive,
+      itemDraggableCategory: dialogState?.draggableItemType,
+    });
+  }, [dialogState.openAddEditForm, dialogState.itemName, dialogState.isActive]);
+
   return (
     <Dialog
       open={dialogState?.openAddEditForm}
@@ -124,7 +132,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
             <Select
               labelId="isActive"
               id="isActive"
-              value={requestState.itemIsActive}
+              value={requestState?.itemIsActive}
               label="Ενεργό"
               onChange={(e) => {
                 setRequestState({

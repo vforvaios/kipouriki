@@ -12,6 +12,12 @@
     margin-right: 6px;
     margin-bottom: 6px;
 
+    &.disabled {
+      opacity: 0.5 !important;
+      cursor: default;
+      border: 1px dotted $gray;
+    }
+
     & .MuiChip-label > span {
       display: flex;
       justify-content: center;

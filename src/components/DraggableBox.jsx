@@ -10,6 +10,7 @@ const DraggableBox = ({
   draggableCategory,
   setDialogState,
   dialogState,
+  isActive,
 }) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
@@ -26,24 +27,26 @@ const DraggableBox = ({
     <Chip
       className={`draggable-chip ${
         draggableCategory === 1 ? "isDriver" : "isRegion"
-      }`}
+      } ${!isActive ? "disabled" : ""}`}
       label={
         <span>
           <span>{name}</span>
           <EditIcon
-            onClick={() =>
+            onClick={() => {
               setDialogState({
                 ...dialogState,
                 openAddEditForm: true,
                 draggableItemType: draggableCategory,
                 type: "edit",
-              })
-            }
+                itemName: name,
+                itemIsActive: isActive,
+              });
+            }}
           />
         </span>
       }
       size="small"
-      ref={drag}
+      {...(isActive && { ref: drag })}
       data-testid="box"
       style={{ opacity }}
     />
