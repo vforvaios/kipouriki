@@ -24,6 +24,7 @@ const SkeletonCalendar = () => {
             p={1}
             display="flex"
             flexDirection="column"
+            sx={{ minHeight: 300 }}
           >
             <Skeleton
               className="day-of-the-week"

@@ -1,5 +1,6 @@
 import { Box, Tooltip, Typography } from "@mui/material";
 import ListOfItems from "./ListOfItems";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Day = ({
   day,
@@ -12,6 +13,7 @@ const Day = ({
   fetchCurrentSchedule,
 }) => {
   const stylableDay = dateToDisplay?.split(" ");
+  const matches = useMediaQuery("(max-width:960)");
 
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">
@@ -45,8 +47,8 @@ const Day = ({
             flexDirection="column"
             className="tile"
             key={car.id}
-            flexBasis={`${100 / cars.length}%`}
-            width={`${100 / cars.length}%`}
+            flexBasis={"20%"}
+            width={"20%"}
           >
             <Tooltip title={car.name}>
               <Typography className="car-text">{car.name}</Typography>

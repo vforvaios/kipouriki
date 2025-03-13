@@ -184,10 +184,13 @@
 .tile {
   border-right-width: 1px;
   border-right-style: groove;
+  height: 50%;
+
+  &:nth-child(5) {
+    border-right: 0 none;
+  }
 
   &:last-child {
-    border-right: 0 none;
-
     .list li {
       border-right: 0 none;
     }
