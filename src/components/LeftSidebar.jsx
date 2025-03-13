@@ -13,6 +13,7 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
     type: "create",
     itemName: "",
     itemIsActive: null,
+    regionCategory: null,
   });
 
   return (
@@ -70,6 +71,7 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
                     openAddEditForm: true,
                     itemName: "",
                     itemIsActive: 1,
+                    regionCategory: draggables[itm]?.id === 1 ? null : 1,
                   });
                 }}
                 className="draggable-chip plain"

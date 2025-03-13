@@ -16,6 +16,7 @@ import { allDraggables } from "../models/selectors/scheduleSelectors";
 import { setDraggableItems } from "../models/actions/scheduleActions";
 import { useSelector, useDispatch } from "react-redux";
 import { enqueueSnackbar } from "notistack";
+import { regionCategories } from "../constants";
 
 const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
     itemName: dialogState?.itemName || "",
     itemIsActive: dialogState?.itemIsActive,
     itemDraggableCategory: dialogState?.draggableItemType,
+    itemRegionCategory: dialogState?.regionCategory,
   });
 
   const handleAddEditForm = async () => {
@@ -67,6 +69,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
                         itemName: requestState?.itemName,
                         draggableCategory: requestState?.itemDraggableCategory,
                         isActive: requestState?.itemIsActive,
+                        regionCategory: requestState?.itemRegionCategory,
                       },
                     ],
             },
@@ -87,8 +90,14 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
       itemName: dialogState?.itemName || "",
       itemIsActive: dialogState?.itemIsActive,
       itemDraggableCategory: dialogState?.draggableItemType,
+      itemRegionCategory: dialogState?.regionCategory,
     });
-  }, [dialogState.openAddEditForm, dialogState.itemName, dialogState.isActive]);
+  }, [
+    dialogState.openAddEditForm,
+    dialogState.itemName,
+    dialogState.isActive,
+    dialogState.regionCategory,
+  ]);
 
   return (
     <Dialog
@@ -132,7 +141,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
             <Select
               labelId="isActive"
               id="isActive"
-              value={requestState?.itemIsActive}
+              value={requestState?.itemIsActive || 0}
               label="Ενεργό"
               onChange={(e) => {
                 setRequestState({
@@ -145,6 +154,32 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
               <MenuItem value={0}>Όχι</MenuItem>
             </Select>
           </FormControl>
+          {requestState?.itemRegionCategory && (
+            <FormControl fullWidth>
+              <InputLabel id="itemRegionCategory">Κατηγορία task</InputLabel>
+              <Select
+                labelId="isActive"
+                id="isActive"
+                value={requestState?.itemRegionCategory || 1}
+                label="Κατηγορία task"
+                onChange={(e) => {
+                  setRequestState({
+                    ...requestState,
+                    itemRegionCategory: e.target.value,
+                  });
+                }}
+              >
+                {Object.keys(regionCategories)?.map((rc) => (
+                  <MenuItem
+                    key={`create-edit-region-category-${rc}`}
+                    value={rc}
+                  >
+                    {regionCategories?.[rc]?.toUpperCase()}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
           <FormControl fullWidth>
             <Button
               type="button"
