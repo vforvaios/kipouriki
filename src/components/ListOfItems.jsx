@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
-import { Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography, Popover, Fade, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { userLoggedIn, token } from "../models/selectors/loginSelectors";
 import { enqueueSnackbar } from "notistack";
@@ -17,6 +17,15 @@ const ListOfItems = ({
   fetchCurrentSchedule,
 }) => {
   const [removingLoading, setRemovingLoading] = useState(false);
+  const initialPopperState = {
+    anchorEl: null,
+    open: false,
+    itm: null,
+    day: null,
+    car: null,
+  };
+  const [popperStateForRemoving, setPopperStateForRemoving] =
+    useState(initialPopperState);
   const userIsLoggedIn = useSelector(userLoggedIn);
   const userToken = useSelector(token);
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -59,6 +68,7 @@ const ListOfItems = ({
       enqueueSnackbar(error, { variant: "error" });
     } finally {
       setRemovingLoading(false);
+      setPopperStateForRemoving(initialPopperState);
     }
   };
 
@@ -84,6 +94,7 @@ const ListOfItems = ({
         {droppedItems?.map((itm) => (
           <li key={itm.id}>
             <Tooltip
+              placement="top"
               title={`${itm.name} ${
                 itm?.draggable_category_id === 2
                   ? regionCategories?.[itm.region_category].toUpperCase()
@@ -96,20 +107,62 @@ const ListOfItems = ({
                     ? `${regionCategories?.[itm?.region_category]}`
                     : ""
                 } ${userIsLoggedIn ? "removable" : ""}`}
+                onClick={(e) => {
+                  if (userIsLoggedIn) {
+                    setPopperStateForRemoving(initialPopperState);
+                    setPopperStateForRemoving({
+                      anchorEl: e.currentTarget,
+                      open: !popperStateForRemoving.open,
+                      itm,
+                      day,
+                      car,
+                    });
+                  } else {
+                    e.preventDefault();
+                  }
+                }}
               >
                 <span>{itm.name}</span>
-                {userIsLoggedIn && (
-                  <button
-                    onClick={() => handleRemoveItemFormList(itm, day, car)}
-                  >
-                    x
-                  </button>
-                )}
               </Typography>
             </Tooltip>
           </li>
         ))}
       </ul>
+      {userIsLoggedIn && (
+        <Popover
+          open={popperStateForRemoving.open}
+          anchorEl={popperStateForRemoving.anchorEl}
+          onClose={() => setPopperStateForRemoving(initialPopperState)}
+          id={
+            Boolean(popperStateForRemoving.anchorEl)
+              ? "transition-popper"
+              : undefined
+          }
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <Box>
+            <Box display="flex" flexDirection="column" className="removal-info">
+              <span>Όνομα: {popperStateForRemoving.itm?.name}</span>
+              <span>Μέρα: {popperStateForRemoving.day}</span>
+              <span>Αυτοκίνητο: {popperStateForRemoving.car}</span>
+            </Box>
+            <button
+              onClick={() =>
+                handleRemoveItemFormList(
+                  popperStateForRemoving.itm,
+                  popperStateForRemoving.day,
+                  popperStateForRemoving.car
+                )
+              }
+            >
+              Διαγραφή
+            </button>
+          </Box>
+        </Popover>
+      )}
     </>
   );
 };

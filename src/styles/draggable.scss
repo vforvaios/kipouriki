@@ -89,6 +89,47 @@
   }
 }
 
+#transition-popper {
+  button {
+    padding: 12px;
+    line-height: 1.5;
+    border: 0 none !important;
+    outline: 0 !important;
+    transition: all 0.2s ease-in-out;
+    background-color: $red;
+    color: $white;
+    margin-top: 6px;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      border: 0 none !important;
+    }
+  }
+
+  .MuiBox-root {
+    padding: 12px;
+    border: 0 none;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 1px 10px -4px $black;
+
+    &.removal-info {
+      box-shadow: none;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.removable {
+  cursor: pointer;
+}
+
 .list {
   margin: 0;
   padding: 0;
@@ -110,30 +151,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    &.removable {
-      padding-right: 20px;
-      position: relative;
-
-      button {
-        position: absolute;
-        right: 4px;
-        top: 50%;
-        transform: translate(0, -50%) scaleY(0.8);
-        background: none;
-        padding: 2px;
-        line-height: 1.5;
-        border: 0 none !important;
-        outline: 0 !important;
-
-        &:hover,
-        &:focus,
-        &:focus-visible,
-        &:active {
-          border: 0 none !important;
-        }
-      }
-    }
   }
 
   &.drivers-list {
