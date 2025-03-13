@@ -40,9 +40,6 @@
     &.isDriver {
       background-color: $light-purple;
     }
-    &.isRegion {
-      background-color: $yellow;
-    }
 
     &:last-child {
       margin-right: 0;
@@ -64,8 +61,9 @@
     margin-bottom: 6px;
     padding: 4px 8px;
     font-weight: 600;
-    background: $pink;
-    border-radius: 12px;
+    background: $white;
+    color: $black;
+    border-bottom: 1px solid $gray;
   }
 }
 
@@ -170,7 +168,6 @@
 
   &.regions-list {
     li p {
-      background: $yellow;
       color: $black;
     }
   }
@@ -240,4 +237,30 @@
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 1.2;
+}
+
+.weekly {
+  background-color: $weekly !important;
+}
+
+.biweekly {
+  background-color: $biweekly !important;
+}
+
+.otj {
+  background-color: $otj !important;
+}
+
+.public {
+  background-color: $public !important;
+}
+
+.colorIndicator {
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+
+  + span {
+    font-size: 0.7rem;
+  }
 }

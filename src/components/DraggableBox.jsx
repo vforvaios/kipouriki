@@ -2,6 +2,7 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import { Chip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { regionCategories } from "../constants";
 
 const DraggableBox = ({
   name,
@@ -11,6 +12,7 @@ const DraggableBox = ({
   setDialogState,
   dialogState,
   isActive,
+  regionCategory,
 }) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
@@ -26,7 +28,9 @@ const DraggableBox = ({
   return (
     <Chip
       className={`draggable-chip ${
-        draggableCategory === 1 ? "isDriver" : "isRegion"
+        draggableCategory === 1
+          ? "isDriver"
+          : `isRegion ${regionCategories?.[regionCategory]}`
       } ${!isActive ? "disabled" : ""}`}
       label={
         <span>

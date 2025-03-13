@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import { Tooltip, Typography } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { userLoggedIn, token } from "../models/selectors/loginSelectors";
-import { currentSchedule } from "../models/selectors/scheduleSelectors";
-import { setCurrentSchedule } from "../models/actions/scheduleActions";
 import { enqueueSnackbar } from "notistack";
+import { regionCategories } from "../constants";
 
 const ListOfItems = ({
   day,
@@ -18,10 +17,8 @@ const ListOfItems = ({
   fetchCurrentSchedule,
 }) => {
   const [removingLoading, setRemovingLoading] = useState(false);
-  const dispatch = useDispatch();
   const userIsLoggedIn = useSelector(userLoggedIn);
   const userToken = useSelector(token);
-  const schedule = useSelector(currentSchedule);
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -86,8 +83,20 @@ const ListOfItems = ({
       >
         {droppedItems?.map((itm) => (
           <li key={itm.id}>
-            <Tooltip title={itm.name}>
-              <Typography className={`${userIsLoggedIn ? "removable" : ""}`}>
+            <Tooltip
+              title={`${itm.name} ${
+                itm?.draggable_category_id === 2
+                  ? regionCategories?.[itm.region_category].toUpperCase()
+                  : ""
+              }`}
+            >
+              <Typography
+                className={`${
+                  itm?.draggable_category_id === 2
+                    ? `${regionCategories?.[itm?.region_category]}`
+                    : ""
+                } ${userIsLoggedIn ? "removable" : ""}`}
+              >
                 <span>{itm.name}</span>
                 {userIsLoggedIn && (
                   <button
