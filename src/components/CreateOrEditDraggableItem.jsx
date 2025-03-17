@@ -30,6 +30,16 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
   });
 
   const handleAddEditForm = async () => {
+    const payload = {
+      name: requestState.itemName,
+      draggable_category_id: requestState.itemDraggableCategory,
+      isActive: requestState.itemIsActive,
+      type: dialogState.type,
+      regionCategory: requestState?.regionCategory,
+    };
+
+    debugger;
+
     try {
       const promiseResult = await fetch(
         `${import.meta.env.VITE_API_URL}/api/draggable-items/item`,
@@ -40,12 +50,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
             Authorization: `Bearer ${userToken}`,
           },
           method: "POST",
-          body: JSON.stringify({
-            name: requestState.itemName,
-            draggable_category_id: requestState.itemDraggableCategory,
-            isActive: requestState.itemIsActive,
-            type: dialogState.type,
-          }),
+          body: JSON.stringify(payload),
         }
       );
       const result = await promiseResult.json();

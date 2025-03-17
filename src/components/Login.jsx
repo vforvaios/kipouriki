@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Typography from "@mui/material/Typography";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
 import { useDispatch } from "react-redux";
 import { enqueueSnackbar } from "notistack";
-
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { setLoginUser } from "../models/actions/loginActions";
 
 const Login = ({ open, handleClose }) => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState({
     username: "",
@@ -57,34 +61,47 @@ const Login = ({ open, handleClose }) => {
           Είσοδος στο σύστημα
         </Typography>
         <form noValidate className="login-form">
-          <TextField
+          <OutlinedInput
+            className="login-input"
             onChange={(e) =>
               setLoginFormState({ ...loginFormState, username: e.target.value })
             }
+            placeholder="Όνομα χρήστη"
             variant="outlined"
-            margin="normal"
             required
             fullWidth
             id="username"
-            label="Όνομα χρήστη"
             name="username"
             value={loginFormState.username}
             autoFocus
           />
-          <TextField
+          <OutlinedInput
             onChange={(e) =>
               setLoginFormState({ ...loginFormState, password: e.target.value })
             }
+            placeholder="Κωδικός"
+            className="login-input"
             variant="outlined"
-            margin="normal"
             required
             fullWidth
             name="password"
-            label="Κωδικός"
-            type="password"
+            type={!showPassword ? "password" : "text"}
             value={loginFormState.password}
             id="password"
             autoComplete="current-password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={
+                    showPassword ? "hide the password" : "display the password"
+                  }
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
           <Button
             type="button"
