@@ -44,6 +44,7 @@ const DraggableBox = ({
                 type: "edit",
                 itemName: name,
                 itemIsActive: isActive,
+                itemId: id,
                 regionCategory: draggableCategory === 1 ? null : regionCategory,
               });
             }}

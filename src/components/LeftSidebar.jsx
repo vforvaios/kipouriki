@@ -14,6 +14,7 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
     itemName: "",
     itemIsActive: null,
     regionCategory: null,
+    itemId: null,
   });
 
   return (
@@ -71,7 +72,8 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
                     openAddEditForm: true,
                     itemName: "",
                     itemIsActive: 1,
-                    regionCategory: draggables[itm]?.id === 1 ? 0 : 1,
+                    regionCategory: draggables[itm]?.id === 1 ? null : 1,
+                    itemId: null,
                   });
                 }}
                 className="draggable-chip plain"

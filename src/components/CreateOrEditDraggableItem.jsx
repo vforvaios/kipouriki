@@ -27,6 +27,7 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
     itemIsActive: dialogState?.itemIsActive,
     itemDraggableCategory: dialogState?.draggableItemType,
     itemRegionCategory: dialogState?.regionCategory,
+    id: dialogState?.itemId || null,
   });
 
   const handleAddEditForm = async () => {
@@ -35,10 +36,9 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
       draggable_category_id: requestState.itemDraggableCategory,
       isActive: requestState.itemIsActive,
       type: dialogState.type,
-      regionCategory: requestState?.regionCategory,
+      regionCategory: Number(requestState?.itemRegionCategory) || 0,
+      ...(requestState?.itemId && { id: requestState.itemId }),
     };
-
-    debugger;
 
     try {
       const promiseResult = await fetch(
@@ -67,7 +67,8 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
                 requestState.itemDraggableCategory !==
                 existingDraggables[curr]?.id
                   ? [...existingDraggables[curr]?.content]
-                  : [
+                  : dialogState.type === "create"
+                  ? [
                       ...existingDraggables[curr]?.content,
                       {
                         itemId: result?.id,
@@ -76,7 +77,20 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
                         isActive: requestState?.itemIsActive,
                         regionCategory: requestState?.itemRegionCategory,
                       },
-                    ],
+                    ]
+                  : existingDraggables[curr]?.content?.map((dragg) => {
+                      return dragg?.itemId !== requestState.itemId
+                        ? { ...dragg }
+                        : {
+                            ...dragg,
+                            itemId: result?.id,
+                            itemName: requestState?.itemName,
+                            draggableCategory:
+                              requestState?.itemDraggableCategory,
+                            isActive: requestState?.itemIsActive,
+                            regionCategory: requestState?.itemRegionCategory,
+                          };
+                    }),
             },
           }),
           {}
@@ -96,12 +110,14 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
       itemIsActive: dialogState?.itemIsActive,
       itemDraggableCategory: dialogState?.draggableItemType,
       itemRegionCategory: dialogState?.regionCategory,
+      itemId: dialogState?.itemId,
     });
   }, [
     dialogState.openAddEditForm,
     dialogState.itemName,
     dialogState.isActive,
     dialogState.regionCategory,
+    dialogState.itemId,
   ]);
 
   return (
