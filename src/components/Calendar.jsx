@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 import { updatedCurrentSchedule } from "../utils";
 import { numberOfDaysInEachWeek } from "../constants";
+import Slider from "react-slick";
 
 const Calendar = ({
   cars,
@@ -74,70 +75,51 @@ const Calendar = ({
     }
   };
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className={`main-content ${open ? "open" : ""}`}>
-      <Box display="flex" flexDirection="column" flexGrow={1}>
+      <Box>
         <Box
           className="days-row-container"
           flexBasis="50%"
-          display="flex"
+          // display="flex"
           flexDirection="row"
           gap={0.5}
           p={0.5}
         >
-          {allDatesFirstRow.map(({ dateToDisplay, accepts }, index) => (
-            <Day
-              fetchCurrentSchedule={fetchCurrentSchedule}
-              scheduleId={currentSchedule?.scheduleId}
-              currentSchedule={Object.keys(currentSchedule.days || {})
-                .filter((day) => day < 6)
-                .reduce(
-                  (acc, curr) => ({
-                    ...acc,
-                    [curr]: currentSchedule.days[curr],
-                  }),
-                  {}
-                )}
-              day={index + 1}
-              cars={cars}
-              dateToDisplay={dateToDisplay}
-              accept={accepts}
-              onDrop={(car, item) => handleDrop(car, index + 1, item)}
-              key={`${dateToDisplay}_${index}`}
-            />
-          ))}
-        </Box>
-        <Box
-          className="days-row-container"
-          flexBasis="50%"
-          display="flex"
-          flexDirection="row"
-          gap={0.5}
-          p={0.5}
-        >
-          {allDatesSecondRow.map(({ dateToDisplay, accepts }, index) => (
-            <Day
-              fetchCurrentSchedule={fetchCurrentSchedule}
-              scheduleId={currentSchedule?.scheduleId}
-              currentSchedule={Object.keys(currentSchedule.days || {})
-                .filter((day) => day >= numberOfDaysInEachWeek + 1)
-                .reduce(
-                  (acc, curr) => ({
-                    ...acc,
-                    [curr]: currentSchedule.days[curr],
-                  }),
-                  {}
-                )}
-              day={index + numberOfDaysInEachWeek + 1}
-              cars={cars}
-              dateToDisplay={dateToDisplay}
-              accept={accepts}
-              onDrop={(car, item) =>
-                handleDrop(car, index + numberOfDaysInEachWeek + 1, item)
-              }
-              key={`${dateToDisplay}_${index + numberOfDaysInEachWeek + 1}`}
-            />
-          ))}
+          <Slider {...settings}>
+            {[...allDatesFirstRow, ...allDatesSecondRow].map(
+              ({ dateToDisplay, accepts }, index) => (
+                <Day
+                  fetchCurrentSchedule={fetchCurrentSchedule}
+                  scheduleId={currentSchedule?.scheduleId}
+                  currentSchedule={Object.keys(
+                    currentSchedule.days || {}
+                  ).reduce(
+                    (acc, curr) => ({
+                      ...acc,
+                      [curr]: currentSchedule.days[curr],
+                    }),
+                    {}
+                  )}
+                  day={index + 1}
+                  cars={cars}
+                  dateToDisplay={dateToDisplay}
+                  accept={accepts}
+                  onDrop={(car, item) => handleDrop(car, index + 1, item)}
+                  key={`${dateToDisplay}_${index}`}
+                />
+                // <div>fadfds</div>
+              )
+            )}
+          </Slider>
         </Box>
       </Box>
     </div>

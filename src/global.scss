@@ -3,7 +3,9 @@
 @use "../src/styles/draggable.scss" as *;
 @use "../src/styles/login.scss" as *;
 @use "../src/styles/dialog.scss" as *;
+@use "../src/styles/slick.scss" as *;
 @use "../src/styles/responsive.scss" as *;
+@use "slick-carousel/slick/slick-theme" as *;
 
 * {
   box-sizing: border-box;
@@ -19,11 +21,12 @@ body {
 }
 
 .day {
-  flex-basis: 16.65%;
-  width: 16.65%;
   padding: 0 !important;
   border-radius: 12px;
   border: 1px groove $lighter-gray;
+  height: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .day-of-the-week {
@@ -35,10 +38,10 @@ body {
   font-size: 1.2rem;
   border-radius: 12px;
   margin-bottom: 4px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  display: flex;
 
   &.today {
     background: $black;
@@ -76,12 +79,15 @@ body {
 }
 
 .main-content {
-  margin-left: -241px;
-  flex-grow: 1;
+  // margin-left: -241px;
+  margin-left: 0;
+  margin-right: auto;
   transition: all 0.15s ease-in-out;
-  flex-direction: column;
-  display: flex;
   height: calc(100vh - 40px);
+
+  > div {
+    height: 100%;
+  }
 
   &.open {
     margin-left: 0;

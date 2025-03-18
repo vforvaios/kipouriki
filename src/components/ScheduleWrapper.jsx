@@ -156,7 +156,7 @@ const ScheduleWrapper = () => {
   return (
     <>
       <SnackbarProvider autoHideDuration={5000} />
-      <Box className="app-container" display="flex">
+      <Box className="app-container">
         <TopBar open={open} setOpen={setOpen} />
         <LeftSidebar draggables={draggables} setOpen={setOpen} open={open} />
         {loading ? (

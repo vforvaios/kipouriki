@@ -45,8 +45,8 @@ const Day = ({
             flexDirection="column"
             className="tile"
             key={car.id}
-            flexBasis={"20%"}
-            width={"20%"}
+            flexBasis={`calc(100% / ${cars.length})`}
+            width={`calc(100% / ${cars.length})`}
           >
             <Tooltip title={car.name}>
               <Typography className="car-text">{car.name}</Typography>

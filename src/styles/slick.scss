@@ -1,0 +1,37 @@
+@use "./colors.scss" as *;
+
+.slick-slider {
+  height: calc(100% - 40px);
+}
+
+.slick-slide,
+.slick-list,
+.slick-track {
+  height: 100%;
+}
+
+.slick-slide {
+  > div {
+    height: 100%;
+  }
+}
+
+.slick-prev {
+  left: 240px !important;
+
+  &:before {
+    content: "<";
+  }
+}
+
+.slick-next {
+  right: 240px !important;
+
+  &:before {
+    content: ">";
+  }
+}
+
+.slick-arrow {
+  color: $black !important;
+}
