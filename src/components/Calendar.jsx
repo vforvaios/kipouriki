@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 import { updatedCurrentSchedule } from "../utils";
-import { numberOfDaysInEachWeek } from "../constants";
 import Slider from "react-slick";
 
 const Calendar = ({
@@ -86,14 +85,7 @@ const Calendar = ({
   return (
     <div className={`main-content ${open ? "open" : ""}`}>
       <Box>
-        <Box
-          className="days-row-container"
-          flexBasis="50%"
-          // display="flex"
-          flexDirection="row"
-          gap={0.5}
-          p={0.5}
-        >
+        <Box className="days-row-container" p={0.5}>
           <Slider {...settings}>
             {[...allDatesFirstRow, ...allDatesSecondRow].map(
               ({ dateToDisplay, accepts }, index) => (
@@ -116,7 +108,6 @@ const Calendar = ({
                   onDrop={(car, item) => handleDrop(car, index + 1, item)}
                   key={`${dateToDisplay}_${index}`}
                 />
-                // <div>fadfds</div>
               )
             )}
           </Slider>
