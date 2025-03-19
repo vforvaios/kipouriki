@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { setCurrentSchedule } from "../models/actions/scheduleActions";
 import { token } from "../models/selectors/loginSelectors";
 import Day from "./Day";
+import SliderDays from "./SliderDays";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
@@ -18,6 +19,32 @@ const Calendar = ({
 }) => {
   const dispatch = useDispatch();
   const userToken = useSelector(token);
+  const [nav1, setNav1] = useState(null);
+  const [nav2, setNav2] = useState(null);
+  let sliderRef1 = useRef(null);
+  let sliderRef2 = useRef(null);
+
+  const findToday = () => {
+    return [...allDatesFirstRow, ...allDatesSecondRow].findIndex(
+      (d) =>
+        d.dateToDisplay ===
+        new Date()?.toLocaleDateString("el-GR", {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+        })
+    );
+  };
+
+  useEffect(() => {
+    setNav1(sliderRef1);
+    setNav2(sliderRef2);
+  }, []);
+
+  useEffect(() => {
+    sliderRef1.slickGoTo(findToday());
+    sliderRef2.slickGoTo(findToday());
+  }, [sliderRef1, sliderRef2, allDatesFirstRow, allDatesSecondRow]);
 
   const handleDrop = async (car, day, item) => {
     const currentScheduleId = currentSchedule?.scheduleId;
@@ -74,19 +101,54 @@ const Calendar = ({
     }
   };
 
-  const settings = {
+  const daysSliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 12,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    arrows: false,
+  };
+
+  const calendarDaysSliderSettings = {
+    dots: false,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
   };
 
   return (
     <div className={`main-content ${open ? "open" : ""}`}>
       <Box>
+        <Box
+          className="asNavForClass"
+          display="flex"
+          sx={{ margin: "0 auto", maxWidth: "600px" }}
+        >
+          <Slider
+            {...daysSliderSettings}
+            asNavFor={nav2}
+            ref={(slider) => (sliderRef1 = slider)}
+          >
+            {[...allDatesFirstRow, ...allDatesSecondRow].map(
+              ({ dateToDisplay }, index) => (
+                <SliderDays
+                  dateToDisplay={dateToDisplay}
+                  key={`asnavfor-${index}`}
+                />
+              )
+            )}
+          </Slider>
+        </Box>
         <Box className="days-row-container" p={0.5}>
-          <Slider {...settings}>
+          <Slider
+            {...calendarDaysSliderSettings}
+            asNavFor={nav1}
+            ref={(slider) => (sliderRef2 = slider)}
+          >
             {[...allDatesFirstRow, ...allDatesSecondRow].map(
               ({ dateToDisplay, accepts }, index) => (
                 <Day
