@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -14,6 +14,7 @@ import { setLoginUser } from "../models/actions/loginActions";
 
 const Login = ({ open, handleClose }) => {
   const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loginFormState, setLoginFormState] = useState({
@@ -104,7 +105,7 @@ const Login = ({ open, handleClose }) => {
             }
           />
           <Button
-            type="button"
+            type="submit"
             disabled={loading}
             fullWidth
             variant="contained"

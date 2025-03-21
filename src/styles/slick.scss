@@ -64,6 +64,14 @@
       cursor: pointer;
     }
 
+    .day-text {
+      font-size: 0.5rem;
+    }
+
+    .day-number {
+      font-size: 1rem;
+    }
+
     &.slick-current {
       .day-of-the-week {
         background: $light-pink;
