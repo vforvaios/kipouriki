@@ -14,6 +14,7 @@ import Loader from "./Loader";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { manipulateFetchedDraggableItems } from "../utils/manipulateFetchedDraggableItems";
 import { numberOfDaysInEachWeek } from "../constants";
 
 const ScheduleWrapper = () => {
@@ -34,7 +35,7 @@ const ScheduleWrapper = () => {
           day: "numeric",
         }),
         accepts: Object.values(draggables || {}).map((itm) =>
-          itm.id.toString()
+          itm.id?.toString()
         ),
       });
     }
@@ -83,10 +84,12 @@ const ScheduleWrapper = () => {
       );
       const result = await promiseResult.json();
 
+      const itemsToBeSaved = manipulateFetchedDraggableItems(result.items);
+
       if (result?.error) {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
-        dispatch(setDraggableItems(result?.items));
+        dispatch(setDraggableItems(itemsToBeSaved));
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });

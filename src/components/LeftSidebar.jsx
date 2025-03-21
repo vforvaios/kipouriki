@@ -42,70 +42,80 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
         </Tooltip>
       </Box>
       <div className="leftsidebar-scrollable">
-        {Object.keys(draggables)?.map((itm) => (
-          <React.Fragment key={`${itm}_${draggables[itm].id}`}>
-            <Box p={1}>
-              <Typography className="draggable-chips-title">{itm}</Typography>
-              <Box display="flex" flexWrap="wrap">
-                {draggables[itm].content.map(
-                  ({ itemName, itemId, isActive, regionCategory }) => (
-                    <DraggableBox
-                      dialogState={dialogState}
-                      setDialogState={setDialogState}
-                      id={itemId}
-                      isActive={isActive}
-                      regionCategory={regionCategory}
-                      draggableCategory={draggables[itm].id}
-                      name={itemName}
-                      key={itemId}
-                      type={draggables[itm].id.toString()}
-                    />
-                  )
-                )}
-              </Box>
-              <Chip
-                onClick={() => {
-                  setDialogState({
-                    ...dialogState,
-                    draggableItemType: draggables[itm]?.id,
-                    type: "create",
-                    openAddEditForm: true,
-                    itemName: "",
-                    itemIsActive: 1,
-                    regionCategory: draggables[itm]?.id === 1 ? null : 1,
-                    itemId: null,
-                  });
-                }}
-                className="draggable-chip plain"
-                label="ΠΡΟΣΘΗΚΗ +"
-                size="small"
-              />
-            </Box>
-            {draggables[itm].id === 2 && (
-              <Box
-                p={1}
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                flexDirection="column"
+        {Object.keys(draggables)?.map((itm) =>
+          Object.keys(draggables?.[itm])?.map((innerItem) => {
+            // console.log(itm, innerItem);
+            return (
+              <React.Fragment
+                key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
               >
-                {Object.keys(regionCategories)?.map((rc) => (
+                <Box p={1}>
+                  <Typography className="draggable-chips-title">
+                    {innerItem}
+                  </Typography>
+                  <Box display="flex" flexWrap="wrap">
+                    {draggables?.[itm]?.[innerItem]?.content.map(
+                      ({ itemName, itemId, isActive, regionCategory }) => (
+                        <DraggableBox
+                          dialogState={dialogState}
+                          setDialogState={setDialogState}
+                          id={itemId}
+                          isActive={isActive}
+                          regionCategory={regionCategory}
+                          draggableCategory={draggables?.[itm]?.[innerItem]?.id}
+                          name={itemName}
+                          key={itemId}
+                          type={draggables?.[itm]?.[innerItem]?.id?.toString()}
+                        />
+                      )
+                    )}
+                  </Box>
+                  <Chip
+                    onClick={() => {
+                      setDialogState({
+                        ...dialogState,
+                        draggableItemType: draggables?.[itm]?.[innerItem]?.id,
+                        type: "create",
+                        openAddEditForm: true,
+                        itemName: "",
+                        itemIsActive: 1,
+                        regionCategory:
+                          draggables?.[itm]?.[innerItem]?.id === 1 ? null : 1,
+                        itemId: null,
+                      });
+                    }}
+                    className="draggable-chip plain"
+                    label="ΠΡΟΣΘΗΚΗ +"
+                    size="small"
+                  />
+                </Box>
+                {draggables?.[itm]?.[innerItem]?.id === 2 && (
                   <Box
+                    p={1}
                     display="flex"
                     justifyContent="flex-start"
-                    alignItems="center"
-                    key={`color-indicator-${rc}`}
+                    alignItems="flex-start"
+                    flexDirection="column"
                   >
-                    <span
-                      className={`colorIndicator ${regionCategories?.[rc]}`}
-                    />
-                    <span>{regionCategories?.[rc].toUpperCase()}</span>
+                    {Object.keys(regionCategories)?.map((rc) => (
+                      <Box
+                        display="flex"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        key={`color-indicator-${rc}`}
+                      >
+                        <span
+                          className={`colorIndicator ${regionCategories?.[rc]}`}
+                        />
+                        <span>{regionCategories?.[rc].toUpperCase()}</span>
+                      </Box>
+                    ))}
                   </Box>
-                ))}
-              </Box>
-            )}
-          </React.Fragment>
-        ))}
+                )}
+              </React.Fragment>
+            );
+          })
+        )}
       </div>
       <CreateOrEditDraggableItem
         dialogState={dialogState}
