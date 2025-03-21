@@ -5,25 +5,18 @@ import {
 } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
 
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+
 self.addEventListener("activate", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") self.skipWaiting();
   console.log("Hi Vaios service worker");
 
-  const expectedCacheNamesSet = new Set(Object.values(CURRENT_CACHES));
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!expectedCacheNamesSet.has(cacheName)) {
-            console.log("Hiiiiiiiiiiiiiiiiiii");
-            // If this cache name isn't present in the set of
-            // "expected" cache names, then delete it.
-            console.log("Deleting out of date cache:", cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      )
-    )
+    caches.keys().then((cacheNames) => {
+      return Promise.all(cacheNames.map((cache) => caches.delete(cache)));
+    })
   );
 });
 

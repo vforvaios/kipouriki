@@ -198,13 +198,10 @@
 .tile {
   border-right-width: 1px;
   border-right-style: groove;
-  height: 50%;
-
-  &:nth-child(5) {
-    border-right: 0 none;
-  }
+  height: 100%;
 
   &:last-child {
+    border: 0 none;
     .list li {
       border-right: 0 none;
     }
@@ -280,4 +277,8 @@
   + span {
     font-size: 0.7rem;
   }
+}
+
+.days-row-container {
+  height: calc(100% - 112px);
 }

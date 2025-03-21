@@ -1,0 +1,77 @@
+@use "./colors.scss" as *;
+
+.slick-slider {
+  height: 100%;
+}
+
+.slick-slide,
+.slick-list,
+.slick-track {
+  height: 100%;
+}
+
+.slick-slide {
+  > div {
+    height: 100%;
+  }
+}
+
+.slick-prev {
+  left: 240px !important;
+
+  &:before {
+    content: "<";
+  }
+}
+
+.slick-next {
+  right: 240px !important;
+
+  &:before {
+    content: ">";
+  }
+}
+
+.slick-arrow {
+  color: $black !important;
+}
+
+.asNavForClass {
+  justify-content: center;
+  align-items: center;
+
+  .slick-track {
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    .slick-slide {
+      flex-basis: 15%;
+      width: auto !important;
+      display: flex;
+      > div {
+        width: 100%;
+      }
+    }
+  }
+
+  .slick-active {
+    .day-of-the-week {
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    &.slick-current {
+      .day-of-the-week {
+        background: $light-pink;
+
+        &.today {
+          background: $black;
+        }
+      }
+    }
+  }
+}

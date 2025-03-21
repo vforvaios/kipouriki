@@ -29,9 +29,12 @@ const SkeletonCalendar = () => {
             <Skeleton
               className="day-of-the-week"
               variant="rectangular"
+              animation="wave"
               width={"100%"}
-              height={40}
-            />
+              sx={{ height: "100px" }}
+            >
+              &nbsp;
+            </Skeleton>
 
             <Box
               display="flex"
@@ -67,6 +70,7 @@ const SkeletonCalendar = () => {
             flexDirection="column"
           >
             <Skeleton
+              animation="wave"
               className="day-of-the-week"
               variant="rectangular"
               width={"100%"}
@@ -80,7 +84,12 @@ const SkeletonCalendar = () => {
               alignItems="stretch"
               className="tiles-container"
             >
-              <Skeleton variant="rectangular" width={"100%"} height={118} />
+              <Skeleton
+                variant="rectangular"
+                animation="wave"
+                width={"100%"}
+                height={118}
+              />
             </Box>
           </Box>
         ))}

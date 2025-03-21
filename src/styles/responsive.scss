@@ -5,6 +5,7 @@
 
   .days-row-container {
     display: block !important;
+    width: 100%;
   }
 
   .day {
@@ -19,5 +20,45 @@
 
   .tile {
     height: auto;
+  }
+
+  .asNavForClass {
+    .day-number {
+      font-size: 0.9rem;
+    }
+
+    .day-text {
+      font-size: 0.5rem;
+    }
+  }
+
+  .tiles-container {
+    .tile {
+      flex-basis: 20%;
+      width: 20%;
+
+      &:last-child {
+        border-right-width: 1px;
+        border-right-style: groove;
+      }
+    }
+  }
+
+  .days-row-container {
+    height: calc(100% - 76px);
+  }
+
+  .MuiDrawer-paper,
+  .MuiDrawer-docked {
+    width: 170px !important;
+  }
+
+  .main-content.open {
+    margin-left: 170px !important;
+  }
+
+  header.open {
+    margin-left: 170px !important;
+    width: calc(100% - 170px) !important;
   }
 }

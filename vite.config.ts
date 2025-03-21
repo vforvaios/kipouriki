@@ -20,7 +20,7 @@ export default defineConfig({
       },
       injectRegister: "auto",
       devOptions: {
-        enabled: true,
+        enabled: false,
         type: "module",
         navigateFallback: "index.html",
       },
@@ -66,6 +66,8 @@ export default defineConfig({
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
+        runtimeCaching: [],
+        globPatterns: [],
       },
     }),
   ],

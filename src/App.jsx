@@ -7,6 +7,8 @@ import { DndProvider } from "react-dnd";
 import { useMediaQuery } from "@mui/material";
 import "./fontello/css/fontello.css";
 import "./global.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import ScheduleWrapper from "./components/ScheduleWrapper";
 
 function App() {
