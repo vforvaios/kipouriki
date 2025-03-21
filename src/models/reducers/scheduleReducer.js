@@ -2,12 +2,10 @@ import { createReducer } from "@reduxjs/toolkit";
 import {
   setDraggableItems,
   setCurrentSchedule,
-  setDraggableInactiveItems,
 } from "../actions/scheduleActions";
 
 const initialState = {
   draggableItems: [],
-  draggableInactiveItems: [],
   currentSchedule: {},
 };
 const scheduleReducer = createReducer(initialState, (builder) => {
@@ -15,10 +13,6 @@ const scheduleReducer = createReducer(initialState, (builder) => {
     .addCase(setDraggableItems, (state, action) => ({
       ...state,
       draggableItems: action.payload,
-    }))
-    .addCase(setDraggableInactiveItems, (state, action) => ({
-      ...state,
-      draggableInactiveItems: action.payload,
     }))
     .addCase(setCurrentSchedule, (state, action) => ({
       ...state,

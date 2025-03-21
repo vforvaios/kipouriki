@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   setDraggableItems,
   setCurrentSchedule,
-  setDraggableInactiveItems,
 } from "../models/actions/scheduleActions";
 import {
   allDraggables,
-  allInactiveDraggables,
   currentSchedule,
 } from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
@@ -23,7 +21,6 @@ const ScheduleWrapper = () => {
   const [cars, setCars] = useState([]);
   const schedule = useSelector(currentSchedule);
   const draggables = useSelector(allDraggables);
-  const inActiveDraggables = useSelector(allInactiveDraggables);
 
   const generateDates = (start) => {
     const localDates = [];
@@ -72,10 +69,10 @@ const ScheduleWrapper = () => {
     }
   };
 
-  const fetchActiveDraggableItems = async () => {
+  const fetchDraggableItems = async () => {
     try {
       const promiseResult = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/draggable-items/active`,
+        `${import.meta.env.VITE_API_URL}/api/draggable-items`,
         {
           headers: {
             Accept: "application/json",
@@ -90,30 +87,6 @@ const ScheduleWrapper = () => {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
         dispatch(setDraggableItems(result?.items));
-      }
-    } catch (error) {
-      enqueueSnackbar(error, { variant: "error" });
-    }
-  };
-
-  const fetchInActiveDraggableItems = async () => {
-    try {
-      const promiseResult = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/draggable-items/inactive`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        }
-      );
-      const result = await promiseResult.json();
-
-      if (result?.error) {
-        enqueueSnackbar(result.error, { variant: "error" });
-      } else {
-        dispatch(setDraggableInactiveItems(result?.items));
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -171,8 +144,7 @@ const ScheduleWrapper = () => {
   const handleAllFetches = async () => {
     await fetchCars();
     await fetchLastDates();
-    await fetchActiveDraggableItems();
-    await fetchInActiveDraggableItems();
+    await fetchDraggableItems();
     await fetchCurrentSchedule();
     setLoading(false);
   };
@@ -186,12 +158,7 @@ const ScheduleWrapper = () => {
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container">
         <TopBar open={open} setOpen={setOpen} />
-        <LeftSidebar
-          draggables={draggables}
-          inActiveDraggables={inActiveDraggables}
-          setOpen={setOpen}
-          open={open}
-        />
+        <LeftSidebar draggables={draggables} setOpen={setOpen} open={open} />
         {loading ? (
           <Loader />
         ) : (

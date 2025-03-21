@@ -6,7 +6,7 @@ import { regionCategories } from "../constants";
 
 const drawerWidth = 240;
 
-const LeftSidebar = ({ draggables, inActiveDraggables, open, setOpen }) => {
+const LeftSidebar = ({ draggables, open, setOpen }) => {
   const [dialogState, setDialogState] = useState({
     draggableItemType: 1,
     openAddEditForm: false,
@@ -82,55 +82,6 @@ const LeftSidebar = ({ draggables, inActiveDraggables, open, setOpen }) => {
               />
             </Box>
             {draggables[itm].id === 2 && (
-              <Box
-                p={1}
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                flexDirection="column"
-              >
-                {Object.keys(regionCategories)?.map((rc) => (
-                  <Box
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    key={`color-indicator-${rc}`}
-                  >
-                    <span
-                      className={`colorIndicator ${regionCategories?.[rc]}`}
-                    />
-                    <span>{regionCategories?.[rc].toUpperCase()}</span>
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </React.Fragment>
-        ))}
-        {Object.keys(inActiveDraggables)?.map((itm) => (
-          <React.Fragment key={`${itm}_${inActiveDraggables[itm].id}`}>
-            <Box p={1}>
-              <Typography className="draggable-chips-title">
-                Inactive {itm}
-              </Typography>
-              <Box display="flex" flexWrap="wrap">
-                {inActiveDraggables[itm].content.map(
-                  ({ itemName, itemId, isActive, regionCategory }) => (
-                    <DraggableBox
-                      dialogState={dialogState}
-                      setDialogState={setDialogState}
-                      id={itemId}
-                      isActive={isActive}
-                      regionCategory={regionCategory}
-                      draggableCategory={inActiveDraggables[itm].id}
-                      name={itemName}
-                      key={itemId}
-                      type={inActiveDraggables[itm].id.toString()}
-                    />
-                  )
-                )}
-              </Box>
-            </Box>
-            {inActiveDraggables[itm].id === 2 && (
               <Box
                 p={1}
                 display="flex"
