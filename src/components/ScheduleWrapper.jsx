@@ -84,12 +84,12 @@ const ScheduleWrapper = () => {
       );
       const result = await promiseResult.json();
 
-      const itemsToBeSaved = manipulateFetchedDraggableItems(result.items);
+      // const itemsToBeSaved = manipulateFetchedDraggableItems(result.items);
 
       if (result?.error) {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
-        dispatch(setDraggableItems(itemsToBeSaved));
+        dispatch(setDraggableItems(result.items));
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -161,7 +161,11 @@ const ScheduleWrapper = () => {
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container">
         <TopBar open={open} setOpen={setOpen} />
-        <LeftSidebar draggables={draggables} setOpen={setOpen} open={open} />
+        <LeftSidebar
+          draggables={manipulateFetchedDraggableItems(draggables)}
+          setOpen={setOpen}
+          open={open}
+        />
         {loading ? (
           <Loader />
         ) : (

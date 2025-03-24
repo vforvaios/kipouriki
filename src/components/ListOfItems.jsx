@@ -149,6 +149,16 @@ const ListOfItems = ({
               <span>Μέρα: {popperStateForRemoving.day}</span>
               <span>Αυτοκίνητο: {popperStateForRemoving.car}</span>
             </Box>
+            {type === "regions" && (
+              <button
+                className="dnh"
+                onClick={() => {
+                  console.log(type);
+                }}
+              >
+                Δεν έγινε
+              </button>
+            )}
             <button
               onClick={() =>
                 handleRemoveItemFormList(

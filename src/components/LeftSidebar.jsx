@@ -43,33 +43,32 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
       </Box>
       <div className="leftsidebar-scrollable">
         {Object.keys(draggables)?.map((itm) =>
-          Object.keys(draggables?.[itm])?.map((innerItem) => {
-            // console.log(itm, innerItem);
-            return (
-              <React.Fragment
-                key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
-              >
-                <Box p={1}>
-                  <Typography className="draggable-chips-title">
-                    {innerItem}
-                  </Typography>
-                  <Box display="flex" flexWrap="wrap">
-                    {draggables?.[itm]?.[innerItem]?.content.map(
-                      ({ itemName, itemId, isActive, regionCategory }) => (
-                        <DraggableBox
-                          dialogState={dialogState}
-                          setDialogState={setDialogState}
-                          id={itemId}
-                          isActive={isActive}
-                          regionCategory={regionCategory}
-                          draggableCategory={draggables?.[itm]?.[innerItem]?.id}
-                          name={itemName}
-                          key={itemId}
-                          type={draggables?.[itm]?.[innerItem]?.id?.toString()}
-                        />
-                      )
-                    )}
-                  </Box>
+          Object.keys(draggables?.[itm])?.map((innerItem) => (
+            <React.Fragment
+              key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
+            >
+              <Box p={1}>
+                <Typography className="draggable-chips-title">
+                  {itm === "inactive" ? `Ανενεργά(οί) ${innerItem}` : innerItem}
+                </Typography>
+                <Box display="flex" flexWrap="wrap">
+                  {draggables?.[itm]?.[innerItem]?.content.map(
+                    ({ itemName, itemId, isActive, regionCategory }) => (
+                      <DraggableBox
+                        dialogState={dialogState}
+                        setDialogState={setDialogState}
+                        id={itemId}
+                        isActive={isActive}
+                        regionCategory={regionCategory}
+                        draggableCategory={draggables?.[itm]?.[innerItem]?.id}
+                        name={itemName}
+                        key={itemId}
+                        type={draggables?.[itm]?.[innerItem]?.id?.toString()}
+                      />
+                    )
+                  )}
+                </Box>
+                {itm !== "inactive" && (
                   <Chip
                     onClick={() => {
                       setDialogState({
@@ -88,33 +87,33 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
                     label="ΠΡΟΣΘΗΚΗ +"
                     size="small"
                   />
-                </Box>
-                {draggables?.[itm]?.[innerItem]?.id === 2 && (
-                  <Box
-                    p={1}
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    flexDirection="column"
-                  >
-                    {Object.keys(regionCategories)?.map((rc) => (
-                      <Box
-                        display="flex"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        key={`color-indicator-${rc}`}
-                      >
-                        <span
-                          className={`colorIndicator ${regionCategories?.[rc]}`}
-                        />
-                        <span>{regionCategories?.[rc].toUpperCase()}</span>
-                      </Box>
-                    ))}
-                  </Box>
                 )}
-              </React.Fragment>
-            );
-          })
+              </Box>
+              {draggables?.[itm]?.[innerItem]?.id === 2 && itm === "active" && (
+                <Box
+                  p={1}
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  flexDirection="column"
+                >
+                  {Object.keys(regionCategories)?.map((rc) => (
+                    <Box
+                      display="flex"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      key={`color-indicator-${rc}`}
+                    >
+                      <span
+                        className={`colorIndicator ${regionCategories?.[rc]}`}
+                      />
+                      <span>{regionCategories?.[rc].toUpperCase()}</span>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </React.Fragment>
+          ))
         )}
       </div>
       <CreateOrEditDraggableItem

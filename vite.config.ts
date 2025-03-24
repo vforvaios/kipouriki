@@ -25,8 +25,8 @@ export default defineConfig({
         navigateFallback: "index.html",
       },
       manifest: {
-        name: "Kipouriki",
-        short_name: "Kipouriki",
+        name: "Kipourgies",
+        short_name: "Kipourgies",
         screenshots: [
           {
             src: "/favicon-512x512.png",
