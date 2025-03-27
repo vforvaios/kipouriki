@@ -17,7 +17,7 @@ const DraggableBox = ({
   const [{ opacity }, drag] = useDrag(
     () => ({
       type,
-      item: { id, name, draggableCategory },
+      item: { id, name, draggableCategory, regionCategory },
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0.4 : 1,
       }),

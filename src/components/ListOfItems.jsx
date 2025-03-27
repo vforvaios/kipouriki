@@ -37,6 +37,19 @@ const ListOfItems = ({
     }),
   });
 
+  const handleConvertDone = async (itm, day, car) => {
+    try {
+      setRemovingLoading(true);
+      console.log(itm);
+      console.log(day);
+      console.log(car);
+    } catch (error) {
+    } finally {
+      setRemovingLoading(false);
+      setPopperStateForRemoving(initialPopperState);
+    }
+  };
+
   const handleRemoveItemFormList = async (itm, day, car) => {
     setRemovingLoading(true);
     try {
@@ -106,7 +119,11 @@ const ListOfItems = ({
                   itm?.draggable_category_id === 2
                     ? `${regionCategories?.[itm?.region_category]}`
                     : ""
-                } ${userIsLoggedIn ? "removable" : ""}`}
+                } ${userIsLoggedIn ? "removable" : ""} ${
+                  itm?.draggable_category_id === 2 && !itm.isDone
+                    ? "not-done"
+                    : ""
+                }`}
                 onClick={(e) => {
                   if (userIsLoggedIn) {
                     setPopperStateForRemoving(initialPopperState);
@@ -153,7 +170,11 @@ const ListOfItems = ({
               <button
                 className="dnh"
                 onClick={() => {
-                  console.log(type);
+                  handleConvertDone(
+                    popperStateForRemoving.itm,
+                    popperStateForRemoving.day,
+                    popperStateForRemoving.car
+                  );
                 }}
               >
                 Δεν έγινε

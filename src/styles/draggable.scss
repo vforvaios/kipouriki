@@ -191,6 +191,23 @@
   &.regions-list {
     li p {
       color: $black;
+
+      &.not-done {
+        position: relative;
+        padding-right: 8px;
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: $red;
+          top: 50%;
+          margin-top: -2px;
+          right: 2px;
+        }
+      }
     }
   }
 }

@@ -22,6 +22,7 @@ export const updatedCurrentSchedule = (currentSchedule, day, car, item) => ({
                     name: item?.name,
                     isActive: 1,
                     draggable_category_id: item.draggableCategory,
+                    region_category: 0,
                   },
                 ],
           regions:
@@ -38,6 +39,8 @@ export const updatedCurrentSchedule = (currentSchedule, day, car, item) => ({
                     name: item?.name,
                     isActive: 1,
                     draggable_category_id: item.draggableCategory,
+                    region_category: item.regionCategory,
+                    isDone: true,
                   },
                 ],
         },
