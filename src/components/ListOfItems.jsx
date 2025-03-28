@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
-import { Tooltip, Typography, Popover, Fade, Box } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { userLoggedIn, token } from "../models/selectors/loginSelectors";
 import { enqueueSnackbar } from "notistack";
 import { regionCategories } from "../constants";
+import ManipulateListItemModal from "./ManipulateListItemModal";
 
 const ListOfItems = ({
   day,
@@ -54,6 +55,7 @@ const ListOfItems = ({
     setRemovingLoading(true);
     try {
       const resp = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/schedules/current/removeItem`,
         {
           headers: {
@@ -146,53 +148,14 @@ const ListOfItems = ({
         ))}
       </ul>
       {userIsLoggedIn && (
-        <Popover
-          open={popperStateForRemoving.open}
-          anchorEl={popperStateForRemoving.anchorEl}
-          onClose={() => setPopperStateForRemoving(initialPopperState)}
-          id={
-            Boolean(popperStateForRemoving.anchorEl)
-              ? "transition-popper"
-              : undefined
-          }
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-        >
-          <Box>
-            <Box display="flex" flexDirection="column" className="removal-info">
-              <span>Όνομα: {popperStateForRemoving.itm?.name}</span>
-              <span>Μέρα: {popperStateForRemoving.day}</span>
-              <span>Αυτοκίνητο: {popperStateForRemoving.car}</span>
-            </Box>
-            {type === "regions" && (
-              <button
-                className="dnh"
-                onClick={() => {
-                  handleConvertDone(
-                    popperStateForRemoving.itm,
-                    popperStateForRemoving.day,
-                    popperStateForRemoving.car
-                  );
-                }}
-              >
-                Δεν έγινε
-              </button>
-            )}
-            <button
-              onClick={() =>
-                handleRemoveItemFormList(
-                  popperStateForRemoving.itm,
-                  popperStateForRemoving.day,
-                  popperStateForRemoving.car
-                )
-              }
-            >
-              Διαγραφή
-            </button>
-          </Box>
-        </Popover>
+        <ManipulateListItemModal
+          initialPopperState={initialPopperState}
+          setPopperStateForRemoving={setPopperStateForRemoving}
+          popperStateForRemoving={popperStateForRemoving}
+          type={type}
+          handleConvertDone={handleConvertDone}
+          handleRemoveItemFormList={handleRemoveItemFormList}
+        />
       )}
     </>
   );

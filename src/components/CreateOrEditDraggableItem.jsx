@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 
 import {
@@ -68,29 +69,30 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
                 existingDraggables[curr]?.id
                   ? [...existingDraggables[curr]?.content]
                   : dialogState.type === "create"
-                  ? [
-                      ...existingDraggables[curr]?.content,
-                      {
-                        itemId: result?.id,
-                        itemName: requestState?.itemName,
-                        draggableCategory: requestState?.itemDraggableCategory,
-                        isActive: requestState?.itemIsActive,
-                        regionCategory: requestState?.itemRegionCategory,
-                      },
-                    ]
-                  : existingDraggables[curr]?.content?.map((dragg) => {
-                      return dragg?.itemId !== requestState.itemId
-                        ? { ...dragg }
-                        : {
-                            ...dragg,
-                            itemId: result?.id,
-                            itemName: requestState?.itemName,
-                            draggableCategory:
-                              requestState?.itemDraggableCategory,
-                            isActive: requestState?.itemIsActive,
-                            regionCategory: requestState?.itemRegionCategory,
-                          };
-                    }),
+                    ? [
+                        ...existingDraggables[curr]?.content,
+                        {
+                          itemId: result?.id,
+                          itemName: requestState?.itemName,
+                          draggableCategory:
+                            requestState?.itemDraggableCategory,
+                          isActive: requestState?.itemIsActive,
+                          regionCategory: requestState?.itemRegionCategory,
+                        },
+                      ]
+                    : existingDraggables[curr]?.content?.map((dragg) => {
+                        return dragg?.itemId !== requestState.itemId
+                          ? { ...dragg }
+                          : {
+                              ...dragg,
+                              itemId: result?.id,
+                              itemName: requestState?.itemName,
+                              draggableCategory:
+                                requestState?.itemDraggableCategory,
+                              isActive: requestState?.itemIsActive,
+                              regionCategory: requestState?.itemRegionCategory,
+                            };
+                      }),
             },
           }),
           {}

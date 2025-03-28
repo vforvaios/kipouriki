@@ -49,6 +49,7 @@ const ScheduleWrapper = () => {
   const fetchLastDates = async () => {
     try {
       const promiseResult = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/dates`,
         {
           headers: {
@@ -73,6 +74,7 @@ const ScheduleWrapper = () => {
   const fetchDraggableItems = async () => {
     try {
       const promiseResult = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/draggable-items`,
         {
           headers: {
@@ -99,6 +101,7 @@ const ScheduleWrapper = () => {
   const fetchCurrentSchedule = async () => {
     try {
       const promiseResult = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/schedules/current`,
         {
           headers: {
@@ -123,6 +126,7 @@ const ScheduleWrapper = () => {
   const fetchCars = async () => {
     try {
       const promiseResult = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/cars`,
         {
           headers: {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useRef, useEffect } from "react";
 import { setCurrentSchedule } from "../models/actions/scheduleActions";
 import { token } from "../models/selectors/loginSelectors";
@@ -59,6 +60,7 @@ const Calendar = ({
           )?.length;
     if (!itemAlreadyExistsInSuchDayAndCar) {
       try {
+        // @ts-ignore
         const resp = await fetch(
           `${import.meta.env.VITE_API_URL}/api/schedules/current/addItem`,
           {

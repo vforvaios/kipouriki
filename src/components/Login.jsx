@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -27,6 +27,7 @@ const Login = ({ open, handleClose }) => {
       setLoading(true);
       const credentials = loginFormState;
       const promiseResult = await fetch(
+        // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/login`,
         {
           headers: {
@@ -68,6 +69,7 @@ const Login = ({ open, handleClose }) => {
               setLoginFormState({ ...loginFormState, username: e.target.value })
             }
             placeholder="Όνομα χρήστη"
+            // @ts-ignore
             variant="outlined"
             required
             fullWidth
@@ -82,6 +84,7 @@ const Login = ({ open, handleClose }) => {
             }
             placeholder="Κωδικός"
             className="login-input"
+            // @ts-ignore
             variant="outlined"
             required
             fullWidth

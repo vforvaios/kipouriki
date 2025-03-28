@@ -71,4 +71,7 @@ export default defineConfig({
       },
     }),
   ],
+  define: {
+    "import.meta.env": {}, // Prevents ESLint issues
+  },
 });
