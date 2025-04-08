@@ -39,12 +39,39 @@ const ListOfItems = ({
   });
 
   const handleConvertDone = async (itm, day, car) => {
+    setRemovingLoading(true);
+
     try {
-      setRemovingLoading(true);
-      console.log(itm);
-      console.log(day);
-      console.log(car);
+      console.log("itm=", itm);
+      console.log("day=", day);
+      console.log("car=", car);
+      const resp = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/schedules/current/doneNotDoneItem`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          method: "POST",
+          body: JSON.stringify({
+            scheduleId,
+            day,
+            carId: car,
+            item: itm,
+          }),
+        }
+      );
+
+      const res = await resp.json();
+      if (res.error) {
+        enqueueSnackbar(res.error, { variant: "error" });
+      } else {
+        await fetchCurrentSchedule();
+      }
     } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
     } finally {
       setRemovingLoading(false);
       setPopperStateForRemoving(initialPopperState);
@@ -152,6 +179,7 @@ const ListOfItems = ({
           initialPopperState={initialPopperState}
           setPopperStateForRemoving={setPopperStateForRemoving}
           popperStateForRemoving={popperStateForRemoving}
+          loading={removingLoading}
           type={type}
           handleConvertDone={handleConvertDone}
           handleRemoveItemFormList={handleRemoveItemFormList}

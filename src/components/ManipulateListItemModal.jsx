@@ -8,6 +8,7 @@ const ManipulateListItemModal = ({
   initialPopperState,
   handleConvertDone,
   handleRemoveItemFormList,
+  loading,
 }) => {
   return (
     <Popover
@@ -33,6 +34,7 @@ const ManipulateListItemModal = ({
         {type === "regions" && (
           <button
             className="dnh"
+            disabled={loading}
             onClick={() => {
               handleConvertDone(
                 popperStateForRemoving.itm,
@@ -41,10 +43,15 @@ const ManipulateListItemModal = ({
               );
             }}
           >
-            Δεν έγινε
+            {loading
+              ? "Περιμένετε..."
+              : popperStateForRemoving?.itm?.isDone
+                ? "Δεν έγινε"
+                : "Εγινε"}
           </button>
         )}
         <button
+          disabled={loading}
           onClick={() =>
             handleRemoveItemFormList(
               popperStateForRemoving.itm,
@@ -53,7 +60,7 @@ const ManipulateListItemModal = ({
             )
           }
         >
-          Διαγραφή
+          {loading ? "Περιμένετε..." : "Διαγραφή"}
         </button>
       </Box>
     </Popover>
