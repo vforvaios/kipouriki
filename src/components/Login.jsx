@@ -49,7 +49,6 @@ const Login = ({ open, handleClose }) => {
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
-      console.log(error);
     } finally {
       setLoading(false);
     }

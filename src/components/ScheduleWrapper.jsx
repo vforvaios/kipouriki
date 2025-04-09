@@ -164,7 +164,7 @@ const ScheduleWrapper = () => {
     <>
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container">
-        <TopBar open={open} setOpen={setOpen} />
+        <TopBar open={open} setOpen={setOpen} schedule={schedule} />
         <LeftSidebar
           draggables={manipulateFetchedDraggableItems(draggables)}
           setOpen={setOpen}

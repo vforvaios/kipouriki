@@ -42,9 +42,6 @@ const ListOfItems = ({
     setRemovingLoading(true);
 
     try {
-      console.log("itm=", itm);
-      console.log("day=", day);
-      console.log("car=", car);
       const resp = await fetch(
         // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/schedules/current/doneNotDoneItem`,

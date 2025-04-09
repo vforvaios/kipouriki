@@ -1,4 +1,20 @@
+@use "./colors.scss" as *;
+
 button {
   font-size: 12px !important;
   text-transform: none !important;
+
+  &.set-as-default-button {
+    margin-right: 6px;
+  }
+
+  &.error {
+    background: $red;
+    color: $white !important;
+  }
+
+  &.success {
+    background: $green;
+    color: $white !important;
+  }
 }

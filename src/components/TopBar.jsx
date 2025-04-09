@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { userLoggedIn } from "../models/selectors/loginSelectors";
 import { AppBar, Toolbar, Button } from "@mui/material";
@@ -5,7 +6,7 @@ import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginUser } from "../models/actions/loginActions";
 
-const TopBar = ({ open, setOpen }) => {
+const TopBar = ({ open, setOpen, schedule }) => {
   const dispatch = useDispatch();
   const [openLogin, setOpenLogin] = useState(false);
   const userIsLoggedIn = useSelector(userLoggedIn);
@@ -21,19 +22,31 @@ const TopBar = ({ open, setOpen }) => {
             />
           )}
         </div>
-        <Button
-          onClick={() => {
-            if (!userIsLoggedIn) {
-              setOpenLogin(true);
-            } else {
-              setOpen(false);
-              dispatch(setLoginUser(null));
-            }
-          }}
-          color="inherit"
-        >
-          {userIsLoggedIn ? "Αποσύνδεση" : "Σύνδεση"}
-        </Button>
+        <div>
+          {userIsLoggedIn && (
+            <Button
+              onClick={() => {
+                console.log(schedule);
+              }}
+              className="set-as-default-button"
+            >
+              Προεπιλογή
+            </Button>
+          )}
+          <Button
+            onClick={() => {
+              if (!userIsLoggedIn) {
+                setOpenLogin(true);
+              } else {
+                setOpen(false);
+                dispatch(setLoginUser(null));
+              }
+            }}
+            className={userIsLoggedIn ? "error" : "success"}
+          >
+            {userIsLoggedIn ? "Αποσύνδεση" : "Σύνδεση"}
+          </Button>
+        </div>
       </Toolbar>
       <Login open={openLogin} handleClose={() => setOpenLogin(false)} />
     </AppBar>
