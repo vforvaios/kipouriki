@@ -27,13 +27,20 @@ body {
   height: 100%;
   max-width: 700px;
   margin: 0 auto;
+
+  .day-of-the-week {
+    &.today {
+      background: $black;
+      color: $white;
+    }
+  }
 }
 
 .day-of-the-week {
   background: $light-gray;
+  color: $black;
   text-align: center;
   padding: 2px;
-  color: $black;
   font-weight: 600;
   font-size: 1.2rem;
   border-radius: 12px;

@@ -46,11 +46,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 4px;
 
     .slick-slide {
       flex-basis: 15%;
-      width: auto !important;
+      width: 50px !important;
       display: flex;
       > div {
         width: 100%;
@@ -62,10 +61,21 @@
     .day-of-the-week {
       transition: all 0.2s ease-in-out;
       cursor: pointer;
+      background: $white;
+      border: 1px solid $light-gray;
+
+      &.today {
+        background: $black;
+      }
+
+      &.upper {
+        width: 50px;
+        height: 50px;
+      }
     }
 
     .day-text {
-      font-size: 0.5rem;
+      font-size: 0.7rem;
     }
 
     .day-number {
@@ -74,10 +84,20 @@
 
     &.slick-current {
       .day-of-the-week {
-        background: $light-pink;
+        border-bottom: 1px solid $light-blue;
+
+        .day-number {
+          color: $light-blue;
+        }
 
         &.today {
           background: $black;
+          border-bottom: 0;
+          &.upper {
+            .day-number {
+              color: $white;
+            }
+          }
         }
       }
     }

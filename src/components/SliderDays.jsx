@@ -5,7 +5,7 @@ const SliderDays = ({ dateToDisplay }) => {
 
   return (
     <div
-      className={`day-of-the-week ${
+      className={`day-of-the-week upper ${
         dateToDisplay ===
         new Date()?.toLocaleDateString("el-GR", {
           weekday: "short",
