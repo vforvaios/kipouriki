@@ -44,7 +44,33 @@ const ScheduleWrapper = () => {
 
   const [open, setOpen] = useState(false);
   const [dates, setDates] = useState(null);
+  const [allSchedules, setAllSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const fetchAllSchedules = async () => {
+    try {
+      const promiseResult = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/schedules`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        setAllSchedules(result);
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
+  };
 
   const fetchLastDates = async () => {
     try {
@@ -151,6 +177,7 @@ const ScheduleWrapper = () => {
   const handleAllFetches = async () => {
     await fetchCars();
     await fetchLastDates();
+    await fetchAllSchedules();
     await fetchDraggableItems();
     await fetchCurrentSchedule();
     setLoading(false);
@@ -164,7 +191,12 @@ const ScheduleWrapper = () => {
     <>
       <SnackbarProvider autoHideDuration={5000} />
       <Box className="app-container">
-        <TopBar open={open} setOpen={setOpen} schedule={schedule} />
+        <TopBar
+          open={open}
+          setOpen={setOpen}
+          schedule={schedule}
+          allSchedules={allSchedules}
+        />
         <LeftSidebar
           draggables={manipulateFetchedDraggableItems(draggables)}
           setOpen={setOpen}

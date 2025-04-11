@@ -108,3 +108,17 @@ header {
     margin-left: 240px;
   }
 }
+
+.defaultSchedule {
+  margin-right: 6px;
+  .MuiSelect-select {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 6px;
+  }
+}
+
+#dropdownAllSchedules,
+.schedule-li-option {
+  font-size: 12px !important;
+}
