@@ -116,9 +116,35 @@ header {
     padding-bottom: 2px !important;
     padding-left: 6px;
   }
+
+  fieldset {
+    visibility: visible !important;
+    top: -12px;
+
+    legend {
+      height: 27px;
+      visibility: visible !important;
+      overflow: visible !important;
+    }
+
+    span {
+      font-size: 0.6rem;
+      opacity: 1 !important;
+      height: 13px !important;
+      background: white !important;
+    }
+  }
 }
 
-#dropdownAllSchedules,
+#dropdownAllSchedules {
+  font-size: 11px !important;
+}
+
 .schedule-li-option {
-  font-size: 12px !important;
+  border-bottom: 1px solid $lighter-gray !important;
+  font-size: 11px !important;
+
+  &:last-child {
+    border-bottom: 0 none !important;
+  }
 }

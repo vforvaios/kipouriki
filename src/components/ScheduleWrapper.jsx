@@ -196,6 +196,7 @@ const ScheduleWrapper = () => {
           setOpen={setOpen}
           schedule={schedule}
           allSchedules={allSchedules}
+          refreshAllSchedules={fetchAllSchedules}
         />
         <LeftSidebar
           draggables={manipulateFetchedDraggableItems(draggables)}

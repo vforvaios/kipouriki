@@ -1,15 +1,67 @@
 // @ts-nocheck
-import React, { useState } from "react";
-import { userLoggedIn } from "../models/selectors/loginSelectors";
-import { AppBar, Toolbar, Button, Select, MenuItem } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { userLoggedIn, token } from "../models/selectors/loginSelectors";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginUser } from "../models/actions/loginActions";
+import { enqueueSnackbar } from "notistack";
 
-const TopBar = ({ open, setOpen, schedule, allSchedules }) => {
+const TopBar = ({
+  open,
+  setOpen,
+  schedule,
+  allSchedules,
+  refreshAllSchedules,
+}) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
+  const [selectedSchedule, setSelectedSchedule] = useState(
+    schedule?.scheduleId
+  );
   const userIsLoggedIn = useSelector(userLoggedIn);
+  const userToken = useSelector(token);
+
+  const handleDefaultSchedule = async () => {
+    try {
+      setLoading(true);
+      const resp = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/schedules/setdefault`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          method: "POST",
+          body: JSON.stringify({
+            scheduleId: selectedSchedule,
+          }),
+        }
+      );
+
+      const res = await resp.json();
+      if (res.error) {
+        enqueueSnackbar(res.error, { variant: "error" });
+      } else {
+        await refreshAllSchedules();
+        enqueueSnackbar("Ολα πήγαν καλά!", { variant: "success" });
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AppBar className={open ? "open" : ""} position="fixed" open={open}>
@@ -26,12 +78,11 @@ const TopBar = ({ open, setOpen, schedule, allSchedules }) => {
           {userIsLoggedIn && (
             <>
               <Select
+                label="Προγράμματα"
                 className="defaultSchedule"
                 id="dropdownAllSchedules"
-                value={
-                  allSchedules?.find((sc) => Boolean(sc?.isDefault))?.id || ""
-                }
-                onChange={() => {}}
+                value={selectedSchedule || ""}
+                onChange={(e) => setSelectedSchedule(e.target.value)}
               >
                 {allSchedules?.map((sc) => {
                   const firstMonday = new Date(sc?.startDate1);
@@ -47,18 +98,21 @@ const TopBar = ({ open, setOpen, schedule, allSchedules }) => {
                         weekday: "short",
                         month: "numeric",
                         day: "numeric",
+                        year: "numeric",
                       })} - ${new Date(temp)?.toLocaleDateString("el-GR", {
                         weekday: "short",
                         month: "numeric",
                         day: "numeric",
-                      })}`}
+                        year: "numeric",
+                      })} ${sc?.isDefault ? "(Π)" : ""}`}
                     </MenuItem>
                   );
                 })}
               </Select>
               <Button
+                disabled={loading}
                 onClick={() => {
-                  console.log(schedule);
+                  handleDefaultSchedule();
                 }}
                 className="set-as-default-button"
               >
