@@ -2,11 +2,13 @@ import { createReducer } from "@reduxjs/toolkit";
 import {
   setDraggableItems,
   setCurrentSchedule,
+  setCars,
 } from "../actions/scheduleActions";
 
 const initialState = {
   draggableItems: [],
   currentSchedule: {},
+  cars: [],
 };
 const scheduleReducer = createReducer(initialState, (builder) => {
   builder
@@ -17,6 +19,10 @@ const scheduleReducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentSchedule, (state, action) => ({
       ...state,
       currentSchedule: action.payload,
+    }))
+    .addCase(setCars, (state, action) => ({
+      ...state,
+      cars: action.payload,
     }));
 });
 

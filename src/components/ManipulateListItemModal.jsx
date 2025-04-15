@@ -1,5 +1,5 @@
 import React from "react";
-import { Popover, Fade, Box } from "@mui/material";
+import { Popover, Box } from "@mui/material";
 
 const ManipulateListItemModal = ({
   popperStateForRemoving,

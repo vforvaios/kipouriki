@@ -9,14 +9,17 @@ import {
   MenuItem,
   InputLabel,
   Box,
+  Tooltip,
 } from "@mui/material";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginUser } from "../models/actions/loginActions";
 import { enqueueSnackbar } from "notistack";
+import ScheduleById from "./ScheduleById";
 
 const TopBar = ({
   open,
+  dates,
   setOpen,
   schedule,
   allSchedules,
@@ -24,6 +27,8 @@ const TopBar = ({
 }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [openScheduleById, setOpenScheduleById] = useState(false);
+  const [scheduleById, setScheduleById] = useState(null);
   const [openLogin, setOpenLogin] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(
     schedule?.scheduleId
@@ -34,6 +39,35 @@ const TopBar = ({
   useEffect(() => {
     setSelectedSchedule(schedule?.scheduleId);
   }, [userToken]);
+
+  const fetchScheduleById = async () => {
+    try {
+      setLoading(true);
+      const promiseResult = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/schedules/${selectedSchedule}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        setScheduleById(result.currentSchedule);
+        // console.log(result.schedule);
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDefaultSchedule = async () => {
     try {
@@ -125,10 +159,12 @@ const TopBar = ({
               </Button>
               <Button
                 disabled={loading}
-                onClick={() => {}}
+                onClick={() => setOpenScheduleById(true)}
                 className="set-as-default-button"
               >
-                Download
+                <Tooltip title="Download">
+                  <i className="icon-download" />
+                </Tooltip>
               </Button>
             </>
           )}
@@ -148,6 +184,14 @@ const TopBar = ({
         </Box>
       </Toolbar>
       <Login open={openLogin} handleClose={() => setOpenLogin(false)} />
+      <ScheduleById
+        dates={dates}
+        scheduleById={scheduleById}
+        open={openScheduleById}
+        loading={loading}
+        handleClose={() => setOpenScheduleById(false)}
+        fetchScheduleById={fetchScheduleById}
+      />
     </AppBar>
   );
 };

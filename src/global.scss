@@ -5,6 +5,7 @@
 @use "../src/styles/login.scss" as *;
 @use "../src/styles/dialog.scss" as *;
 @use "../src/styles/slick.scss" as *;
+@use "../src/styles/schedulebyid.scss" as *;
 @use "../src/styles/responsive.scss" as *;
 
 * {
@@ -32,6 +33,14 @@ body {
     &.today {
       background: $black;
       color: $white;
+    }
+  }
+
+  &.for-download {
+    flex-basis: 16.6%;
+
+    .day-of-the-week {
+      width: 100%;
     }
   }
 }
@@ -67,6 +76,7 @@ body {
     border: 1px solid $gray;
     color: $black;
     height: 26px;
+    min-width: auto;
   }
 }
 

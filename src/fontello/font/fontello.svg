@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2024 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2025 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -19,6 +19,8 @@
 <glyph glyph-name="heart-empty" unicode="&#xe805;" d="M929 517q0 46-12 80t-31 55-46 33-52 18-55 4-62-14-62-36-48-40-34-34q-10-13-27-13t-27 13q-14 15-34 34t-48 40-62 36-62 14-55-4-52-18-46-33-31-55-12-80q0-93 105-198l324-312 324 312q105 105 105 198z m71 0q0-123-128-251l-347-335q-10-10-25-10t-25 10l-348 336q-5 5-15 15t-31 37-38 54-30 67-13 77q0 123 71 192t196 70q34 0 70-12t67-33 54-38 42-38q20 20 42 38t54 38 67 33 70 12q125 0 196-70t71-192z" horiz-adv-x="1000" />
 
 <glyph glyph-name="search" unicode="&#xe806;" d="M772 78q30-34 6-62l-46-46q-36-32-68 0l-190 190q-74-42-156-42-128 0-223 95t-95 223 90 219 218 91 224-95 96-223q0-88-46-162z m-678 358q0-88 68-156t156-68 151 63 63 153q0 88-68 155t-156 67-151-63-63-151z" horiz-adv-x="789" />
+
+<glyph glyph-name="download" unicode="&#xe807;" d="M714 100q0 15-10 25t-25 11-25-11-11-25 11-25 25-11 25 11 10 25z m143 0q0 15-10 25t-26 11-25-11-10-25 10-25 25-11 26 11 10 25z m72 125v-179q0-22-16-37t-38-16h-821q-23 0-38 16t-16 37v179q0 22 16 38t38 16h259l75-76q33-32 76-32t76 32l76 76h259q22 0 38-16t16-38z m-182 318q10-23-8-39l-250-250q-10-11-25-11t-25 11l-250 250q-17 16-8 39 10 21 33 21h143v250q0 15 11 25t25 11h143q14 0 25-11t10-25v-250h143q24 0 33-21z" horiz-adv-x="928.6" />
 
 <glyph glyph-name="cancel-circled" unicode="&#xf06e;" d="M0 350q0 95 37 182t100 149 150 100 182 37 182-37 149-100 100-149 37-182-37-182-100-150-149-100-182-37-182 37-150 100-100 150-37 182z m261-155q0-22 15-38 15-15 37-15 22 0 37 15l119 119 118-119q15-15 37-15 22 0 37 15 15 16 15 38t-15 37l-118 118 118 119q15 15 15 37t-15 37-37 15-37-15l-118-119-119 119q-15 15-37 15t-37-15q-15-15-15-37t15-37l118-119-118-118q-15-15-15-37z" horiz-adv-x="937.5" />
 

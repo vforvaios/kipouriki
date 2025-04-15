@@ -1,0 +1,17 @@
+@use "./colors.scss" as *;
+
+.schedulebyid-container {
+  h1 {
+    padding: 4px 12px;
+    font-size: 1.2rem;
+  }
+}
+
+.schedulebyid-header {
+  background: $lighter-gray;
+  padding: 6px 0;
+
+  i {
+    font-size: 1.3rem;
+  }
+}

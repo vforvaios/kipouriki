@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import {
   setDraggableItems,
   setCurrentSchedule,
+  setCars,
 } from "../models/actions/scheduleActions";
 import {
   allDraggables,
   currentSchedule,
+  allCars,
 } from "../models/selectors/scheduleSelectors";
 import Calendar from "./Calendar";
 import TopBar from "./TopBar";
@@ -15,32 +17,13 @@ import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { manipulateFetchedDraggableItems } from "../utils/manipulateFetchedDraggableItems";
-import { numberOfDaysInEachWeek } from "../constants";
+import { generateDates } from "../utils/generateDates";
 
 const ScheduleWrapper = () => {
   const dispatch = useDispatch();
-  const [cars, setCars] = useState([]);
   const schedule = useSelector(currentSchedule);
   const draggables = useSelector(allDraggables);
-
-  const generateDates = (start) => {
-    const localDates = [];
-    for (let i = 0; i < numberOfDaysInEachWeek; i++) {
-      const date = new Date(start);
-      date.setDate(date?.getDate() + i);
-      localDates.push({
-        dateToDisplay: date?.toLocaleDateString("el-GR", {
-          weekday: "short",
-          month: "numeric",
-          day: "numeric",
-        }),
-        accepts: Object.values(draggables || {}).map((itm) =>
-          itm.id?.toString()
-        ),
-      });
-    }
-    return localDates;
-  };
+  const cars = useSelector(allCars);
 
   const [open, setOpen] = useState(false);
   const [dates, setDates] = useState(null);
@@ -167,7 +150,7 @@ const ScheduleWrapper = () => {
       if (result?.error) {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
-        setCars(result.cars);
+        dispatch(setCars(result.cars));
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -193,6 +176,7 @@ const ScheduleWrapper = () => {
       <Box className="app-container">
         <TopBar
           open={open}
+          dates={dates}
           setOpen={setOpen}
           schedule={schedule}
           allSchedules={allSchedules}
@@ -209,8 +193,14 @@ const ScheduleWrapper = () => {
           <Calendar
             cars={cars}
             currentSchedule={schedule}
-            allDatesFirstRow={generateDates(new Date(dates?.startDate1))}
-            allDatesSecondRow={generateDates(new Date(dates?.startDate2))}
+            allDatesFirstRow={generateDates(
+              new Date(dates?.startDate1),
+              draggables
+            )}
+            allDatesSecondRow={generateDates(
+              new Date(dates?.startDate2),
+              draggables
+            )}
             open={open}
             fetchCurrentSchedule={fetchCurrentSchedule}
           />

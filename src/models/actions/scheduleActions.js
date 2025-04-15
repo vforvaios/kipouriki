@@ -4,4 +4,6 @@ const setDraggableItems = createAction("schedule/setDraggableItems");
 
 const setCurrentSchedule = createAction("schedule/setCurrentSchedule");
 
-export { setDraggableItems, setCurrentSchedule };
+const setCars = createAction("schedule/setCars");
+
+export { setDraggableItems, setCurrentSchedule, setCars };
