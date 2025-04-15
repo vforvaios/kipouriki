@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Box,
 } from "@mui/material";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +30,10 @@ const TopBar = ({
   );
   const userIsLoggedIn = useSelector(userLoggedIn);
   const userToken = useSelector(token);
+
+  useEffect(() => {
+    setSelectedSchedule(schedule?.scheduleId);
+  }, [userToken]);
 
   const handleDefaultSchedule = async () => {
     try {
@@ -74,7 +79,7 @@ const TopBar = ({
             />
           )}
         </div>
-        <div>
+        <Box display="flex" justifyContent="flex-end" alignItems="end">
           {userIsLoggedIn && (
             <>
               <Select
@@ -118,6 +123,13 @@ const TopBar = ({
               >
                 Προεπιλογή
               </Button>
+              <Button
+                disabled={loading}
+                onClick={() => {}}
+                className="set-as-default-button"
+              >
+                Download
+              </Button>
             </>
           )}
           <Button
@@ -133,7 +145,7 @@ const TopBar = ({
           >
             {userIsLoggedIn ? "Αποσύνδεση" : "Σύνδεση"}
           </Button>
-        </div>
+        </Box>
       </Toolbar>
       <Login open={openLogin} handleClose={() => setOpenLogin(false)} />
     </AppBar>
