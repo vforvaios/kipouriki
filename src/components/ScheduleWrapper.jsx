@@ -176,7 +176,6 @@ const ScheduleWrapper = () => {
       <Box className="app-container">
         <TopBar
           open={open}
-          dates={dates}
           cars={cars}
           setOpen={setOpen}
           schedule={schedule}

@@ -1,5 +1,5 @@
 import { Box, Dialog, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DayForDownload from "./DayForDownload";
 import Loader from "./Loader";
 
@@ -10,11 +10,18 @@ const ScheduleById = ({
   handleClose,
   open,
   fetchScheduleById,
-  loading,
+  fetchDatesByScheduleId,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const handleInitialData = async () => {
+    setLoading(true);
+    await fetchDatesByScheduleId();
+    await fetchScheduleById();
+    setLoading(false);
+  };
   useEffect(() => {
     if (open) {
-      fetchScheduleById();
+      handleInitialData();
     }
   }, [open]);
 

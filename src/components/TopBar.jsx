@@ -20,7 +20,6 @@ import ScheduleById from "./ScheduleById";
 const TopBar = ({
   open,
   cars,
-  dates,
   setOpen,
   schedule,
   allSchedules,
@@ -28,6 +27,7 @@ const TopBar = ({
 }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [datesByScheduleId, setDatesByScheduleId] = useState([]);
   const [openScheduleById, setOpenScheduleById] = useState(false);
   const [scheduleById, setScheduleById] = useState(null);
   const [openLogin, setOpenLogin] = useState(false);
@@ -41,9 +41,33 @@ const TopBar = ({
     setSelectedSchedule(schedule?.scheduleId);
   }, [userToken]);
 
+  const fetchDatesByScheduleId = async () => {
+    try {
+      const promiseResult = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/dates/${selectedSchedule}`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
+      const result = await promiseResult.json();
+
+      if (result?.error) {
+        enqueueSnackbar(result.error, { variant: "error" });
+      } else {
+        setDatesByScheduleId(result?.dates?.[0]);
+      }
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    }
+  };
+
   const fetchScheduleById = async () => {
     try {
-      setLoading(true);
       const promiseResult = await fetch(
         // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/schedules/${selectedSchedule}`,
@@ -61,12 +85,9 @@ const TopBar = ({
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
         setScheduleById(result.currentSchedule);
-        // console.log(result.schedule);
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -186,13 +207,13 @@ const TopBar = ({
       </Toolbar>
       <Login open={openLogin} handleClose={() => setOpenLogin(false)} />
       <ScheduleById
-        dates={dates}
+        dates={datesByScheduleId}
         cars={cars}
         scheduleById={scheduleById}
         open={openScheduleById}
-        loading={loading}
         handleClose={() => setOpenScheduleById(false)}
         fetchScheduleById={fetchScheduleById}
+        fetchDatesByScheduleId={fetchDatesByScheduleId}
       />
     </AppBar>
   );
