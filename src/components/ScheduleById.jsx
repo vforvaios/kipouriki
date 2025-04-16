@@ -5,7 +5,6 @@ import Loader from "./Loader";
 
 const ScheduleById = ({
   scheduleById,
-  cars,
   dates,
   handleClose,
   open,
@@ -67,11 +66,7 @@ const ScheduleById = ({
             p={1}
             sx={{ height: "calc(100vh - 53px)" }}
           >
-            <DayForDownload
-              cars={cars}
-              dates={dates}
-              scheduleById={scheduleById}
-            />
+            <DayForDownload dates={dates} scheduleById={scheduleById} />
           </Box>
         )}
       </div>

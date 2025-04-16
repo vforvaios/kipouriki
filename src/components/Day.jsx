@@ -1,10 +1,11 @@
 import React from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 import ListOfItems from "./ListOfItems";
+import { useSelector } from "react-redux";
+import { allCars } from "../models/selectors/scheduleSelectors";
 
 const Day = ({
   day,
-  cars,
   currentSchedule,
   scheduleId,
   dateToDisplay,
@@ -13,6 +14,7 @@ const Day = ({
   fetchCurrentSchedule,
 }) => {
   const stylableDay = dateToDisplay?.split(" ");
+  const cars = useSelector(allCars);
 
   return (
     <Box className="day" p={1} display="flex" flexDirection="column">

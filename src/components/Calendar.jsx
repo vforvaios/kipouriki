@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 import { updatedCurrentSchedule } from "../utils";
 import Slider from "react-slick";
+import { allCars } from "../models/selectors/scheduleSelectors";
 
 const Calendar = ({
-  cars,
   currentSchedule,
   open,
   allDatesFirstRow,
@@ -168,7 +168,6 @@ const Calendar = ({
                     {}
                   )}
                   day={index + 1}
-                  cars={cars}
                   dateToDisplay={dateToDisplay}
                   accept={accepts}
                   onDrop={(car, item) => handleDrop(car, index + 1, item)}

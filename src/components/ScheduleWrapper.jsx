@@ -176,7 +176,6 @@ const ScheduleWrapper = () => {
       <Box className="app-container">
         <TopBar
           open={open}
-          cars={cars}
           setOpen={setOpen}
           schedule={schedule}
           allSchedules={allSchedules}
@@ -191,7 +190,6 @@ const ScheduleWrapper = () => {
           <Loader smaller={false} />
         ) : (
           <Calendar
-            cars={cars}
             currentSchedule={schedule}
             allDatesFirstRow={generateDates(
               new Date(dates?.startDate1),
