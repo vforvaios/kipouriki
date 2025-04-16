@@ -177,6 +177,7 @@ const ScheduleWrapper = () => {
         <TopBar
           open={open}
           dates={dates}
+          cars={cars}
           setOpen={setOpen}
           schedule={schedule}
           allSchedules={allSchedules}
@@ -188,7 +189,7 @@ const ScheduleWrapper = () => {
           open={open}
         />
         {loading ? (
-          <Loader />
+          <Loader smaller={false} />
         ) : (
           <Calendar
             cars={cars}

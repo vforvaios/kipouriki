@@ -19,6 +19,7 @@ import ScheduleById from "./ScheduleById";
 
 const TopBar = ({
   open,
+  cars,
   dates,
   setOpen,
   schedule,
@@ -186,6 +187,7 @@ const TopBar = ({
       <Login open={openLogin} handleClose={() => setOpenLogin(false)} />
       <ScheduleById
         dates={dates}
+        cars={cars}
         scheduleById={scheduleById}
         open={openScheduleById}
         loading={loading}

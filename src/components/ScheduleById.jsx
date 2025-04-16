@@ -1,9 +1,11 @@
 import { Box, Dialog, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import DayForDownload from "./DayForDownload";
+import Loader from "./Loader";
 
 const ScheduleById = ({
   scheduleById,
+  cars,
   dates,
   handleClose,
   open,
@@ -46,7 +48,7 @@ const ScheduleById = ({
             justifyContent="center"
             alignItems="center"
           >
-            Loading...
+            <Loader smaller />
           </Box>
         ) : (
           <Box
@@ -56,8 +58,13 @@ const ScheduleById = ({
             alignItems="center"
             flexWrap="wrap"
             p={1}
+            sx={{ height: "calc(100vh - 53px)" }}
           >
-            <DayForDownload dates={dates} scheduleById={scheduleById} />
+            <DayForDownload
+              cars={cars}
+              dates={dates}
+              scheduleById={scheduleById}
+            />
           </Box>
         )}
       </div>

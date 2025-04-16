@@ -1,8 +1,8 @@
 import React from "react";
 
-const Loader = () => {
+const Loader = ({ smaller }) => {
   return (
-    <div className="loader-container">
+    <div className={`loader-container ${smaller ? "smaller" : ""}`}>
       <div className="loader" />
     </div>
   );
