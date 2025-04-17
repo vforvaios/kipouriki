@@ -55,6 +55,13 @@ body {
         margin-left: 2px;
       }
     }
+
+    .car-text.MuiTypography-root,
+    .list p {
+      font-size: 0.35rem;
+      text-overflow: unset;
+      border-radius: 4px;
+    }
   }
 }
 

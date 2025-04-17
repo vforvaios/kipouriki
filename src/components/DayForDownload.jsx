@@ -93,6 +93,33 @@ const DayForDownload = ({ dates, scheduleById }) => {
             );
           })}
         </Box>
+        <Box
+          style={{ minHeight: "20px" }}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {/* REGIONS */}
+          <ul className={`droppable-container list drivers-list absences`}>
+            {scheduleById?.days?.[index + 1]?.cars?.[99]?.drivers?.map(
+              (itm) => (
+                <li key={itm.id}>
+                  <Tooltip placement="top" title={itm.name}>
+                    <Typography
+                      className={`${regionCategories?.[itm?.region_category]} ${
+                        itm?.draggable_category_id === 2 && !itm.isDone
+                          ? "not-done"
+                          : ""
+                      }`}
+                    >
+                      <span>{itm.name}</span>
+                    </Typography>
+                  </Tooltip>
+                </li>
+              )
+            )}
+          </ul>
+        </Box>
       </Box>
     );
   });
