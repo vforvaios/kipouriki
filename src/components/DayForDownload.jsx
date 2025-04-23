@@ -9,7 +9,6 @@ const DayForDownload = ({ dates, scheduleById }) => {
   const cars = useSelector(allCars);
   const draggables = useSelector(allDraggables);
 
-  console.log(scheduleById);
   return [
     ...generateDates(new Date(dates?.startDate1), draggables),
     ...generateDates(new Date(dates?.startDate2), draggables),

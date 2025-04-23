@@ -1,7 +1,8 @@
-import { Box, Dialog, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Dialog, Tooltip, Typography } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import DayForDownload from "./DayForDownload";
 import Loader from "./Loader";
+import html2canvas from "html2canvas";
 
 const ScheduleById = ({
   scheduleById,
@@ -11,6 +12,22 @@ const ScheduleById = ({
   fetchScheduleById,
   fetchDatesByScheduleId,
 }) => {
+  const firstMonday = new Date(dates?.startDate1);
+  const temp = new Date(dates?.startDate1);
+  temp.setDate(temp.getDate() + 13);
+  const scheduleTitle = `${firstMonday?.toLocaleDateString("el-GR", {
+    weekday: "short",
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+  })} - ${new Date(temp)?.toLocaleDateString("el-GR", {
+    weekday: "short",
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+  })}`;
+
+  const exportRef = useRef();
   const [loading, setLoading] = useState(false);
   const handleInitialData = async () => {
     setLoading(true);
@@ -18,11 +35,32 @@ const ScheduleById = ({
     await fetchScheduleById();
     setLoading(false);
   };
+
   useEffect(() => {
     if (open) {
       handleInitialData();
     }
   }, [open]);
+
+  const downloadImage = (blob, fileName) => {
+    const fakeLink = window.document.createElement("a");
+    fakeLink.style = "display:none;";
+    fakeLink.download = fileName;
+
+    fakeLink.href = blob;
+
+    document.body.appendChild(fakeLink);
+    fakeLink.click();
+    document.body.removeChild(fakeLink);
+
+    fakeLink.remove();
+  };
+
+  const exportAsImage = async (el, imageFileName) => {
+    const canvas = await html2canvas(el);
+    const image = canvas.toDataURL("image/png", 1.0);
+    downloadImage(image, imageFileName);
+  };
 
   return (
     <Dialog
@@ -30,6 +68,7 @@ const ScheduleById = ({
       fullScreen
       onClose={handleClose}
       open={open}
+      ref={exportRef}
     >
       <div className="max-popup-container">
         <Box
@@ -39,13 +78,24 @@ const ScheduleById = ({
           alignItems="center"
         >
           <Typography component="h1" variant="h5">
-            Πρόγραμμα προς download
+            {scheduleTitle}
           </Typography>
-          <i
-            onClick={handleClose}
-            className="icon-cancel-circled"
-            style={{ cursor: "pointer", paddingRight: "8px" }}
-          />
+          <div>
+            <Tooltip title="Download">
+              <i
+                onClick={() => exportAsImage(exportRef.current, "test")}
+                style={{ cursor: "pointer", paddingRight: "8px" }}
+                className={`icon-download ${loading ? "disabled" : ""}`}
+              />
+            </Tooltip>
+            <Tooltip title="Κλείσιμο">
+              <i
+                onClick={handleClose}
+                className="icon-cancel-circled"
+                style={{ cursor: "pointer", paddingRight: "8px" }}
+              />
+            </Tooltip>
+          </div>
         </Box>
         {loading ? (
           <Box

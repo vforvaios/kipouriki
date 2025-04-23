@@ -219,7 +219,8 @@
 
 .tile {
   border-right-width: 1px;
-  border-right-style: groove;
+  border-right-style: solid;
+  border-color: $light-gray;
   height: 100%;
 
   &:last-child {
