@@ -128,7 +128,7 @@ const ListOfItems = ({
           type === "drivers" ? "drivers-list" : ""
         } ${type === "regions" ? "regions-list" : ""} ${
           type === "absentDrivers" ? "drivers-list absences" : ""
-        } ${cls} ${removingLoading ? "removing" : ""}`}
+        } ${cls} `}
       >
         {droppedItems?.map((itm) => (
           <li key={itm.id}>
