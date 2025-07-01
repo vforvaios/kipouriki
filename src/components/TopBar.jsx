@@ -138,6 +138,9 @@ const TopBar = ({
           {userIsLoggedIn && (
             <>
               <Select
+                MenuProps={{
+                  disablePortal: true,
+                }}
                 label="Προγράμματα"
                 className="defaultSchedule"
                 id="dropdownAllSchedules"

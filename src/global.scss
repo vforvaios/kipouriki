@@ -147,6 +147,11 @@ header {
     padding-left: 6px;
   }
 
+  ul {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
   fieldset {
     visibility: visible !important;
     top: -12px;

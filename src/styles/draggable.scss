@@ -217,6 +217,12 @@
   }
 }
 
+.draggable-container-withsearch {
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
 .tiles-container {
   border-bottom: 1px solid $light-gray;
   flex-wrap: wrap;

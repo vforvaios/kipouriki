@@ -6,3 +6,8 @@ export const regionCategories = {
   3: "otj",
   4: "public",
 };
+
+export const majorCategories = {
+  Υπάλληλοι: 1,
+  Tasks: 2,
+};
