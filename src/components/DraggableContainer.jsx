@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import DraggableBox from "./DraggableBox";
 import { Box, Typography, TextField, Chip } from "@mui/material";
 import { majorCategories, regionCategories } from "../constants";
+import { debounce } from "../utils";
 
 const DraggableContainer = ({
   itm,
@@ -36,12 +37,19 @@ const DraggableContainer = ({
     }
   };
 
-  const onSearchChange = (e) => {
+  const debouncedFetch = useCallback(
+    debounce((val) => {
+      if (val.length > 3 || !val.length) {
+        fetchDraggableItemsPerSearchTextAndItm(val);
+      }
+    }, 500),
+    [itm, innerItem]
+  );
+
+  const handleSearchChange = (e) => {
     const val = e.target.value;
     setSearchText(val);
-    if (val.length > 3 || !val.length) {
-      fetchDraggableItemsPerSearchTextAndItm(val);
-    }
+    debouncedFetch(val);
   };
 
   return (
@@ -62,7 +70,7 @@ const DraggableContainer = ({
           size="small"
           sx={{ mb: 1 }}
           value={searchText}
-          onChange={onSearchChange}
+          onChange={handleSearchChange}
           disabled={loading}
         />
         <Box display="flex" flexWrap="wrap">
