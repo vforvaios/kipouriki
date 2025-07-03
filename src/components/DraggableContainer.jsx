@@ -1,61 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import DraggableBox from "./DraggableBox";
-import { Box, Typography, TextField, Chip } from "@mui/material";
-import { majorCategories, regionCategories } from "../constants";
-import { debounce } from "../utils";
+import { Box, Typography, Chip } from "@mui/material";
+import { regionCategories } from "../constants";
 
 const DraggableContainer = ({
+  loading,
   itm,
   innerItem,
   draggables,
   dialogState,
   setDialogState,
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [searchText, setSearchText] = useState("");
-
-  const fetchDraggableItemsPerSearchTextAndItm = async (val) => {
-    try {
-      setLoading(true);
-      const promiseResult = await fetch(
-        // @ts-ignore
-        `${import.meta.env.VITE_API_URL}/api/draggable-items/searchItems?active=${itm === "active" ? 1 : 0}&innerItem=${majorCategories?.[innerItem]}`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        }
-      );
-      const result = await promiseResult.json();
-      console.log(val);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const debouncedFetch = useCallback(
-    debounce((val) => {
-      if (val.length > 3 || !val.length) {
-        fetchDraggableItemsPerSearchTextAndItm(val);
-      }
-    }, 500),
-    [itm, innerItem]
-  );
-
-  const handleSearchChange = (e) => {
-    const val = e.target.value;
-    setSearchText(val);
-    debouncedFetch(val);
-  };
-
   return (
-    <React.Fragment
-      key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
-    >
+    <>
       <Box
         p={1}
         className={`draggable-container-withsearch ${loading ? "disabled" : ""}`}
@@ -63,16 +20,7 @@ const DraggableContainer = ({
         <Typography className="draggable-chips-title">
           {itm === "inactive" ? `Ανενεργά(οί) ${innerItem}` : innerItem}
         </Typography>
-        <TextField
-          autoFocus
-          placeholder="Αναζήτηση..."
-          variant="outlined"
-          size="small"
-          sx={{ mb: 1 }}
-          value={searchText}
-          onChange={handleSearchChange}
-          disabled={loading}
-        />
+
         <Box display="flex" flexWrap="wrap">
           {draggables?.[itm]?.[innerItem]?.content.map(
             ({ itemName, itemId, isActive, regionCategory }) => (
@@ -132,7 +80,7 @@ const DraggableContainer = ({
           ))}
         </Box>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
