@@ -15,16 +15,21 @@
 
 body {
   font-size: 16px;
+  scrollbar-color: #dadada #ffffff !important;
 }
 
 .MuiToolbar-root {
   justify-content: space-between !important;
 }
 
+#root {
+  background: $white;
+}
+
 .day {
   padding: 0 !important;
   border-radius: 12px;
-  border: 1px groove $lighter-gray;
+  border: 1px solid $dark-gray;
   height: 100%;
   max-width: 700px;
   margin: 0 auto;
@@ -61,6 +66,7 @@ body {
       font-size: 0.35rem;
       text-overflow: unset;
       border-radius: 4px;
+      color: $black;
     }
   }
 }
@@ -121,6 +127,7 @@ body {
   margin-right: auto;
   transition: all 0.15s ease-in-out;
   height: calc(100vh - 40px);
+  background: $white;
 
   > div {
     height: 100%;

@@ -78,9 +78,9 @@
 
 .car-text {
   &.MuiTypography-root {
-    color: $gray;
+    color: $black;
     padding: 0 2px;
-    font-weight: 600;
+    font-weight: 900;
     text-align: center;
     font-size: 0.5rem;
     white-space: nowrap;
@@ -167,6 +167,7 @@
   &.drivers-list {
     li p {
       background: $light-purple;
+      color: $black;
     }
 
     &.absences {
@@ -231,7 +232,7 @@
 .tile {
   border-right-width: 1px;
   border-right-style: solid;
-  border-color: $light-gray;
+  border-color: $dark-gray;
   height: 100%;
 
   &:last-child {
