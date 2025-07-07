@@ -7,6 +7,7 @@ import { debounce } from "../utils";
 import { setDraggableItems } from "../models/actions/scheduleActions";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useDispatch } from "react-redux";
+import LeftBarSkeleton from "./LeftBarSkeleton";
 
 const drawerWidth = 240;
 
@@ -111,29 +112,35 @@ const LeftSidebar = ({ draggables, open, setOpen }) => {
         />
       </Box>
 
-      <div className="leftsidebar-scrollable">
-        {Object.keys(draggables)
-          ?.sort()
-          ?.map((itm) =>
-            Object.keys(draggables?.[itm])
+      {loading ? (
+        <LeftBarSkeleton />
+      ) : (
+        <>
+          <div className="leftsidebar-scrollable">
+            {Object.keys(draggables)
               ?.sort()
-              ?.map((innerItem) => (
-                <DraggableContainer
-                  key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
-                  itm={itm}
-                  loading={loading}
-                  innerItem={innerItem}
-                  draggables={draggables}
-                  dialogState={dialogState}
-                  setDialogState={setDialogState}
-                />
-              ))
-          )}
-      </div>
-      <CreateOrEditDraggableItem
-        dialogState={dialogState}
-        setDialogState={setDialogState}
-      />
+              ?.map((itm) =>
+                Object.keys(draggables?.[itm])
+                  ?.sort()
+                  ?.map((innerItem) => (
+                    <DraggableContainer
+                      key={`${itm}_${innerItem}_${draggables?.[itm]?.[innerItem]?.id}`}
+                      itm={itm}
+                      loading={loading}
+                      innerItem={innerItem}
+                      draggables={draggables}
+                      dialogState={dialogState}
+                      setDialogState={setDialogState}
+                    />
+                  ))
+              )}
+          </div>
+          <CreateOrEditDraggableItem
+            dialogState={dialogState}
+            setDialogState={setDialogState}
+          />
+        </>
+      )}
     </Drawer>
   );
 };
