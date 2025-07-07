@@ -11,7 +11,10 @@ import {
   InputLabel,
   FormControl,
   Button,
+  Box,
+  Typography,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { token } from "../models/selectors/loginSelectors";
 import { allDraggables } from "../models/selectors/scheduleSelectors";
 import { setDraggableItems } from "../models/actions/scheduleActions";
@@ -139,7 +142,26 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
       }}
     >
       <DialogTitle className="dialog-title">
-        {dialogState?.type === "create" ? "ΠΡΟΣΘΗΚΗ" : "ΕΝΗΜΕΡΩΣΗ"}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography>
+            {dialogState?.type === "create" ? "ΠΡΟΣΘΗΚΗ" : "ΕΝΗΜΕΡΩΣΗ"}
+          </Typography>
+          <ClearIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              setRequestState({
+                ...requestState,
+                itemName: "",
+                itemDraggableCategory: 1,
+              });
+              setDialogState({
+                ...dialogState,
+                draggableItemType: 1,
+                openAddEditForm: false,
+              });
+            }}
+          />
+        </Box>
       </DialogTitle>
       <DialogContent className="dialog-content">
         <form noValidate>
