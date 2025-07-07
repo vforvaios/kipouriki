@@ -30,11 +30,15 @@ body {
   padding: 0 !important;
   border-radius: 12px;
   border: 1px solid $dark-gray;
-  height: 100%;
-  max-width: 700px;
   margin: 0 auto;
+  flex-basis: 16.45%;
+  height: 50%;
+  overflow: hidden;
 
   .day-of-the-week {
+    flex-direction: row;
+    gap: 4px;
+
     &.today {
       background: $black;
       color: $white;

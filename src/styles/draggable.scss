@@ -82,7 +82,7 @@
     padding: 0 2px;
     font-weight: 900;
     text-align: center;
-    font-size: 0.5rem;
+    font-size: 0.35rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -156,7 +156,7 @@
 
   p {
     border-radius: 6px;
-    font-size: 0.5rem;
+    font-size: 0.35rem;
     margin: 0;
     padding: 2px;
     white-space: nowrap;
@@ -225,7 +225,7 @@
 }
 
 .tiles-container {
-  border-bottom: 1px solid $light-gray;
+  border-bottom: 1px solid $dark-gray;
   flex-wrap: wrap;
 }
 
@@ -278,14 +278,14 @@
 
 .day-text {
   font-weight: 400;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  font-size: 0.7rem;
+  line-height: 1;
 }
 
 .day-number {
   font-weight: 600;
-  font-size: 1.6rem;
-  line-height: 1.2;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .weekly {
@@ -315,5 +315,8 @@
 }
 
 .days-row-container {
-  height: calc(100% - 112px);
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
 }
