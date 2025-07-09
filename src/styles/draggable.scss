@@ -202,17 +202,7 @@
       &.not-done {
         position: relative;
         padding-right: 8px;
-
-        &:after {
-          content: "*";
-          position: absolute;
-          font-size: 0.8rem;
-          top: 50%;
-          margin-top: -7px;
-          right: 3px;
-          color: $red;
-          font-weight: 900;
-        }
+        text-decoration: line-through;
       }
     }
   }
