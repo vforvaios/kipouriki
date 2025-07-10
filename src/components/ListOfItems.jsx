@@ -4,7 +4,7 @@ import { Tooltip, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { userLoggedIn, token } from "../models/selectors/loginSelectors";
 import { enqueueSnackbar } from "notistack";
-import { regionCategories } from "../constants";
+import { regionCategories, regionCategoriesLabels } from "../constants";
 import ManipulateListItemModal from "./ManipulateListItemModal";
 
 const ListOfItems = ({
@@ -136,7 +136,9 @@ const ListOfItems = ({
               placement="top"
               title={`${itm.name} ${
                 itm?.draggable_category_id === 2
-                  ? regionCategories?.[itm.region_category].toUpperCase()
+                  ? regionCategoriesLabels[
+                      regionCategories?.[itm.region_category].toUpperCase()
+                    ].toUpperCase()
                   : ""
               }`}
             >

@@ -7,6 +7,13 @@ export const regionCategories = {
   4: "public",
 };
 
+export const regionCategoriesLabels = {
+  WEEKLY: "Εβδομαδιαιο",
+  BIWEEKLY: "Διβδομαδιαιο",
+  OTJ: "otj",
+  PUBLIC: "Εργα",
+};
+
 export const majorCategories = {
   Υπάλληλοι: 1,
   Tasks: 2,

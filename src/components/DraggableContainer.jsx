@@ -1,7 +1,7 @@
 import React from "react";
 import DraggableBox from "./DraggableBox";
 import { Box, Typography, Chip } from "@mui/material";
-import { regionCategories } from "../constants";
+import { regionCategories, regionCategoriesLabels } from "../constants";
 
 const DraggableContainer = ({
   loading,
@@ -75,7 +75,11 @@ const DraggableContainer = ({
               key={`color-indicator-${rc}`}
             >
               <span className={`colorIndicator ${regionCategories?.[rc]}`} />
-              <span>{regionCategories?.[rc].toUpperCase()}</span>
+              <span>
+                {regionCategoriesLabels?.[
+                  regionCategories?.[rc].toUpperCase()
+                ]?.toUpperCase()}
+              </span>
             </Box>
           ))}
         </Box>

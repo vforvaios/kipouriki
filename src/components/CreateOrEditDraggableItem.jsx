@@ -20,7 +20,7 @@ import { allDraggables } from "../models/selectors/scheduleSelectors";
 import { setDraggableItems } from "../models/actions/scheduleActions";
 import { useSelector, useDispatch } from "react-redux";
 import { enqueueSnackbar } from "notistack";
-import { regionCategories } from "../constants";
+import { regionCategories, regionCategoriesLabels } from "../constants";
 
 const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
   const dispatch = useDispatch();
@@ -219,7 +219,9 @@ const CreateOrEditDraggableItem = ({ dialogState, setDialogState }) => {
                     key={`create-edit-region-category-${rc}`}
                     value={rc}
                   >
-                    {regionCategories?.[rc]?.toUpperCase()}
+                    {regionCategoriesLabels[
+                      regionCategories?.[rc]?.toUpperCase()
+                    ].toUpperCase()}
                   </MenuItem>
                 ))}
               </Select>
