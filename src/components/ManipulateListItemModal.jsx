@@ -41,6 +41,7 @@ const ManipulateListItemModal = ({
                 popperStateForRemoving.day,
                 popperStateForRemoving.car
               );
+              setPopperStateForRemoving(initialPopperState);
             }}
           >
             {loading
@@ -52,13 +53,14 @@ const ManipulateListItemModal = ({
         )}
         <button
           disabled={loading}
-          onClick={() =>
+          onClick={() => {
             handleRemoveItemFormList(
               popperStateForRemoving.itm,
               popperStateForRemoving.day,
               popperStateForRemoving.car
-            )
-          }
+            );
+            setPopperStateForRemoving(initialPopperState);
+          }}
         >
           {loading ? "Περιμένετε..." : "Διαγραφή"}
         </button>

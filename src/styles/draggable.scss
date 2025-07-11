@@ -242,22 +242,22 @@
     background: $lighter-green;
   }
 
+  .loader-container {
+    display: none;
+  }
+
   &.removing {
     position: relative;
 
-    &:before {
-      content: "Διαγραφή...";
+    .loader-container {
+      display: block;
       position: absolute;
       top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.7);
+
+      .loader {
+        width: 16px;
+      }
     }
   }
 }

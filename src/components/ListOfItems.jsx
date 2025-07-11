@@ -6,6 +6,7 @@ import { userLoggedIn, token } from "../models/selectors/loginSelectors";
 import { enqueueSnackbar } from "notistack";
 import { regionCategories, regionCategoriesLabels } from "../constants";
 import ManipulateListItemModal from "./ManipulateListItemModal";
+import Loader from "./Loader";
 
 const ListOfItems = ({
   day,
@@ -128,8 +129,9 @@ const ListOfItems = ({
           type === "drivers" ? "drivers-list" : ""
         } ${type === "regions" ? "regions-list" : ""} ${
           type === "absentDrivers" ? "drivers-list absences" : ""
-        } ${cls} `}
+        } ${cls} ${removingLoading ? "removing" : ""}`}
       >
+        {removingLoading && <Loader smaller={true} />}
         {droppedItems?.map((itm) => (
           <li key={itm.id}>
             <Tooltip
