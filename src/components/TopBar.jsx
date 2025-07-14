@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginUser } from "../models/actions/loginActions";
 import { enqueueSnackbar } from "notistack";
 import ScheduleById from "./ScheduleById";
+import ManipulateCarsModal from "./ManipulateCarsModal";
 
 const TopBar = ({
   open,
@@ -26,6 +27,7 @@ const TopBar = ({
 }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [openCarEditDialog, setOpenCarEditDialog] = useState(false);
   const [datesByScheduleId, setDatesByScheduleId] = useState([]);
   const [openScheduleById, setOpenScheduleById] = useState(false);
   const [scheduleById, setScheduleById] = useState(null);
@@ -39,6 +41,10 @@ const TopBar = ({
   useEffect(() => {
     setSelectedSchedule(schedule?.scheduleId);
   }, [userToken]);
+
+  const handleCarsDialogClose = () => {
+    setOpenCarEditDialog(false);
+  };
 
   const fetchDatesByScheduleId = async () => {
     try {
@@ -137,6 +143,17 @@ const TopBar = ({
         <Box display="flex" justifyContent="flex-end" alignItems="end">
           {userIsLoggedIn && (
             <>
+              <ManipulateCarsModal
+                handleClose={handleCarsDialogClose}
+                open={openCarEditDialog}
+              />
+              <Button
+                variant="contained"
+                className="editCarsBtn"
+                onClick={() => setOpenCarEditDialog(true)}
+              >
+                Αυτοκίνητα
+              </Button>
               <Select
                 MenuProps={{
                   disablePortal: true,

@@ -150,8 +150,36 @@ header {
   }
 }
 
+.cars-dialog {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  li {
+    display: flex;
+    gap: 4px;
+  }
+
+  input {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 1rem;
+  }
+}
+.editCarsBtn {
+  margin-right: 6px !important;
+  color: $white !important;
+  border: 0 none !important;
+}
+
 .defaultSchedule {
-  margin-right: 6px;
+  margin-right: 6px !important;
+
   .MuiSelect-select {
     padding-top: 2px !important;
     padding-bottom: 2px !important;
