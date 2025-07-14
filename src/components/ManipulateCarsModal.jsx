@@ -11,23 +11,28 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { enqueueSnackbar } from "notistack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { token } from "../models/selectors/loginSelectors";
+import { setCars } from "../models/actions/scheduleActions";
 
 const ManipulateCarsModal = ({ open, handleClose }) => {
+  const dispatch = useDispatch();
   const userToken = useSelector(token);
 
-  const [cars, setCars] = useState([]);
+  const [getLoading, setGetLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [carsResult, setCarsResult] = useState([]);
 
   const handleChange = (e, carId) => {
-    const newCars = cars?.map((car) => {
+    const newCars = carsResult?.map((car) => {
       return car?.id === carId ? { ...car, name: e.target.value } : { ...car };
     });
-    setCars(newCars);
+    setCarsResult(newCars);
   };
 
   const fetchCars = async () => {
     try {
+      setGetLoading(false);
       const promiseResult = await fetch(
         // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/cars`,
@@ -44,15 +49,18 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
       if (result?.error) {
         enqueueSnackbar(result.error, { variant: "error" });
       } else {
-        setCars(result.cars);
+        setCarsResult(result.cars);
       }
     } catch (error) {
       enqueueSnackbar(error, { variant: "error" });
+    } finally {
+      setGetLoading(false);
     }
   };
 
   const handleSubmitCars = async () => {
     try {
+      setSaveLoading(true);
       const resp = await fetch(
         // @ts-ignore
         `${import.meta.env.VITE_API_URL}/api/cars`,
@@ -63,7 +71,7 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
             Authorization: `Bearer ${userToken}`,
           },
           method: "POST",
-          body: JSON.stringify(cars),
+          body: JSON.stringify(carsResult),
         }
       );
 
@@ -72,9 +80,16 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
       if (res.error) {
         enqueueSnackbar(res.error, { variant: "error" });
       } else {
-        alert("everything ok with cars");
+        handleClose();
+        enqueueSnackbar(res.message, { variant: "success" });
+        // @ts-ignore
+        dispatch(setCars(carsResult));
       }
-    } catch (error) {}
+    } catch (error) {
+      enqueueSnackbar(error, { variant: "error" });
+    } finally {
+      setSaveLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -84,7 +99,12 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
   }, [open]);
 
   return (
-    <Dialog open={open} onClose={handleClose} className="cars-dialog">
+    <Dialog
+      sx={{ minWidth: "400px" }}
+      open={open}
+      onClose={handleClose}
+      className="cars-dialog"
+    >
       <DialogTitle className="dialog-title">
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography>ΑΥΤΟΚΙΝΗΤΑ</Typography>
@@ -92,20 +112,25 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
         </Box>
       </DialogTitle>
       <DialogContent className="dialog-content">
-        <ul>
-          {cars?.map((car) => (
-            <li key={car.id}>
-              <TextField
-                onChange={(e) => handleChange(e, car.id)}
-                value={car.name}
-              />
-            </li>
-          ))}
-        </ul>
+        {!getLoading ? (
+          <ul>
+            {carsResult?.map((car) => (
+              <li key={car.id}>
+                <TextField
+                  onChange={(e) => handleChange(e, car.id)}
+                  value={car.name}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div>Loading...</div>
+        )}
       </DialogContent>
       <DialogActions>
         <Button
           fullWidth
+          disabled={saveLoading || getLoading}
           variant="contained"
           onClick={() => handleSubmitCars()}
         >
