@@ -10,10 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-
 import { enqueueSnackbar } from "notistack";
+import { useSelector } from "react-redux";
+import { token } from "../models/selectors/loginSelectors";
 
 const ManipulateCarsModal = ({ open, handleClose }) => {
+  const userToken = useSelector(token);
+
   const [cars, setCars] = useState([]);
 
   const handleChange = (e, carId) => {
@@ -50,6 +53,27 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
 
   const handleSubmitCars = async () => {
     try {
+      const resp = await fetch(
+        // @ts-ignore
+        `${import.meta.env.VITE_API_URL}/api/cars`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          method: "POST",
+          body: JSON.stringify(cars),
+        }
+      );
+
+      const res = await resp.json();
+
+      if (res.error) {
+        enqueueSnackbar(res.error, { variant: "error" });
+      } else {
+        alert("everything ok with cars");
+      }
     } catch (error) {}
   };
 
@@ -80,7 +104,11 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
         </ul>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={() => handleSubmitCars()}>
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={() => handleSubmitCars()}
+        >
           ΑΠΟΘΗΚΕΥΣΗ
         </Button>
       </DialogActions>
