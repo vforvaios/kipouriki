@@ -48,6 +48,11 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
     }
   };
 
+  const handleSubmitCars = async () => {
+    try {
+    } catch (error) {}
+  };
+
   useEffect(() => {
     if (open) {
       fetchCars();
@@ -75,7 +80,9 @@ const ManipulateCarsModal = ({ open, handleClose }) => {
         </ul>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained">ΑΠΟΘΗΚΕΥΣΗ</Button>
+        <Button variant="contained" onClick={() => handleSubmitCars()}>
+          ΑΠΟΘΗΚΕΥΣΗ
+        </Button>
       </DialogActions>
     </Dialog>
   );
