@@ -95,7 +95,7 @@ const Day = ({
       >
         <ListOfItems
           fetchCurrentSchedule={fetchCurrentSchedule}
-          scheduleId={currentSchedule?.scheduleId}
+          scheduleId={scheduleId}
           type="absentDrivers"
           day={day}
           car={99}
