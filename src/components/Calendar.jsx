@@ -40,6 +40,9 @@ const Calendar = ({
       item.draggableCategory === 1
         ? currentSchedule?.days?.[day]?.cars?.[car]?.drivers.filter(
             (dr) => dr.id === item.id
+          )?.length ||
+          currentSchedule?.days?.[day]?.cars?.[99]?.drivers.filter(
+            (dr) => dr.id === item.id
           )?.length
         : currentSchedule?.days?.[day]?.cars?.[car]?.regions.filter(
             (rg) => rg.id === item.id
@@ -83,9 +86,12 @@ const Calendar = ({
         enqueueSnackbar(error, { variant: "error" });
       }
     } else {
-      enqueueSnackbar("Το αντικείμενο υπάρχει ήδη στην λίστα.", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        "Το αντικείμενο υπάρχει ήδη στην λίστα των οδηγών, tasks ή απόντων.",
+        {
+          variant: "error",
+        }
+      );
     }
   };
 
